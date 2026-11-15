@@ -179,6 +179,28 @@ main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
 .bonus{background:#FCE4EC;text-align:left;font-size:16px}
 .zaps{font-size:18px}
 
+/* checklist */
+.checklist h2{font-size:28px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.ccount{font-size:18px;background:var(--green);color:#fff;border:3px solid var(--ink);border-radius:20px;padding:2px 12px;text-shadow:1px 1px 0 var(--ink)}
+.checklist>.note{margin:4px 0 0}
+.cworld{margin-top:12px}
+.cwname{font-family:Bangers,Impact,sans-serif;font-size:19px;letter-spacing:1px;color:#fff;text-shadow:1px 1px 0 var(--ink);background:var(--wc);border:3px solid var(--ink);border-bottom:none;border-radius:8px 8px 0 0;padding:2px 12px;display:inline-block}
+.citem{display:flex;align-items:center;gap:10px;width:100%;background:#fff;border:3px solid var(--ink);margin-top:-3px;padding:8px 10px;text-align:left;font-size:17px;font-weight:700;border-radius:0}
+.cworld .cwname+.citem{border-top-right-radius:8px}
+.cworld .citem:last-child{border-radius:0 0 8px 8px}
+.cbox{width:30px;height:30px;flex:none;border:3px solid var(--ink);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;font-weight:900;text-shadow:1px 1px 0 var(--ink)}
+.cname{flex:1}
+.cstat{font-family:Bangers,Impact,sans-serif;letter-spacing:1px;font-size:15px;padding:1px 8px;border:2px solid var(--ink);border-radius:12px;background:#eee;white-space:nowrap}
+.citem.aced{background:#D7F8D4}
+.citem.aced .cbox{background:var(--green)}
+.citem.aced .cstat{background:var(--yellow);transform:rotate(-5deg)}
+.citem.played .cstat{background:#FFF1B8}
+.allaced{margin-top:12px;text-align:center;font-family:Bangers,Impact,sans-serif;font-size:24px;letter-spacing:1px;background:var(--yellow);border:3px solid var(--ink);border-radius:10px;padding:6px}
+.acestamp{display:inline-block;font-family:Bangers,Impact,sans-serif;font-size:36px;letter-spacing:2px;color:var(--green);border:5px solid var(--green);border-radius:10px;padding:0 16px;transform:rotate(-8deg);margin:8px 0 4px;background:#fff;animation:stamp .5s ease-out}
+@keyframes stamp{from{transform:scale(2.2) rotate(-8deg);opacity:0}to{transform:scale(1) rotate(-8deg);opacity:1}}
+.mbtn.aced{background:#D7F8D4}
+.acetag{background:var(--green);color:#fff;border-radius:6px;padding:1px 6px;font-size:11px;border:2px solid var(--ink)}
+
 /* vault */
 .vault{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .slot{aspect-ratio:1;border:3px solid var(--ink);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
@@ -277,7 +299,7 @@ const GIZMO = `<svg viewBox="0 0 104 126" xmlns="http://www.w3.org/2000/svg" ari
    STATE & STORAGE
    ========================================================= */
 const KEY='brainblasters_v1';
-let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false};
+let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{}};
 try{const s=localStorage.getItem(KEY); if(s) P=Object.assign(P,JSON.parse(s));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
 
@@ -696,6 +718,18 @@ function go(screen){
   else if(screen==='vault') vault();
   else if(screen==='grown') grown();
 }
+function checklist(){
+  const n=Object.keys(TYPES).filter(t=>P.aced[t]).length;
+  return `<section class="panel checklist">
+    <h2>🏅 MISSION CHECKLIST <span class="ccount">${n}/9 ACED</span></h2>
+    <p class="note">Get all 5 puzzles right on the first try to ACE a mission and check it off!</p>
+    ${WORLDS.map(w=>`<div class="cworld" style="--wc:${w.color}"><div class="cwname">${w.emoji} ${w.name}</div>
+      ${w.types.map(t=>{const a=P.aced[t],p=P.missions[t];
+        return `<button class="citem ${a?'aced':p?'played':''}" onclick="startMission('${t}')"><span class="cbox">${a?'✔':''}</span><span class="cname">${TYPES[t].icon} ${TYPES[t].name}</span><span class="cstat">${a?'ACED!':p?'KEEP GOING':'NEW'}</span></button>`;}).join('')}
+    </div>`).join('')}
+    ${n===9?'<div class="allaced">🏆 ALL 9 ACED — PUZZLE LEGEND! 🏆</div>':''}
+  </section>`;
+}
 function home(){
   app.innerHTML=`
   <section class="panel cover">
@@ -706,6 +740,8 @@ function home(){
     <div class="rank">Your rank: <b>${rank()}</b> · Missions: ${P.total}</div>
     <div class="heroes">${WAFFLE}${GIZMO}</div>
   </section>
+  <button class="btn big red" style="margin-bottom:18px" onclick="go('map')">🚀 START A MISSION!</button>
+  ${checklist()}
   <section class="panel" style="padding:6px">
     <div class="strip">
       <div class="cpanel"><span class="caption">MEANWHILE…</span><div class="say">Uh-oh, Gizmo! The Puzzle Planet is running out of brain power!</div>${WAFFLE}</div>
@@ -713,12 +749,9 @@ function home(){
       <div class="cpanel"><div class="say">Good thing we found YOU, partner! Ready?</div>${WAFFLE}</div>
     </div>
   </section>
-  <div class="stack">
-    <button class="btn big red" onclick="go('map')">🚀 START A MISSION!</button>
-    <div class="row">
-      <button class="btn blue" style="flex:1" onclick="go('vault')">🏆 Sticker Vault</button>
-      <button class="btn" style="flex:1;background:#fff" onclick="go('grown')">🧑 Grown-Ups</button>
-    </div>
+  <div class="row">
+    <button class="btn blue" style="flex:1" onclick="go('vault')">🏆 Sticker Vault</button>
+    <button class="btn" style="flex:1;background:#fff" onclick="go('grown')">🧑 Grown-Ups</button>
   </div>`;
 }
 function map(){
@@ -726,9 +759,9 @@ function map(){
   <div class="panel maphead">${WAFFLE}<div class="bubble left">Pick a world, partner! Each mission is only <b>5 puzzles</b>.</div></div>
   ${WORLDS.map(w=>`<section class="panel world" style="--wc:${w.color}">
     <h2>${w.emoji} ${w.name}</h2><p class="wblurb">${w.blurb}</p>
-    <div class="mlist">${w.types.map(t=>{const c=P.missions[t]||0;return `<button class="mbtn" onclick="startMission('${t}')">
+    <div class="mlist">${w.types.map(t=>{const c=P.missions[t]||0;return `<button class="mbtn ${P.aced[t]?'aced':''}" onclick="startMission('${t}')">
       <span class="micon">${TYPES[t].icon}</span><span class="mname">${TYPES[t].name}</span>
-      <span class="mcount">${c?('⭐'.repeat(Math.min(c,5))+(c>5?'+':'')):'<span class="newtag">NEW!</span>'}</span></button>`;}).join('')}</div>
+      <span class="mcount">${P.aced[t]?'<span class="acetag">✔ ACED</span>':c?('⭐'.repeat(Math.min(c,5))+(c>5?'+':'')):'<span class="newtag">NEW!</span>'}</span></button>`;}).join('')}</div>
   </section>`).join('')}
   <button class="btn big green" onclick="startMission('mix')">🎲 SURPRISE MISSION!</button>`;
 }
@@ -751,8 +784,9 @@ function intro(t){
     <div style="margin-top:16px"><button class="btn big red" onclick="showQ()">LET’S GO! ➜</button></div>
   </section>`;
 }
+function clearPows(){document.querySelectorAll('.pow').forEach(e=>e.remove());}
 function showQ(){
-  const q=M.qs[M.i];M.tries=0;M.done=false;window.scrollTo(0,0);
+  clearPows();const q=M.qs[M.i];M.tries=0;M.done=false;window.scrollTo(0,0);
   app.innerHTML=`
   <div class="qtop">
     <button class="mini" onclick="go('map')">✖ Exit</button>
@@ -797,7 +831,10 @@ function pow(btn){
   document.body.appendChild(el);setTimeout(()=>el.remove(),950);
 }
 function finish(){
+  clearPows();
   P.total++;P.missions[M.type]=(P.missions[M.type]||0)+1;
+  const perfect=M.type!=='mix'&&M.first===M.qs.length,newAce=perfect&&!P.aced[M.type];
+  if(perfect) P.aced[M.type]=(P.aced[M.type]||0)+1;
   const left=STICKERS.filter(s=>!P.stickers.includes(s));
   const st=left.length?pick(left):pick(STICKERS);
   if(left.length) P.stickers.push(st);
@@ -809,6 +846,7 @@ function finish(){
     <div class="heroes" style="margin:0">${WAFFLE}${GIZMO}</div>
     <p style="font-size:20px;margin:8px 0">You cracked all ${M.qs.length} ${name} puzzles!</p>
     <p class="zaps">⚡ First-try zaps: ${'⚡'.repeat(M.first)||'— (that’s okay, you kept trying!)'}</p>
+    ${perfect?`<div class="acestamp">✔ ACED!</div><p style="margin:4px 0">${newAce?'Checked off on your Mission Checklist!':'Aced it AGAIN!'}</p>`:(M.type!=='mix'?'<p class="note">Get all 5 on the first try to ACE it and check it off your list!</p>':'')}
     <p style="margin:12px 0 0">${left.length?'NEW sticker for your vault!':'Bonus sticker!'}</p>
     <div class="newsticker">${st}</div>
     <p style="font-size:15px">Rank: <b>${rank()}</b></p>
@@ -832,7 +870,7 @@ function grown(){
   const rows=Object.keys(TYPES).map(t=>{const f=P.first[t]||[0,0];const w=WORLDS.find(w=>w.types.includes(t));
     return `<tr><td>${TYPES[t].bat}</td><td>${TYPES[t].real}</td><td>${TYPES[t].icon} ${TYPES[t].name}<br><span class="note">${w.name}</span></td><td>${TYPES[t].learn}</td></tr>`;}).join('');
   const prog=Object.keys(TYPES).map(t=>{const f=P.first[t]||[0,0];
-    return `<tr><td>${TYPES[t].real}</td><td>${f[1]}</td><td>${f[1]?Math.round(100*f[0]/f[1])+'%':'—'}</td></tr>`;}).join('');
+    return `<tr><td>${TYPES[t].real}</td><td>${f[1]}</td><td>${f[1]?Math.round(100*f[0]/f[1])+'%':'—'}</td><td>${P.aced[t]?'✅ '+P.aced[t]+'×':'—'}</td></tr>`;}).join('');
   app.innerHTML=`<section class="panel grown">
     <h2>🧑 GROWN-UP CORNER</h2>
     <p>Brain Blasters gives your child short, playful practice with the <b>9 question types on the CogAT Level 8</b>, the level commonly used in 2nd grade. It’s meant to make the formats familiar — it is <b>not</b> an official practice test and doesn’t predict a score. Check with your district which test and level it uses.</p>
@@ -854,7 +892,7 @@ function grown(){
     <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
     <h3>Progress <span class="note">(saved on this device only)</span></h3>
     <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b></p>
-    <table class="tbl"><tr><th>Type</th><th>Puzzles solved</th><th>Right on 1st try</th></tr>${prog}</table>
+    <table class="tbl"><tr><th>Type</th><th>Puzzles solved</th><th>Right on 1st try</th><th>Aced</th></tr>${prog}</table>
     <p class="note">Use this to see which formats feel new to him, not as a grade. Low first-try numbers usually just mean the format is unfamiliar.</p>
     <div style="margin-top:12px"><button class="btn small" style="background:#fff" onclick="askReset()">Reset all progress</button></div>
   </section>
@@ -866,7 +904,7 @@ function askReset(){
   <div class="row" style="justify-content:center"><button class="btn small red" id="yesR">Yes, reset</button><button class="btn small" style="background:#fff" id="noR">Cancel</button></div></div>`;
   document.body.appendChild(m);
   m.querySelector('#noR').onclick=()=>m.remove();
-  m.querySelector('#yesR').onclick=()=>{P.missions={};P.first={};P.stickers=[];P.total=0;save();m.remove();grown();};
+  m.querySelector('#yesR').onclick=()=>{P.missions={};P.first={};P.stickers=[];P.total=0;P.aced={};save();m.remove();grown();};
 }
 
 updSnd();home();
