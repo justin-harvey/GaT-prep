@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brain Blasters! Comic Puzzle Missions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111; --paper:#fff; --yellow:#FFD93D; --red:#E63946; --blue:#2F80ED;
+  --green:#2BB673; --purple:#8E44AD; --orange:#FF8C42;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Comic Neue','Comic Sans MS','Chalkboard SE',cursive,sans-serif;
+  font-weight:700; color:var(--ink); min-height:100vh;
+  background-color:#FFE45C;
+  background-image:radial-gradient(#F5C400 1.6px, transparent 1.8px);
+  background-size:14px 14px;
+  -webkit-tap-highlight-color:transparent;
+}
+button{font-family:inherit;color:inherit;cursor:pointer}
+h1,h2,h3,.bang{font-family:'Bangers','Impact',sans-serif;font-weight:400;letter-spacing:1.5px;margin:0}
+header{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;background:var(--red);border-bottom:4px solid var(--ink);
+}
+.logo{
+  font-family:'Bangers',Impact,sans-serif;font-size:26px;letter-spacing:2px;color:#fff;background:none;border:none;
+  text-shadow:2px 2px 0 var(--ink),-1px -1px 0 var(--ink),1px -1px 0 var(--ink),-1px 1px 0 var(--ink);padding:0;
+}
+.hbtns{display:flex;gap:8px}
+.icon-btn{background:#fff;border:3px solid var(--ink);border-radius:10px;font-size:18px;padding:4px 9px;box-shadow:2px 2px 0 var(--ink)}
+main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
+.panel{background:var(--paper);border:4px solid var(--ink);border-radius:6px;box-shadow:6px 6px 0 var(--ink);padding:14px;margin-bottom:18px;position:relative}
+.btn{
+  font-family:'Bangers',Impact,sans-serif;font-size:24px;letter-spacing:1.5px;
+  background:var(--yellow);border:4px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 var(--ink);
+  padding:10px 18px;transition:transform .08s, box-shadow .08s;
+}
+.btn:active,.mbtn:active,.opt:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.red{background:var(--red);color:#fff;text-shadow:1px 1px 0 var(--ink)}
+.btn.blue{background:var(--blue);color:#fff;text-shadow:1px 1px 0 var(--ink)}
+.btn.green{background:var(--green);color:#fff;text-shadow:1px 1px 0 var(--ink)}
+.btn.big{font-size:30px;width:100%;padding:14px}
+.btn.small{font-size:19px;padding:6px 12px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.center{text-align:center}
+
+/* speech bubbles */
+.bubble{
+  position:relative;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:10px 14px;font-size:17px;line-height:1.3;
+}
+.bubble.left::before{content:"";position:absolute;left:-14px;top:18px;border:8px solid transparent;border-right:12px solid var(--ink)}
+.bubble.left::after{content:"";position:absolute;left:-9px;top:20px;border:6px solid transparent;border-right:9px solid #fff}
+.bubble.down::before{content:"";position:absolute;left:28px;bottom:-16px;border:8px solid transparent;border-top:13px solid var(--ink)}
+.bubble.down::after{content:"";position:absolute;left:30px;bottom:-10px;border:6px solid transparent;border-top:10px solid #fff}
+
+/* cover */
+.cover{background:var(--blue);color:#fff;text-align:center;overflow:hidden;padding:16px 12px 8px}
+.cover::before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 60%, rgba(255,255,255,.13) 0 10deg, transparent 10deg 20deg);pointer-events:none}
+.issue{position:absolute;top:8px;left:10px;background:#fff;color:var(--ink);border:3px solid var(--ink);font-family:Bangers,Impact,sans-serif;font-size:15px;padding:2px 8px;transform:rotate(-5deg);z-index:2}
+.price{position:absolute;top:8px;right:10px;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-family:Bangers,Impact,sans-serif;font-size:13px;line-height:1;transform:rotate(8deg);z-index:2;text-align:center}
+.title{font-size:56px;line-height:.95;color:var(--yellow);text-shadow:4px 4px 0 var(--ink),-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink);margin-top:26px;position:relative;transform:rotate(-2deg)}
+.subtitle{font-family:Bangers,Impact,sans-serif;font-size:22px;letter-spacing:1.5px;margin:6px 0 4px;position:relative;text-shadow:2px 2px 0 var(--ink)}
+.heroes{display:flex;justify-content:center;align-items:flex-end;gap:6px;position:relative;margin-top:6px}
+.heroes svg{height:150px;width:auto}
+.rank{display:inline-block;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:20px;padding:3px 12px;font-size:15px;margin:6px 0 4px;position:relative}
+
+/* comic strip */
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px}
+.strip .cpanel{border:3px solid var(--ink);border-radius:4px;padding:6px;background:#FFF8E1;display:flex;flex-direction:column;justify-content:space-between;min-height:170px}
+.strip .cpanel:nth-child(2){background:#E3F2FD}
+.strip .cpanel:nth-child(3){background:#FCE4EC}
+.strip .say{font-size:13px;line-height:1.2;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:5px 6px}
+.strip svg{height:80px;width:auto;align-self:center}
+.caption{background:var(--yellow);border:2px solid var(--ink);font-size:11px;padding:2px 5px;align-self:flex-start;margin-bottom:4px}
+
+/* map */
+.maphead{display:flex;gap:10px;align-items:center}
+.maphead svg{height:84px;width:auto;flex:none}
+.world{border-color:var(--ink);padding-top:10px}
+.world h2{font-size:30px;color:#fff;background:var(--wc);margin:-10px -14px 8px;padding:6px 14px;border-bottom:4px solid var(--ink);text-shadow:2px 2px 0 var(--ink)}
+.wblurb{margin:0 0 10px;font-size:15px}
+.mlist{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mbtn{background:#fff;border:3px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.micon{font-size:34px}
+.mname{font-family:Bangers,Impact,sans-serif;font-size:17px;letter-spacing:1px;line-height:1.05;text-align:center}
+.mcount{font-size:11px;min-height:14px}
+.newtag{background:var(--red);color:#fff;border-radius:6px;padding:1px 5px;font-size:11px}
+
+/* question */
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.mini{background:#fff;border:3px solid var(--ink);border-radius:10px;box-shadow:2px 2px 0 var(--ink);font-size:15px;padding:5px 10px;font-weight:700;white-space:nowrap}
+.dots{display:flex;gap:6px}
+.dot{width:16px;height:16px;border-radius:50%;border:3px solid var(--ink);background:#fff}
+.dot.done{background:var(--green)}
+.dot.now{background:var(--yellow);transform:scale(1.25)}
+.qtype{position:absolute;top:-16px;left:12px;background:var(--yellow);border:3px solid var(--ink);font-family:Bangers,Impact,sans-serif;font-size:17px;letter-spacing:1px;padding:1px 10px;transform:rotate(-2deg)}
+.qtext{font-size:19px;line-height:1.3;margin:10px 0 12px}
+.qvis{display:flex;justify-content:center}
+.helper{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.helper .av svg{height:66px;width:auto}
+.helper .bubble{flex:1;font-size:16px;min-height:48px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{position:relative;background:#fff;border:4px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);min-height:118px;padding:16px 8px 10px;display:flex;align-items:center;justify-content:center;transition:transform .08s}
+.letter{position:absolute;top:-12px;left:-10px;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;border:3px solid var(--ink);font-family:Bangers,Impact,sans-serif;font-size:17px;display:flex;align-items:center;justify-content:center}
+.opt.right{background:#C9F7C6;border-color:#0E7A35;animation:pop .35s}
+.opt.right .letter{background:var(--green)}
+.opt.wrong{opacity:.35;filter:grayscale(1);animation:shake .35s}
+.opt:disabled{cursor:default}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.nextwrap{margin-top:16px}
+.pow{position:fixed;z-index:50;pointer-events:none;font-family:Bangers,Impact,sans-serif;font-size:40px;color:var(--yellow);
+  text-shadow:3px 3px 0 var(--ink),-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink);
+  transform:translate(-50%,-50%) scale(.3) rotate(-10deg);animation:powA .9s forwards}
+.pow::before{content:"";position:absolute;inset:-26px -30px;z-index:-1;background:var(--red);
+  clip-path:polygon(50% 0,61% 30%,95% 12%,72% 42%,100% 55%,68% 62%,82% 95%,52% 72%,30% 100%,32% 68%,0 78%,22% 52%,2% 25%,35% 32%);}
+@keyframes powA{0%{transform:translate(-50%,-50%) scale(.3) rotate(-10deg);opacity:1}40%{transform:translate(-50%,-90%) scale(1.15) rotate(-6deg)}80%{opacity:1}100%{transform:translate(-50%,-110%) scale(1) rotate(-6deg);opacity:0}}
+
+/* visuals */
+.emo{font-size:50px;line-height:1;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-weight:400}
+.tile{width:84px;height:84px;border:3px solid var(--ink);border-radius:10px;background:#FFF8E1;display:flex;align-items:center;justify-content:center}
+.tile.q,.cell.q{background:#E3F2FD;font-family:Bangers,Impact,sans-serif;font-size:44px;color:var(--blue)}
+.tile .emo{font-size:48px}
+.arrow{font-size:30px;font-weight:700;padding:0 4px}
+.analogy{display:flex;flex-direction:column;gap:12px;align-items:center}
+.pair{display:flex;align-items:center;gap:6px}
+.pairs-wrap{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center}
+.sep{font-family:Bangers,Impact,sans-serif;font-size:26px;color:#888}
+.riddle{font-size:22px;line-height:1.3;text-align:center;background:#FFF8E1;border:3px dashed var(--ink);border-radius:12px;padding:14px}
+.club{border:3px solid var(--ink);border-radius:12px;background:#FFF8E1;padding:10px 10px 12px;text-align:center}
+.clublabel{font-family:Bangers,Impact,sans-serif;letter-spacing:1px;font-size:17px;margin-bottom:6px}
+.row3{display:flex;gap:10px;justify-content:center}
+.cell{width:88px;height:88px;border:3px solid var(--ink);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;padding:6px}
+.cell svg.fig{width:100%;height:100%}
+.opt svg.fig{width:100%;max-width:130px;height:84px}
+.grp{display:grid;grid-template-columns:repeat(5,auto);gap:1px 2px;justify-content:center;font-size:19px;line-height:1.15;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-weight:400}
+.opt .grp{font-size:20px}
+.machine{display:flex;flex-direction:column;gap:8px;width:100%;max-width:400px}
+.mrow{display:grid;grid-template-columns:1fr 54px 1fr;align-items:center;gap:6px}
+.mbox{border:3px solid var(--ink);border-radius:10px;background:#FFF8E1;min-height:64px;display:flex;align-items:center;justify-content:center;padding:6px}
+.mrow:last-child .mbox:last-child{background:#E3F2FD}
+.gear{font-size:22px;text-align:center}
+.qbig{font-family:Bangers,Impact,sans-serif;font-size:38px;color:var(--blue)}
+.eq{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;font-family:Bangers}
+.nt{min-width:52px;height:58px;border:3px solid var(--ink);border-radius:10px;background:#FFF8E1;display:flex;align-items:center;justify-content:center;font-size:36px;padding:0 6px}
+.nt.q{background:#E3F2FD;color:var(--blue)}
+.op{font-size:36px}
+.eqside{display:flex;align-items:center;gap:6px}
+.bigeq{font-size:44px;padding:0 4px;color:var(--red)}
+.optnum{font-family:Bangers,Impact,sans-serif;font-size:48px}
+.balance{display:flex;flex-direction:column;gap:8px;align-items:stretch;width:100%;max-width:420px}
+.brow{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:6px;align-items:center}
+.blabel{font-family:Bangers,Impact,sans-serif;font-size:16px;width:56px}
+.bplus{font-family:Bangers,Impact,sans-serif;font-size:28px}
+.abacus{height:170px;width:auto;max-width:100%}
+.opt .abacus{height:100px}
+.matrix{display:grid;grid-template-columns:auto auto auto;gap:8px;align-items:center;justify-items:center}
+.marrow{font-size:26px}
+.pfsteps{display:flex;gap:8px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+.pfstep{display:flex;flex-direction:column;align-items:center;gap:4px}
+.pflabel{font-family:Bangers,Impact,sans-serif;font-size:15px;letter-spacing:1px;background:var(--yellow);border:2px solid var(--ink);padding:0 6px}
+.pfstep svg{width:100px;height:100px;background:#fff;border:3px solid var(--ink);border-radius:8px}
+.opt svg.paper{width:92px;height:92px}
+
+/* complete */
+.burstbig{display:inline-block;font-family:Bangers,Impact,sans-serif;font-size:38px;color:#fff;background:var(--red);padding:16px 26px;border:4px solid var(--ink);transform:rotate(-3deg);text-shadow:2px 2px 0 var(--ink);box-shadow:5px 5px 0 var(--ink);margin:6px 0 12px}
+.newsticker{font-size:76px;display:inline-block;animation:spin 1s ease-out;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+@keyframes spin{from{transform:scale(.2) rotate(-180deg)}to{transform:scale(1) rotate(0)}}
+.brk{background:#E3F2FD;text-align:left}
+.brk h3{font-size:26px;color:var(--blue)}
+.brk p{font-size:20px;margin:6px 0 0}
+.bonus{background:#FCE4EC;text-align:left;font-size:16px}
+.zaps{font-size:18px}
+
+/* vault */
+.vault{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.slot{aspect-ratio:1;border:3px solid var(--ink);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+.slot.locked{background:#ddd;color:#999;font-family:Bangers,Impact,sans-serif;font-size:28px}
+
+/* grown-ups */
+.grown{font-weight:400;font-size:16px;line-height:1.5}
+.grown h2{font-size:30px;margin-bottom:6px}
+.grown h3{font-size:22px;margin:14px 0 4px;color:var(--blue)}
+.grown b{font-weight:700}
+.grown ul{padding-left:20px;margin:6px 0}
+.grown li{margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tbl th,.tbl td{border:2px solid var(--ink);padding:5px 6px;text-align:left;vertical-align:top}
+.tbl th{background:var(--yellow);font-family:Bangers,Impact,sans-serif;font-weight:400;letter-spacing:1px;font-size:15px}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:2px dashed #ccc}
+.sw{width:58px;height:32px;border-radius:20px;border:3px solid var(--ink);background:#ccc;position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid var(--ink);transition:left .15s}
+.sw.on{background:var(--green)}
+.sw.on::after{left:27px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
+.modal .panel{max-width:360px}
+.note{font-size:13px;color:#444}
+.intro .bubble{font-size:18px}
+.intro svg{height:110px;width:auto}
+
+@media (max-width:420px){
+  .title{font-size:46px}
+  .tile{width:70px;height:70px}.tile .emo{font-size:40px}
+  .cell{width:76px;height:76px}
+  .strip .say{font-size:12px}
+  .mname{font-size:15px}
+  .opt{min-height:108px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <button class="logo" onclick="go('home')" aria-label="Home">BRAIN BLASTERS!</button>
+  <div class="hbtns">
+    <button class="icon-btn" id="sndBtn" onclick="toggleSound()" aria-label="Sound on or off">🔔</button>
+    <button class="icon-btn" onclick="go('home')" aria-label="Home">🏠</button>
+  </div>
+</header>
+<main id="app"></main>
+
+<script>
+/* =========================================================
+   ORIGINAL CHARACTERS: Captain Waffle & Gizmo the robot
+   ========================================================= */
+const WAFFLE = `<svg viewBox="0 0 124 156" xmlns="http://www.w3.org/2000/svg" aria-label="Captain Waffle">
+ <path d="M30 42 Q6 112 16 146 L108 146 Q118 112 94 42 Z" fill="#E63946" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+ <line x1="46" y1="118" x2="42" y2="142" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+ <line x1="78" y1="118" x2="82" y2="142" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+ <ellipse cx="38" cy="145" rx="11" ry="6" fill="#2F80ED" stroke="#111" stroke-width="3"/>
+ <ellipse cx="86" cy="145" rx="11" ry="6" fill="#2F80ED" stroke="#111" stroke-width="3"/>
+ <line x1="26" y1="82" x2="10" y2="60" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+ <circle cx="9" cy="56" r="8" fill="#F2B84B" stroke="#111" stroke-width="3"/>
+ <line x1="98" y1="82" x2="114" y2="100" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+ <circle cx="115" cy="103" r="8" fill="#F2B84B" stroke="#111" stroke-width="3"/>
+ <rect x="24" y="28" width="76" height="92" rx="16" fill="#F2B84B" stroke="#111" stroke-width="4"/>
+ <g stroke="#D4872A" stroke-width="3">
+  <line x1="43" y1="33" x2="43" y2="115"/><line x1="62" y1="33" x2="62" y2="115"/><line x1="81" y1="33" x2="81" y2="115"/>
+  <line x1="28" y1="51" x2="96" y2="51"/><line x1="28" y1="74" x2="96" y2="74"/><line x1="28" y1="97" x2="96" y2="97"/>
+ </g>
+ <path d="M28 40 Q30 27 46 28 L82 28 Q96 28 96 40 Q93 48 89 40 Q86 34 82 44 Q79 52 75 42 Q70 36 58 38 Q54 52 50 40 Q44 34 38 42 Q34 50 31 44 Z" fill="#8B4A16" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+ <rect x="53" y="16" width="18" height="12" rx="2" fill="#FFE066" stroke="#111" stroke-width="3"/>
+ <rect x="32" y="53" width="60" height="18" rx="8" fill="#2F80ED" stroke="#111" stroke-width="3"/>
+ <circle cx="49" cy="62" r="7" fill="#fff" stroke="#111" stroke-width="2"/><circle cx="51" cy="63" r="3.2" fill="#111"/>
+ <circle cx="75" cy="62" r="7" fill="#fff" stroke="#111" stroke-width="2"/><circle cx="77" cy="63" r="3.2" fill="#111"/>
+ <path d="M46 84 Q62 104 78 84 Z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+</svg>`;
+const GIZMO = `<svg viewBox="0 0 104 126" xmlns="http://www.w3.org/2000/svg" aria-label="Gizmo the robot">
+ <line x1="52" y1="10" x2="52" y2="24" stroke="#111" stroke-width="4"/>
+ <circle cx="52" cy="9" r="6" fill="#FFD93D" stroke="#111" stroke-width="3"/>
+ <line x1="22" y1="86" x2="6" y2="72" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+ <path d="M2 66 L6 72 L0 74" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+ <line x1="82" y1="86" x2="98" y2="72" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+ <path d="M102 66 L98 72 L104 74" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+ <rect x="18" y="24" width="68" height="50" rx="13" fill="#B8C4D6" stroke="#111" stroke-width="4"/>
+ <rect x="27" y="32" width="50" height="33" rx="7" fill="#1D2B3A"/>
+ <circle cx="42" cy="47" r="6" fill="#5CE1E6"/><circle cx="62" cy="47" r="6" fill="#5CE1E6"/>
+ <path d="M44 57 Q52 62 60 57" fill="none" stroke="#5CE1E6" stroke-width="3" stroke-linecap="round"/>
+ <rect x="10" y="40" width="9" height="16" rx="3" fill="#E63946" stroke="#111" stroke-width="3"/>
+ <rect x="85" y="40" width="9" height="16" rx="3" fill="#E63946" stroke="#111" stroke-width="3"/>
+ <rect x="26" y="76" width="52" height="34" rx="8" fill="#2F80ED" stroke="#111" stroke-width="4"/>
+ <circle cx="40" cy="92" r="4" fill="#FFD93D" stroke="#111" stroke-width="2"/>
+ <circle cx="52" cy="92" r="4" fill="#2BB673" stroke="#111" stroke-width="2"/>
+ <circle cx="64" cy="92" r="4" fill="#E63946" stroke="#111" stroke-width="2"/>
+ <circle cx="38" cy="116" r="8" fill="#333" stroke="#111" stroke-width="3"/>
+ <circle cx="66" cy="116" r="8" fill="#333" stroke="#111" stroke-width="3"/>
+</svg>`;
+
+/* =========================================================
+   STATE & STORAGE
+   ========================================================= */
+const KEY='brainblasters_v1';
+let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false};
+try{const s=localStorage.getItem(KEY); if(s) P=Object.assign(P,JSON.parse(s));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
+
+const app=document.getElementById('app');
+const rnd=n=>Math.floor(Math.random()*n);
+const pick=a=>a[rnd(a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const E=x=>`<span class="emo">${x}</span>`;
+const grp=(n,e)=>`<div class="grp">${Array(n).fill(`<span>${e}</span>`).join('')}</div>`;
+
+/* =========================================================
+   SOUND + READ ALOUD
+   ========================================================= */
+let AC=null;
+function sfx(kind){
+  if(!P.sound) return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const notes=kind==='yay'?[523,659,784,1047]:[262,196];
+    notes.forEach((f,i)=>{
+      const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+i*0.08;
+      o.type=kind==='yay'?'triangle':'sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.18,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+0.2);
+      o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+0.22);
+    });
+  }catch(e){}
+}
+function speak(t){
+  try{
+    if(!window.speechSynthesis) return;
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,''));
+    u.rate=0.9;u.pitch=1.05;speechSynthesis.speak(u);
+  }catch(e){}
+}
+function toggleSound(){P.sound=!P.sound;save();updSnd();}
+function updSnd(){document.getElementById('sndBtn').textContent=P.sound?'🔔':'🔕';}
+
+/* =========================================================
+   VERBAL CONTENT (hand-written)
+   ========================================================= */
+const PA=[
+ {a:'🐶',b:'🦴',c:'🐰',ans:'🥕',w:['🍖','🧀','🍌'],n:['dog','bone','rabbit'],hint:'Make a sentence: “A dog eats a bone.” Now: “A rabbit eats a ___.”',why:'A dog eats a bone, and a rabbit eats a carrot!'},
+ {a:'🐣',b:'🐔',c:'🐛',ans:'🦋',w:['🐜','🐞','🌸'],n:['chick','chicken','caterpillar'],hint:'A chick grows up into a chicken. What does a caterpillar grow up into?',why:'A chick grows into a chicken, and a caterpillar grows into a butterfly!'},
+ {a:'🧤',b:'✋',c:'🧦',ans:'🦶',w:['👂','👃','👀'],n:['glove','hand','sock'],hint:'A glove goes ON a hand. A sock goes on a ___.',why:'A glove goes on your hand, and a sock goes on your foot.'},
+ {a:'🌧️',b:'☂️',c:'☀️',ans:'🕶️',w:['🧣','🧤','🔦'],n:['rain','umbrella','sun'],hint:'An umbrella protects you from the rain. What protects your eyes from the sun?',why:'An umbrella protects you from rain. Sunglasses protect your eyes from the sun!'},
+ {a:'🐟',b:'🌊',c:'🐫',ans:'🏜️',w:['🧊','🌲','🌊'],n:['fish','ocean','camel'],hint:'A fish lives in the ocean. Where does a camel live?',why:'A fish lives in the ocean, and a camel lives in the desert.'},
+ {a:'🥛',b:'🐄',c:'🥚',ans:'🐔',w:['🐟','🐷','🐶'],n:['milk','cow','egg'],hint:'Milk comes from a cow. An egg comes from a ___.',why:'Milk comes from a cow, and an egg comes from a chicken!'},
+ {a:'🚗',b:'🛣️',c:'🚂',ans:'🛤️',w:['✈️','🌊','🏠'],n:['car','road','train'],hint:'A car drives on a road. A train rides on ___.',why:'A car drives on a road, and a train rides on train tracks.'},
+ {a:'✂️',b:'📄',c:'🪚',ans:'🪵',w:['🧵','💧','🍞'],n:['scissors','paper','saw'],hint:'Scissors cut paper. A saw cuts ___.',why:'Scissors cut paper, and a saw cuts wood!'},
+ {a:'🌱',b:'🌳',c:'👶',ans:'🧑',w:['🍼','🧸','🐶'],n:['sprout','tree','baby'],hint:'A tiny sprout grows into a big tree. A baby grows into a ___.',why:'A sprout grows into a tree, and a baby grows into a grown-up.'},
+ {a:'🐄',b:'🥛',c:'🐝',ans:'🍯',w:['🌸','🧀','🥚'],n:['cow','milk','bee'],hint:'A cow makes milk. A bee makes ___.',why:'A cow makes milk, and a bee makes honey. Yum!'},
+ {a:'👨‍🍳',b:'🍳',c:'👩‍🚒',ans:'🚒',w:['🚑','🚓','🚌'],n:['chef','frying pan','firefighter'],hint:'A chef uses a frying pan for work. What does a firefighter use?',why:'A chef works with a frying pan, and a firefighter works with a fire truck!'},
+ {a:'🥶',b:'🧥',c:'🥵',ans:'🩳',w:['🧣','🧤','🥾'],n:['cold face','coat','hot face'],hint:'When you are cold, you wear a coat. When you are hot, you wear ___.',why:'Cold? Wear a coat. Hot? Wear shorts!'},
+ {a:'🧊',b:'💧',c:'🌽',ans:'🍿',w:['🥕','🍕','🌽'],n:['ice','water','corn'],hint:'Ice turns into water. Corn turns into ___.',why:'Ice melts into water, and corn pops into popcorn!'},
+ {a:'📖',b:'👀',c:'🎵',ans:'👂',w:['👃','✋','👅'],n:['book','eyes','music'],hint:'You use your eyes to read a book. What do you use to hear music?',why:'You read a book with your eyes, and you hear music with your ears.'},
+];
+
+const SC=[
+ {q:'Which one helps you see in the dark?',ans:'🔦',w:['🧦','🍎','🎈'],why:'A flashlight helps you see in the dark!'},
+ {q:'Which one grows from a seed in the ground?',ans:'🌻',w:['🧱','🚲','⌚'],why:'A sunflower grows from a seed!'},
+ {q:'It is raining. Which one keeps you from getting wet?',ans:'☂️',w:['🕶️','🏐','🍦'],why:'An umbrella keeps the rain off you.'},
+ {q:'Which animal can fly AND swim?',ans:'🦆',w:['🐶','🐍','🐢'],why:'A duck can fly in the sky and swim in a pond!'},
+ {q:'Which one is NOT alive?',ans:'⚽',w:['🐱','🌳','🐟'],why:'A ball is not alive. Cats, trees, and fish are all living things.'},
+ {q:'Which one is heavier than a car?',ans:'🐘',w:['🐭','🍌','🎈'],why:'An elephant can weigh more than a car!'},
+ {q:'Which one do you use to tell time?',ans:'⏰',w:['📏','✂️','🧽'],why:'A clock tells you the time.'},
+ {q:'Which one is the coldest?',ans:'🧊',w:['☕','🔥','🌞'],why:'Ice is the coldest one!'},
+ {q:'Which one would you find in a kitchen, but NOT in a bathroom?',ans:'🍳',w:['🚽','🛁','🧼'],why:'A frying pan belongs in the kitchen. (Soap can be in both!)'},
+ {q:'Which one comes BEFORE a butterfly?',ans:'🐛',w:['🐝','🐞','🕷️'],why:'A caterpillar turns into a butterfly!'},
+ {q:'The chair is wobbly. Which tool can fix it?',ans:'🔨',w:['🥄','🖍️','🧸'],why:'A hammer is a tool for fixing things.'},
+ {q:'Which one can you read?',ans:'📖',w:['🥁','🍩','🧤'],why:'You can read a book!'},
+ {q:'It is too hot to touch, and it keeps campers warm at night.',ans:'🔥',w:['⛺','🧊','🌙'],why:'A campfire is hot and keeps campers warm. (The tent keeps them dry, but it is not hot to touch!)'},
+ {q:'Which one would you NOT need at a hot, sunny beach?',ans:'🧤',w:['🏐','🕶️','🍉'],why:'Mittens are for snow, not for a hot beach!'},
+ {q:'Which one has wings but is NOT a bird?',ans:'🦋',w:['🦉','🦆','🐧'],why:'A butterfly has wings, but it is an insect, not a bird.'},
+];
+
+const PC=[
+ {top:['🍎','🍌','🍇'],ans:'🍓',w:['🥕','🥦','🧀'],why:'They are all fruits — and so is the strawberry!'},
+ {top:['🥕','🥦','🌽'],ans:'🥒',w:['🍒','🍩','🍎'],why:'They are all vegetables, like the cucumber!'},
+ {top:['🐶','🐱','🐹'],ans:'🐰',w:['🦁','🦈','🐊'],why:'They are all pets you could keep at home, like a bunny.'},
+ {top:['🚗','🚌','🚲'],ans:'🛵',w:['⛵','🚀','🛶'],why:'They all roll on wheels, like the scooter.'},
+ {top:['✈️','🚁','🎈'],ans:'🚀',w:['🚂','🚢','🚜'],why:'They all go up in the sky, like the rocket!'},
+ {top:['🦈','🐙','🐠'],ans:'🐳',w:['🐄','🐒','🦒'],why:'They all live in the ocean, like the whale.'},
+ {top:['🎸','🥁','🎺'],ans:'🎻',w:['🎨','📷','🏀'],why:'They are all musical instruments, like the violin.'},
+ {top:['☀️','⭐','🌙'],ans:'☁️',w:['🌳','🏠','🌊'],why:'They are all things you see up in the sky.'},
+ {top:['🧤','🧣','🧥'],ans:'🥾',w:['🩳','👙','🕶️'],why:'They are all things you wear when it is cold and snowy.'},
+ {top:['🐝','🦋','🐞'],ans:'🐜',w:['🐦','🐟','🐍'],why:'They are all insects, like the ant.'},
+ {top:['⚽','🏀','🎾'],ans:'🏈',w:['🏆','🎯','🥇'],why:'They are all balls, like the football.'},
+ {top:['🐧','🦆','🦢'],ans:'🦉',w:['🦇','🐝','✈️'],why:'They are all birds. Watch out — a bat flies, but it is not a bird!'},
+ {top:['🥛','🧃','☕'],ans:'🍵',w:['🍪','🍰','🥨'],why:'They are all things you drink.'},
+ {top:['🔨','🔧','🪛'],ans:'🪚',w:['🍕','🧸','🎈'],why:'They are all tools for building, like the saw!'},
+];
+
+/* =========================================================
+   QUESTION TYPES
+   ========================================================= */
+const TYPES={
+ pa:{name:'Match Makers',real:'Picture Analogies',bat:'Verbal',icon:'🔗',gen:genPA,
+     text:'These two go together. Which picture goes with the third one in the <u>same way</u>?',
+     hint:'Make a sentence about the first two pictures. Then use the same sentence for the third!',
+     tip:'Secret trick: make a sentence! “A dog EATS a bone.” Then try it: “A rabbit EATS a…”',learn:'How two things are connected (eats, lives in, grows into, used for)'},
+ sc:{name:'Riddle Room',real:'Sentence Completion',bat:'Verbal',icon:'💬',gen:genSC,
+     text:'Listen to the riddle. Pick the picture that fits best.',
+     hint:'Listen to the riddle again. Which picture matches EVERY clue?',
+     tip:'Listen to EVERY word! Little words like NOT and AND change the whole riddle.',learn:'Careful listening; matching words to meaning'},
+ pc:{name:'Who Belongs?',real:'Picture Classification',bat:'Verbal',icon:'🧺',gen:genPC,
+     text:'The top 3 pictures are alike. Which one belongs with them?',
+     hint:'What is the same about ALL three top pictures? Are they food? Animals? Things that fly?',
+     tip:'Give the group a name, like “fruits” or “things that fly.” Then find the one that fits the name.',learn:'Finding the category things share'},
+ na:{name:'Number Machines',real:'Number Analogies',bat:'Quantitative',icon:'⚙️',gen:genNA,
+     text:'The machine changes every group the <u>same way</u>. What comes out at the end?',
+     hint:'Count the first group and what came out. Did the machine add some, take some away, or double it?',
+     tip:'Count what goes IN and what comes OUT. Figure out the machine’s secret rule!',learn:'Spotting a math rule (add, take away, double, half)'},
+ np:{name:'Balance Bridge',real:'Number Puzzles',bat:'Quantitative',icon:'⚖️',gen:genNP,
+     text:'Both sides must be <u>equal</u>. What goes in the <b>?</b> spot?',
+     hint:'Add up the side WITHOUT the ? first. How many more does the other side need to match?',
+     tip:'Both sides of the bridge must weigh the same, or it tips over! Count one side first.',learn:'Making two sides equal'},
+ ns:{name:'Bead Patterns',real:'Number Series',bat:'Quantitative',icon:'🧮',gen:genNS,
+     text:'The bead rods make a pattern. Which rod comes <u>next</u>?',
+     hint:'Count the beads on each rod out loud. Do you hear a pattern?',
+     tip:'Count each rod out loud, like “2… 4… 6…” Your ears can hear the pattern!',learn:'Finding number patterns'},
+ fm:{name:'Shape Swap',real:'Figure Matrices',bat:'Nonverbal',icon:'🔄',gen:genFM,
+     text:'The top shape changes in a special way. Make the <u>same change</u> to the bottom shape!',
+     hint:'Look at the top row. What changed? The color? Size? How many? Which way it points? Do the same to the bottom.',
+     tip:'Be a detective: what changed on top? Color, size, how many, or which way it points?',learn:'Seeing how a shape changes and applying the same change'},
+ fc:{name:'Shape Squad',real:'Figure Classification',bat:'Nonverbal',icon:'🔷',gen:genFC,
+     text:'The top 3 shapes are alike in some way. Which one joins the squad?',
+     hint:'Are the top shapes the same SHAPE? The same COLOR? Empty inside? Find what they ALL share.',
+     tip:'Find the one thing ALL three shapes share. Then look for it in the answers.',learn:'Finding what shapes have in common'},
+ pf:{name:'Hole Punch Hero',real:'Paper Folding',bat:'Nonverbal',icon:'📄',gen:genPF,
+     text:'The paper gets folded, then holes are punched. What does it look like <u>opened up</u>?',
+     hint:'The fold line works like a mirror. Every hole gets a twin on the other side of the fold!',
+     tip:'The fold is a mirror! Each hole gets a twin on the other side. Try it with real paper!',learn:'Picturing folds and mirror images'},
+};
+const WORLDS=[
+ {name:'Word Woods',emoji:'🌲',color:'#2BB673',blurb:'Picture puzzles: how do things go together?',types:['pa','sc','pc'],
+  line:'In the Word Woods, everything has a secret connection!'},
+ {name:'Number Mountain',emoji:'🌋',color:'#E63946',blurb:'Counting, patterns and number riddles.',types:['na','np','ns'],
+  line:'Number Mountain is rumbling! Only patterns can calm it down.'},
+ {name:'Shape Space',emoji:'🪐',color:'#8E44AD',blurb:'Shapes that change, match and fold.',types:['fm','fc','pf'],
+  line:'In Shape Space, shapes twist, flip and fold. Watch closely!'},
+];
+
+function mk(type,prompt,right,wrongs,why,extra={}){
+  const options=shuffle([{html:right,correct:true},...wrongs.map(h=>({html:h,correct:false}))]);
+  return Object.assign({type,prompt,options,why,hint:TYPES[type].hint,text:TYPES[type].text,speak:TYPES[type].text},extra);
+}
+const decks={};
+function draw(t,pool){if(!decks[t]||!decks[t].length) decks[t]=shuffle(pool.map((_,i)=>i));return pool[decks[t].pop()];}
+
+/* ---------- Verbal ---------- */
+function genPA(){
+  const it=draw('pa',PA);
+  const prompt=`<div class="pairs-wrap">
+    <div class="pair"><div class="tile">${E(it.a)}</div><div class="arrow">➜</div><div class="tile">${E(it.b)}</div></div>
+    <div class="sep">SO…</div>
+    <div class="pair"><div class="tile">${E(it.c)}</div><div class="arrow">➜</div><div class="tile q">?</div></div></div>`;
+  return mk('pa',prompt,E(it.ans),it.w.map(E),it.why,{hint:it.hint,
+    speak:`Look at the first two pictures: ${it.n[0]}, and ${it.n[1]}. They go together. Now look at the ${it.n[2]}. Which picture goes with the ${it.n[2]} in the same way?`});
+}
+function genSC(){
+  const it=draw('sc',SC);
+  return mk('sc',`<div class="riddle">“${it.q}”</div>`,E(it.ans),it.w.map(E),it.why,{speak:it.q});
+}
+function genPC(){
+  const it=draw('pc',PC);
+  const prompt=`<div class="club"><div class="clublabel">⭐ THESE 3 ARE ALIKE ⭐</div><div class="row3">${it.top.map(x=>`<div class="tile">${E(x)}</div>`).join('')}</div></div>`;
+  return mk('pc',prompt,E(it.ans),it.w.map(E),it.why,{speak:'Look at the three pictures on top. They are alike in some way. Which picture at the bottom goes with them?'});
+}
+
+/* ---------- Quantitative ---------- */
+const OBJ=['🍎','⭐','🐞','🍪','🚀','🐟','🍩','⚽','🦖','🍓'];
+function genNA(){
+  const rules=[
+    {f:x=>x+1,ok:x=>x<=9,say:'adds 1'},{f:x=>x+2,ok:x=>x<=8,say:'adds 2'},{f:x=>x+3,ok:x=>x<=7,say:'adds 3'},
+    {f:x=>x-1,ok:x=>x>=2,say:'takes away 1'},{f:x=>x-2,ok:x=>x>=3,say:'takes away 2'},{f:x=>x-3,ok:x=>x>=4,say:'takes away 3'},
+    {f:x=>x*2,ok:x=>x<=5,say:'doubles it'},{f:x=>x/2,ok:x=>x%2===0&&x<=10,say:'cuts it in half'}];
+  for(let t=0;t<100;t++){
+    const r=pick(rules);
+    const pool=[];for(let x=1;x<=10;x++) if(r.ok(x)) pool.push(x);
+    if(pool.length<3) continue;
+    const xs=shuffle(pool).slice(0,3);
+    const ans=r.f(xs[2]);
+    const others=rules.filter(o=>o!==r&&o.ok(xs[2])).map(o=>o.f(xs[2]));
+    const cands=shuffle([...new Set([ans+1,ans-1,xs[2],...others])]).filter(v=>v>=1&&v<=12&&v!==ans);
+    if(cands.length<3) continue;
+    const e=pick(OBJ);
+    const rows=xs.map((x,i)=>`<div class="mrow"><div class="mbox">${grp(x,e)}</div><div class="gear">⚙️➜</div><div class="mbox">${i<2?grp(r.f(x),e):'<span class="qbig">?</span>'}</div></div>`).join('');
+    return mk('na',`<div class="machine">${rows}</div>`,grp(ans,e),cands.slice(0,3).map(v=>grp(v,e)),
+      `The machine ${r.say}! ${xs[0]} became ${r.f(xs[0])}, and ${xs[1]} became ${r.f(xs[1])}. So ${xs[2]} becomes ${ans}.`,
+      {speak:'Look at the number machine. It changes each group the same way. What comes out of the machine at the end?'});
+  }
+}
+function genNP(){
+  for(let t=0;t<100;t++){
+    if(Math.random()<0.4){ // picture balance version
+      const a=1+rnd(6),b=1+rnd(6),T=a+b,c=1+rnd(T-1),ans=T-c;
+      if(c===a||c===b) continue;
+      const cands=shuffle([...new Set([ans+1,ans-1,ans+2,T,c])]).filter(v=>v>=1&&v<=10&&v!==ans);
+      if(cands.length<3) continue;
+      const e=pick(OBJ);
+      const prompt=`<div class="balance">
+        <div class="brow"><span class="blabel">TOP</span><div class="mbox">${grp(a,e)}</div><span class="bplus">+</span><div class="mbox">${grp(b,e)}</div></div>
+        <div class="brow"><span class="blabel">BOTTOM</span><div class="mbox">${grp(c,e)}</div><span class="bplus">+</span><div class="mbox"><span class="qbig">?</span></div></div></div>`;
+      return mk('np',prompt,grp(ans,e),cands.slice(0,3).map(v=>grp(v,e)),
+        `The top row has ${a} + ${b} = ${T}. The bottom row has ${c}, so it needs ${ans} more to make ${T}.`,
+        {text:'Both rows need the <u>same number</u>. How many go in the <b>?</b> box?',speak:'Both rows need the same number of things. How many should go in the empty box with the question mark?'});
+    }
+    let leftT,L;
+    if(Math.random()<0.3){const a=5+rnd(6),b=1+rnd(a-2);leftT=[a,'−',b];L=a-b;}
+    else{const n=pick([2,3]);const xs=Array.from({length:n},()=>1+rnd(n===2?9:6));leftT=xs.flatMap((x,i)=>i?['+',x]:[x]);L=xs.reduce((s,v)=>s+v,0);}
+    if(L<3) continue;
+    const m=pick([1,1,2]);const known=[];let s=0;
+    for(let i=0;i<m;i++){const mx=Math.min(9,L-1-s);if(mx<1)break;const v=1+rnd(mx);known.push(v);s+=v;}
+    if(!known.length) continue;
+    const ans=L-s; if(ans<1||ans>12) continue;
+    const qFirst=Math.random()<0.3;
+    const rightT=qFirst?['?',...known.flatMap(k=>['+',k])]:[...known.flatMap((k,i)=>i?['+',k]:[k]),'+','?'];
+    const cands=shuffle([...new Set([ans+1,ans-1,ans+2,L])]).filter(v=>v>=1&&v!==ans);
+    if(cands.length<3) continue;
+    const tok=x=>x==='?'?'<span class="nt q">?</span>':(typeof x==='number'?`<span class="nt">${x}</span>`:`<span class="op">${x}</span>`);
+    const prompt=`<div class="eq"><div class="eqside">${leftT.map(tok).join('')}</div><span class="bigeq">=</span><div class="eqside">${rightT.map(tok).join('')}</div></div>`;
+    return mk('np',prompt,`<span class="optnum">${ans}</span>`,cands.slice(0,3).map(v=>`<span class="optnum">${v}</span>`),
+      `The left side makes ${L}. The right side has ${s} so far, and ${s} + ${ans} = ${L}. Balanced!`,
+      {speak:`${leftT.join(' ').replace('−','minus')} equals ${rightT.join(' ').replace('?','what number')}. Both sides must be equal.`});
+  }
+}
+function abacus(vals,q){
+  const n=vals.length+(q?1:0),W=n*1.5;
+  let s=`<svg class="abacus" viewBox="0 0 ${W} 12" xmlns="http://www.w3.org/2000/svg"><rect x="0.05" y="10.7" width="${W-0.1}" height="0.9" rx="0.3" fill="#8B5A2B" stroke="#111" stroke-width="0.12"/>`;
+  vals.forEach((v,i)=>{
+    const x=0.75+i*1.5;
+    s+=`<line x1="${x}" y1="0.6" x2="${x}" y2="10.7" stroke="#555" stroke-width="0.16"/>`;
+    for(let b=0;b<v;b++){s+=`<ellipse cx="${x}" cy="${10.2-b*0.95}" rx="0.6" ry="0.42" fill="${b<5?'#E63946':'#2F80ED'}" stroke="#111" stroke-width="0.09"/>`;}
+  });
+  if(q){const x=0.75+vals.length*1.5;s+=`<line x1="${x}" y1="0.6" x2="${x}" y2="10.7" stroke="#2F80ED" stroke-width="0.16" stroke-dasharray="0.4 0.3"/><text x="${x}" y="6.6" font-size="3.6" text-anchor="middle" font-family="Bangers,Impact" fill="#2F80ED" stroke="#111" stroke-width="0.08">?</text>`;}
+  return s+'</svg>';
+}
+function genNS(){
+  for(let t=0;t<100;t++){
+    const k=pick(['up1','up2','down','ab','abc','agrow','dbl','up1']);
+    let seq,why;
+    if(k==='up1'){const s=1+rnd(4);seq=[0,1,2,3,4,5].map(i=>s+i);why='Each rod has ONE more bead than the one before.';}
+    else if(k==='up2'){const s=pick([1,2]);seq=[0,1,2,3,4].map(i=>s+2*i);why='Each rod has TWO more beads than the one before.';}
+    else if(k==='down'){const s=7+rnd(3);seq=[0,1,2,3,4,5].map(i=>s-i);why='Each rod has ONE fewer bead — counting down!';}
+    else if(k==='ab'){const [a,b]=shuffle([1,2,3,4,5,6,7,8]).slice(0,2);seq=[a,b,a,b,a,b];why=`It repeats: ${a}, ${b}, ${a}, ${b}…`;}
+    else if(k==='abc'){const [a,b,c]=shuffle([1,2,3,4,5,6,7,8]).slice(0,3);seq=[a,b,c,a,b,c];why=`It repeats in threes: ${a}, ${b}, ${c}, then again!`;}
+    else if(k==='agrow'){const a=4+rnd(5);seq=[a,1,a,2,a,3];why=`Every other rod has ${a}. The rods in between go 1, 2, 3!`;}
+    else {const s=1+rnd(6);seq=[s,s,s+1,s+1,s+2,s+2];why='Each number shows up twice, then goes up by one.';}
+    const shown=seq.slice(0,-1),ans=seq[seq.length-1];
+    const cands=shuffle([...new Set([ans+1,ans-1,shown[shown.length-1],shown[0],ans+2])]).filter(v=>v>=1&&v<=10&&v!==ans);
+    if(cands.length<3) continue;
+    return mk('ns',abacus(shown,true),abacus([ans]),cands.slice(0,3).map(v=>abacus([v])),
+      `${shown.join(', ')}… ${why} So next comes ${ans}.`,{speak:'Look at the bead rods. They make a pattern. Which rod comes next?'});
+  }
+}
+
+/* ---------- Nonverbal (figures) ---------- */
+const COLORS={red:'#E63946',blue:'#2F80ED',yellow:'#FFC300',green:'#2BB673',purple:'#8E44AD'};
+const CN=Object.keys(COLORS);
+const BASIC=['circle','square','triangle','star','diamond','hexagon','plus'];
+const SNAME={circle:'circle',square:'square',triangle:'triangle',star:'star',diamond:'diamond',hexagon:'hexagon',plus:'plus sign',arrow:'arrow'};
+function poly(pts){return `<polygon points="${pts.map(p=>p.map(v=>v.toFixed(3)).join(',')).join(' ')}"/>`;}
+function regPts(n,r,off){const a=[];for(let i=0;i<n;i++){const t=off+i*2*Math.PI/n;a.push([r*Math.cos(t),r*Math.sin(t)]);}return a;}
+function starPts(){const a=[];for(let i=0;i<10;i++){const r=i%2?0.43:1,t=-Math.PI/2+i*Math.PI/5;a.push([r*Math.cos(t),r*Math.sin(t)]);}return a;}
+const SHP={
+  circle:'<circle r="0.9"/>',
+  square:'<rect x="-0.8" y="-0.8" width="1.6" height="1.6"/>',
+  triangle:poly([[0,-0.95],[0.95,0.75],[-0.95,0.75]]),
+  diamond:poly([[0,-1],[0.75,0],[0,1],[-0.75,0]]),
+  star:poly(starPts()),
+  hexagon:poly(regPts(6,0.95,0)),
+  plus:poly([[-0.3,-0.9],[0.3,-0.9],[0.3,-0.3],[0.9,-0.3],[0.9,0.3],[0.3,0.3],[0.3,0.9],[-0.3,0.9],[-0.3,0.3],[-0.9,0.3],[-0.9,-0.3],[-0.3,-0.3]]),
+  arrow:poly([[-0.9,-0.28],[0.15,-0.28],[0.15,-0.72],[0.95,0],[0.15,0.72],[0.15,0.28],[-0.9,0.28]]),
+};
+const F=o=>Object.assign({shape:'circle',color:'red',solid:true,big:true,rot:0,count:1,dot:false},o);
+const fkey=f=>[f.shape,f.color,f.solid,f.big,f.rot%360,f.count,f.dot].join('|');
+function fig(f){
+  const n=f.count,sc=f.big?1:0.55;let g='';
+  for(let i=0;i<n;i++){
+    const cx=(i-(n-1)/2)*2.1;
+    const fill=f.solid?COLORS[f.color]:'#fff',stroke=f.solid?'#111':COLORS[f.color],sw=f.solid?0.12:0.24;
+    const dy=f.shape==='triangle'?0.15:0;
+    g+=`<g transform="translate(${cx},0) scale(${sc}) rotate(${f.rot})" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round">${SHP[f.shape]}${f.dot?`<circle cy="${dy}" r="0.2" fill="#111" stroke="#fff" stroke-width="0.07"/>`:''}</g>`;
+  }
+  const w=Math.max(2.4,2.1*n+0.3);
+  return `<svg class="fig" viewBox="${-w/2} -1.2 ${w} 2.4" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
+}
+function uniq(list){return new Set(list.map(fkey)).size===list.length;}
+function genFM(){
+  for(let t=0;t<100;t++){
+    const tr=pick(['color','size','fill','count','rotate','rotate','shape','dot','colorsize']);
+    const [s1,s2,s3]=shuffle(BASIC).slice(0,3),[c1,c2,c3]=shuffle(CN).slice(0,3);
+    let A,A2,B,B2,d,why;
+    if(tr==='color'){A=F({shape:s1,color:c1});A2=F({shape:s1,color:c2});B=F({shape:s2,color:c1});B2=F({shape:s2,color:c2});
+      d=[B,F({shape:s2,color:c3}),A2];why=`The ${SNAME[s1]} changed from ${c1} to ${c2}. So the ${c1} ${SNAME[s2]} turns ${c2} too!`;}
+    else if(tr==='size'){A=F({shape:s1,color:c1});A2=F({shape:s1,color:c1,big:false});B=F({shape:s2,color:c2});B2=F({shape:s2,color:c2,big:false});
+      d=[B,F({shape:s2,color:c3,big:false}),F({shape:s1,color:c2,big:false})];why=`The big ${SNAME[s1]} shrank to a small one. So the ${SNAME[s2]} shrinks too!`;}
+    else if(tr==='fill'){A=F({shape:s1,color:c1});A2=F({shape:s1,color:c1,solid:false});B=F({shape:s2,color:c2});B2=F({shape:s2,color:c2,solid:false});
+      d=[B,F({shape:s1,color:c2,solid:false}),F({shape:s2,color:c3,solid:false})];why=`The ${SNAME[s1]} went from colored-in to empty inside. So the ${c2} ${SNAME[s2]} gets emptied out too!`;}
+    else if(tr==='count'){const k=pick([2,3]);A=F({shape:s1,color:c1});A2=F({shape:s1,color:c1,count:k});B=F({shape:s2,color:c2});B2=F({shape:s2,color:c2,count:k});
+      d=[B,F({shape:s2,color:c2,count:k===2?3:2}),F({shape:s1,color:c2,count:k})];why=`One ${SNAME[s1]} became ${k}. So one ${SNAME[s2]} becomes ${k} too!`;}
+    else if(tr==='rotate'){const r=pick([90,180]),r0=pick([90,180,270]),[ca,cb]=[c1,c2];
+      A=F({shape:'arrow',color:ca,rot:0});A2=F({shape:'arrow',color:ca,rot:r});B=F({shape:'arrow',color:cb,rot:r0});B2=F({shape:'arrow',color:cb,rot:(r0+r)%360});
+      d=[0,90,180,270].filter(x=>x!==(r0+r)%360).map(x=>F({shape:'arrow',color:cb,rot:x}));
+      why=r===90?'The arrow turned a quarter turn, the way a clock hand moves. So the bottom arrow turns a quarter turn the same way!':'The arrow flipped to point the opposite way. So the bottom arrow points the opposite way too!';}
+    else if(tr==='shape'){A=F({shape:s1,color:c1});A2=F({shape:s2,color:c1});B=F({shape:s1,color:c2});B2=F({shape:s2,color:c2});
+      d=[B,A2,F({shape:s3,color:c2})];why=`The ${SNAME[s1]} turned into a ${SNAME[s2]} but kept its color. So the ${c2} ${SNAME[s1]} becomes a ${c2} ${SNAME[s2]}!`;}
+    else if(tr==='dot'){A=F({shape:s1,color:c1});A2=F({shape:s1,color:c1,dot:true});B=F({shape:s2,color:c2});B2=F({shape:s2,color:c2,dot:true});
+      d=[B,F({shape:s1,color:c2,dot:true}),F({shape:s2,color:c3,dot:true})];why='A dot appeared in the middle! So the bottom shape gets a dot too.';}
+    else {A=F({shape:s1,color:c1});A2=F({shape:s1,color:c2,big:false});B=F({shape:s2,color:c1});B2=F({shape:s2,color:c2,big:false});
+      d=[F({shape:s2,color:c2}),F({shape:s2,color:c1,big:false}),B];why=`TWO things changed: it turned ${c2} AND got smaller. The bottom one has to do both!`;}
+    if(!uniq([B2,...d])) continue;
+    const prompt=`<div class="matrix"><div class="cell">${fig(A)}</div><div class="marrow">➜</div><div class="cell">${fig(A2)}</div>
+      <div class="cell">${fig(B)}</div><div class="marrow">➜</div><div class="cell q">?</div></div>`;
+    return mk('fm',prompt,fig(B2),d.map(fig),why,{speak:'Look at the top row. The first shape changes into the second shape. Which answer shows the bottom shape changing in the same way?'});
+  }
+}
+function genFC(){
+  for(let t=0;t<100;t++){
+    const tr=pick(['shape','shapeSize','color','outline','count','dot']);
+    const sh=shuffle(BASIC),co=shuffle(CN);let top,ans,d,why;
+    if(tr==='shape'){top=[0,1,2].map(i=>F({shape:sh[0],color:co[i]}));ans=F({shape:sh[0],color:co[3]});
+      d=[F({shape:sh[1],color:co[0]}),F({shape:sh[2],color:co[1]}),F({shape:sh[3],color:co[2]})];why=`All the top shapes are ${SNAME[sh[0]]}s — just different colors. Only one answer is a ${SNAME[sh[0]]}!`;}
+    else if(tr==='shapeSize'){const sz=shuffle([true,false,true]);top=[0,1,2].map(i=>F({shape:sh[0],color:co[i],big:sz[i]}));ans=F({shape:sh[0],color:co[3],big:!!rnd(2)});
+      d=[F({shape:sh[1],color:co[0],big:false}),F({shape:sh[2],color:co[1]}),F({shape:sh[3],color:co[3],big:false})];why=`Big or small, they are all ${SNAME[sh[0]]}s! Size and color don't matter here.`;}
+    else if(tr==='color'){top=[0,1,2].map(i=>F({shape:sh[i],color:co[0]}));ans=F({shape:sh[3],color:co[0]});
+      d=[F({shape:sh[0],color:co[1]}),F({shape:sh[4],color:co[2]}),F({shape:sh[1],color:co[3]})];why=`All the top shapes are ${co[0]}. Only one answer is ${co[0]} too!`;}
+    else if(tr==='outline'){top=[0,1,2].map(i=>F({shape:sh[i],color:co[i],solid:false}));ans=F({shape:sh[3],color:co[3],solid:false});
+      d=[F({shape:sh[0],color:co[1]}),F({shape:sh[3],color:co[0]}),F({shape:sh[4],color:co[2]})];why='All the top shapes are empty inside — just outlines. Only one answer is empty inside!';}
+    else if(tr==='count'){const k=pick([2,3]);top=[0,1,2].map(i=>F({shape:sh[i],color:co[i],count:k}));ans=F({shape:sh[3],color:co[3],count:k});
+      d=[F({shape:sh[0],color:co[3]}),F({shape:sh[3],color:co[1],count:k===2?3:2}),F({shape:sh[1],color:co[0],count:k===2?1:2})];why=`Every box on top has ${k} shapes. Only one answer has ${k}!`;}
+    else {top=[0,1,2].map(i=>F({shape:sh[i],color:co[i],dot:true}));ans=F({shape:sh[3],color:co[3],dot:true});
+      d=[F({shape:sh[0],color:co[1]}),F({shape:sh[3],color:co[0]}),F({shape:sh[4],color:co[2]})];why='All the top shapes have a dot in the middle. Only one answer has a dot!';}
+    if(!uniq([ans,...d])) continue;
+    const prompt=`<div class="club"><div class="clublabel">⭐ THE SHAPE SQUAD ⭐</div><div class="row3">${top.map(f=>`<div class="cell">${fig(f)}</div>`).join('')}</div></div>`;
+    return mk('fc',prompt,fig(ans),d.map(fig),why,{speak:'The three shapes on top are alike in some way. Which shape at the bottom is like them?'});
+  }
+}
+
+/* ---------- Paper folding ---------- */
+function arrowV(x0,x1,y){ // curved arrow above, left to right
+  const mx=(x0+x1)/2;
+  return `<path d="M${x0},${y} Q${mx},${y-0.9} ${x1},${y}" fill="none" stroke="#E63946" stroke-width="0.16"/>
+  <polygon points="${x1},${y} ${x1-0.47},${y-0.085} ${x1-0.13},${y-0.455}" fill="#E63946"/>`;
+}
+function arrowH(y0,y1,x){ // curved arrow at left, top to bottom
+  const my=(y0+y1)/2;
+  return `<path d="M${x},${y0} Q${x-0.9},${my} ${x},${y1}" fill="none" stroke="#E63946" stroke-width="0.16"/>
+  <polygon points="${x},${y1} ${x-0.085},${y1-0.47} ${x-0.455},${y1-0.13}" fill="#E63946"/>`;
+}
+function paper({region=[0,0,4,4],holes=[],shade=false,ghost=false,extra='',tight=false}={},cls='paper'){
+  const [x,y,w,h]=region;
+  let s=`<svg class="${cls}" viewBox="${tight?'-0.25 -0.25 4.5 4.5':'-1.2 -1.2 6.4 6.4'}" xmlns="http://www.w3.org/2000/svg">`;
+  if(ghost) s+=`<rect x="0" y="0" width="4" height="4" fill="none" stroke="#bbb" stroke-width="0.07" stroke-dasharray="0.2 0.15"/>`;
+  s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${shade?'#FFD77A':'#FFF6D6'}" stroke="#111" stroke-width="0.14"/>`;
+  holes.forEach(([r,c])=>{s+=`<circle cx="${c+0.5}" cy="${r+0.5}" r="0.3" fill="#111"/>`;});
+  return s+extra+'</svg>';
+}
+const hkey=hs=>[...new Set(hs.map(p=>p.join(',')))].sort().join(';');
+function genPF(){
+  for(let t=0;t<200;t++){
+    const fold=pick(['v','h','v','h','vh']);
+    const nh=fold==='vh'?1:pick([1,1,2]);
+    const rows=fold==='v'?[0,1,2,3]:[2,3], cols=fold==='h'?[0,1,2,3]:[2,3];
+    const H=[];let guard=0;
+    while(H.length<nh&&guard++<20){const p=[pick(rows),pick(cols)];if(!H.some(q=>q[0]===p[0]&&q[1]===p[1]))H.push(p);}
+    const mv=p=>[p[0],3-p[1]],mh=p=>[3-p[0],p[1]],tv=p=>[p[0],p[1]-2],th=p=>[p[0]-2,p[1]];
+    let correct,d,steps,why;
+    if(fold==='v'){
+      correct=[...H,...H.map(mv)];d=[H,[...H,...H.map(tv)],[...H,...H.map(mh)]];
+      steps=[['1. FOLD',paper({extra:`<line x1="2" y1="-0.2" x2="2" y2="4.2" stroke="#111" stroke-width="0.1" stroke-dasharray="0.25 0.15"/>${arrowV(0.8,3.2,-0.25)}`})],
+             ['2. PUNCH',paper({region:[2,0,2,4],holes:H,shade:true,ghost:true})]];
+      why='The fold line is like a mirror. Each hole gets a twin on the other side, the same distance from the fold!';
+    }else if(fold==='h'){
+      correct=[...H,...H.map(mh)];d=[H,[...H,...H.map(th)],[...H,...H.map(mv)]];
+      steps=[['1. FOLD',paper({extra:`<line x1="-0.2" y1="2" x2="4.2" y2="2" stroke="#111" stroke-width="0.1" stroke-dasharray="0.25 0.15"/>${arrowH(0.8,3.2,-0.25)}`})],
+             ['2. PUNCH',paper({region:[0,2,4,2],holes:H,shade:true,ghost:true})]];
+      why='The paper folded down from the top, so each hole gets a mirror twin above the fold line!';
+    }else{
+      const mvh=p=>mv(mh(p)),tvh=p=>tv(th(p));
+      correct=[...H,...H.map(mv),...H.map(mh),...H.map(mvh)];
+      d=[[...H,...H.map(mv)],[...H,...H.map(tv),...H.map(th),...H.map(tvh)],[...H,...H.map(mv),...H.map(mh)]];
+      steps=[['1. FOLD',paper({extra:`<line x1="2" y1="-0.2" x2="2" y2="4.2" stroke="#111" stroke-width="0.1" stroke-dasharray="0.25 0.15"/>${arrowV(0.8,3.2,-0.25)}`})],
+             ['2. FOLD',paper({region:[2,0,2,4],shade:true,ghost:true,extra:`<line x1="1.8" y1="2" x2="4.2" y2="2" stroke="#111" stroke-width="0.1" stroke-dasharray="0.25 0.15"/>${arrowH(0.8,3.2,1.75)}`})],
+             ['3. PUNCH',paper({region:[2,2,2,2],holes:H,shade:true,ghost:true})]];
+      why='Two folds make FOUR layers of paper. So one punch makes 4 holes — one in every corner part!';
+    }
+    const keys=[correct,...d].map(hkey);
+    if(new Set(keys).size!==4) continue;
+    const prompt=`<div class="pfsteps">${steps.map(([l,s])=>`<div class="pfstep"><span class="pflabel">${l}</span>${s}</div>`).join('')}<div class="pfstep"><span class="pflabel">OPEN = ?</span><svg class="paper" viewBox="0 0 10 10" style="width:100px;height:100px;background:#E3F2FD;border:3px solid #111;border-radius:8px"><text x="5" y="7.3" font-size="6" text-anchor="middle" font-family="Bangers,Impact" fill="#2F80ED">?</text></svg></div></div>`;
+    const dedupe=hs=>[...new Set(hs.map(p=>p.join(',')))].map(s=>s.split(',').map(Number));
+    return mk('pf',prompt,paper({holes:dedupe(correct),tight:true}),d.map(x=>paper({holes:dedupe(x),tight:true})),why,
+      {speak:'The paper was folded, and then holes were punched through it. What will the paper look like when you open it back up?'});
+  }
+}
+
+/* =========================================================
+   FLOW
+   ========================================================= */
+const STARTS=['BEEP! Look closely, partner.','Take your time — no rush!','Hmm… what’s the secret pattern?','You’ve got this!','Think like a detective!','Look at ALL the answers before you pick.'];
+const WINS=['POW! Correct!','KAPOW! You got it!','BEEP BOOP! Brain power rising!','WHOA! Super thinking!','ZAP! Nailed it!','BAM! Genius move!'];
+const TRY=['Hmm, not that one. Try again!','Close! Look one more time.','Oops! Mistakes help brains grow. Try again!','BZZT! Try another one!'];
+const POWS=['POW!','ZAP!','BAM!','KAPOW!','WHAM!','BOOM!','ZOINK!'];
+const BREAKS=['Do 10 superhero jumps — fists up high!','Freeze like a statue for 10 seconds… GO!','Wiggle like a wet noodle for 10 seconds!','Take 3 giant balloon breaths. Puff your cheeks out!','Stomp like a robot across the room and back. BEEP BOOP!','Strike your best flying-superhero pose and hold it for 5 seconds!','Get a drink of water — heroes need fuel!','Do 5 frog hops!','Shake your hands super fast like you’re drying them!','Do 5 wall push-ups like you’re holding back a giant waffle!','Walk like a crab for 10 steps!','Spin around slowly 3 times, then sit down like a cool superhero.'];
+const STICKERS=['🦸','🚀','🦖','🐙','🌋','🛸','🤖','🧠','⚡','🐉','🦈','🏆','🧪','🪐','🦕','🛡️','🧲','🔭','🎩','🦄','🐢','🦅','🌈','💎','🗝️','🧩','🎯','🏰','🦊','🌮'];
+const RANKS=[[0,'Rookie'],[3,'Sidekick'],[8,'Hero'],[15,'Super Hero'],[25,'Puzzle Legend'],[40,'Galactic Genius']];
+const rank=()=>RANKS.filter(r=>P.total>=r[0]).pop()[1];
+let M=null;
+
+function go(screen){
+  try{speechSynthesis.cancel();}catch(e){}
+  window.scrollTo(0,0);
+  if(screen==='home') home();
+  else if(screen==='map') map();
+  else if(screen==='vault') vault();
+  else if(screen==='grown') grown();
+}
+function home(){
+  app.innerHTML=`
+  <section class="panel cover">
+    <div class="issue">ISSUE #${P.total+1}</div>
+    <div class="price">FREE<br>FOR<br>BRAINS</div>
+    <h1 class="title">BRAIN<br>BLASTERS!</h1>
+    <div class="subtitle">Captain Waffle &amp; Gizmo in: THE PUZZLE PLANET</div>
+    <div class="rank">Your rank: <b>${rank()}</b> · Missions: ${P.total}</div>
+    <div class="heroes">${WAFFLE}${GIZMO}</div>
+  </section>
+  <section class="panel" style="padding:6px">
+    <div class="strip">
+      <div class="cpanel"><span class="caption">MEANWHILE…</span><div class="say">Uh-oh, Gizmo! The Puzzle Planet is running out of brain power!</div>${WAFFLE}</div>
+      <div class="cpanel"><div class="say">BEEP! Only a super-thinker can recharge it… by solving puzzles!</div>${GIZMO}</div>
+      <div class="cpanel"><div class="say">Good thing we found YOU, partner! Ready?</div>${WAFFLE}</div>
+    </div>
+  </section>
+  <div class="stack">
+    <button class="btn big red" onclick="go('map')">🚀 START A MISSION!</button>
+    <div class="row">
+      <button class="btn blue" style="flex:1" onclick="go('vault')">🏆 Sticker Vault</button>
+      <button class="btn" style="flex:1;background:#fff" onclick="go('grown')">🧑 Grown-Ups</button>
+    </div>
+  </div>`;
+}
+function map(){
+  app.innerHTML=`
+  <div class="panel maphead">${WAFFLE}<div class="bubble left">Pick a world, partner! Each mission is only <b>5 puzzles</b>.</div></div>
+  ${WORLDS.map(w=>`<section class="panel world" style="--wc:${w.color}">
+    <h2>${w.emoji} ${w.name}</h2><p class="wblurb">${w.blurb}</p>
+    <div class="mlist">${w.types.map(t=>{const c=P.missions[t]||0;return `<button class="mbtn" onclick="startMission('${t}')">
+      <span class="micon">${TYPES[t].icon}</span><span class="mname">${TYPES[t].name}</span>
+      <span class="mcount">${c?('⭐'.repeat(Math.min(c,5))+(c>5?'+':'')):'<span class="newtag">NEW!</span>'}</span></button>`;}).join('')}</div>
+  </section>`).join('')}
+  <button class="btn big green" onclick="startMission('mix')">🎲 SURPRISE MISSION!</button>`;
+}
+function startMission(type){
+  const list=type==='mix'?shuffle(Object.keys(TYPES)).slice(0,5):Array(5).fill(type);
+  const qs=list.map(t=>TYPES[t].gen()).filter(Boolean);
+  M={type,qs,i:0,tries:0,first:0,done:false};
+  window.scrollTo(0,0);
+  if(type!=='mix'&&!(P.missions[type])) intro(type); else showQ();
+}
+function intro(t){
+  const w=WORLDS.find(w=>w.types.includes(t));
+  app.innerHTML=`<section class="panel intro center">
+    <div class="qtype">NEW MISSION!</div>
+    <h2 style="font-size:40px;margin-top:8px">${TYPES[t].icon} ${TYPES[t].name}</h2>
+    <p style="font-size:17px">${w.line}</p>
+    <div class="row" style="align-items:center;justify-content:center;flex-wrap:nowrap;text-align:left">
+      ${GIZMO}<div class="bubble left"><b>Gizmo’s tip:</b> ${TYPES[t].tip}</div>
+    </div>
+    <div style="margin-top:16px"><button class="btn big red" onclick="showQ()">LET’S GO! ➜</button></div>
+  </section>`;
+}
+function showQ(){
+  const q=M.qs[M.i];M.tries=0;M.done=false;window.scrollTo(0,0);
+  app.innerHTML=`
+  <div class="qtop">
+    <button class="mini" onclick="go('map')">✖ Exit</button>
+    <div class="dots">${M.qs.map((_,j)=>`<span class="dot ${j<M.i?'done':j===M.i?'now':''}"></span>`).join('')}</div>
+    <button class="mini" onclick="speakQ()">🔊 Read</button>
+  </div>
+  <section class="panel">
+    <div class="qtype">${TYPES[q.type].icon} ${TYPES[q.type].name}</div>
+    <div class="qtext">${q.text}</div>
+    <div class="qvis">${q.prompt}</div>
+  </section>
+  <div class="helper"><div class="av">${GIZMO}</div><div class="bubble left" id="say">${pick(STARTS)}</div><button class="mini" onclick="hint()">💡 Hint</button></div>
+  <div class="opts">${q.options.map((o,j)=>`<button class="opt" data-j="${j}" onclick="answer(${j})" aria-label="Answer ${'ABCD'[j]}"><span class="letter">${'ABCD'[j]}</span>${o.html}</button>`).join('')}</div>
+  <div class="nextwrap" id="nextwrap"></div>`;
+  if(P.autoread) speakQ();
+}
+function speakQ(){speak(M.qs[M.i].speak);}
+function say(h){const el=document.getElementById('say');if(el){el.innerHTML=h;}}
+function hint(){const q=M.qs[M.i];say('💡 '+q.hint);if(P.autoread)speak(q.hint);}
+function answer(j){
+  if(M.done) return;
+  const q=M.qs[M.i],btn=document.querySelector(`.opt[data-j="${j}"]`);
+  if(q.options[j].correct){
+    M.done=true;const first=M.tries===0;if(first)M.first++;
+    P.first[q.type]=P.first[q.type]||[0,0];P.first[q.type][0]+=first?1:0;P.first[q.type][1]++;save();
+    btn.classList.add('right');pow(btn);sfx('yay');
+    document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+    say(`<b>${pick(WINS)}</b> ${q.why}`);
+    const last=M.i===M.qs.length-1;
+    document.getElementById('nextwrap').innerHTML=`<button class="btn big ${last?'red':'blue'}" onclick="${last?'finish()':'nextQ()'}">${last?'FINISH MISSION! 🏁':'NEXT PUZZLE ➜'}</button>`;
+    if(P.autoread) speak(q.why);
+    setTimeout(()=>{const n=document.getElementById('nextwrap');if(n&&n.scrollIntoView)n.scrollIntoView({behavior:'smooth',block:'nearest'});},300);
+  }else{
+    M.tries++;btn.classList.add('wrong');btn.disabled=true;sfx('boop');
+    say(M.tries===1?pick(TRY):`${pick(TRY)}<br>💡 ${q.hint}`);
+  }
+}
+function nextQ(){M.i++;showQ();}
+function pow(btn){
+  const r=btn.getBoundingClientRect(),el=document.createElement('div');
+  el.className='pow';el.textContent=pick(POWS);el.style.left=(r.left+r.width/2)+'px';el.style.top=(r.top+r.height/2)+'px';
+  document.body.appendChild(el);setTimeout(()=>el.remove(),950);
+}
+function finish(){
+  P.total++;P.missions[M.type]=(P.missions[M.type]||0)+1;
+  const left=STICKERS.filter(s=>!P.stickers.includes(s));
+  const st=left.length?pick(left):pick(STICKERS);
+  if(left.length) P.stickers.push(st);
+  save();sfx('yay');window.scrollTo(0,0);
+  const name=M.type==='mix'?'Surprise':TYPES[M.type].name;
+  const bonusT=M.type==='mix'?pick(Object.keys(TYPES)):M.type;
+  app.innerHTML=`<section class="panel center">
+    <div class="burstbig">MISSION COMPLETE!</div>
+    <div class="heroes" style="margin:0">${WAFFLE}${GIZMO}</div>
+    <p style="font-size:20px;margin:8px 0">You cracked all ${M.qs.length} ${name} puzzles!</p>
+    <p class="zaps">⚡ First-try zaps: ${'⚡'.repeat(M.first)||'— (that’s okay, you kept trying!)'}</p>
+    <p style="margin:12px 0 0">${left.length?'NEW sticker for your vault!':'Bonus sticker!'}</p>
+    <div class="newsticker">${st}</div>
+    <p style="font-size:15px">Rank: <b>${rank()}</b></p>
+  </section>
+  <section class="panel brk"><h3>🧃 BRAIN BREAK!</h3><p>${pick(BREAKS)}</p></section>
+  <section class="panel bonus"><b>🧱 Bonus challenge:</b> Invent your own <b>${TYPES[bonusT].name}</b> puzzle for a grown-up — draw it, or build it with LEGO! Can they crack it?</section>
+  <div class="stack">
+    <button class="btn big red" onclick="startMission('${M.type}')">🔁 ANOTHER ONE!</button>
+    <div class="row"><button class="btn blue" style="flex:1" onclick="go('map')">🗺️ Pick a mission</button><button class="btn" style="flex:1;background:#fff" onclick="go('home')">🏠 Home</button></div>
+  </div>`;
+}
+function vault(){
+  app.innerHTML=`<section class="panel">
+    <h2 style="font-size:34px">🏆 STICKER VAULT</h2>
+    <p>You have <b>${P.stickers.length}</b> of ${STICKERS.length} stickers. Finish a mission to win a new one!</p>
+    <div class="vault">${STICKERS.map(s=>P.stickers.includes(s)?`<div class="slot">${s}</div>`:'<div class="slot locked">?</div>').join('')}</div>
+  </section>
+  <button class="btn big red" onclick="go('map')">🚀 WIN MORE STICKERS!</button>`;
+}
+function grown(){
+  const rows=Object.keys(TYPES).map(t=>{const f=P.first[t]||[0,0];const w=WORLDS.find(w=>w.types.includes(t));
+    return `<tr><td>${TYPES[t].bat}</td><td>${TYPES[t].real}</td><td>${TYPES[t].icon} ${TYPES[t].name}<br><span class="note">${w.name}</span></td><td>${TYPES[t].learn}</td></tr>`;}).join('');
+  const prog=Object.keys(TYPES).map(t=>{const f=P.first[t]||[0,0];
+    return `<tr><td>${TYPES[t].real}</td><td>${f[1]}</td><td>${f[1]?Math.round(100*f[0]/f[1])+'%':'—'}</td></tr>`;}).join('');
+  app.innerHTML=`<section class="panel grown">
+    <h2>🧑 GROWN-UP CORNER</h2>
+    <p>Brain Blasters gives your child short, playful practice with the <b>9 question types on the CogAT Level 8</b>, the level commonly used in 2nd grade. It’s meant to make the formats familiar — it is <b>not</b> an official practice test and doesn’t predict a score. Check with your district which test and level it uses.</p>
+    <h3>What’s inside</h3>
+    <table class="tbl"><tr><th>Battery</th><th>CogAT type</th><th>Mission</th><th>Practices</th></tr>${rows}</table>
+    <p class="note">Number and shape puzzles are freshly generated every time. Word puzzles rotate through a hand-written set.</p>
+    <h3>How to use it</h3>
+    <ul>
+      <li><b>One mission per sitting.</b> 5 puzzles is about 5–10 minutes. Stop while it’s still fun.</li>
+      <li><b>Let him choose the world.</b> Picking the mission keeps him invested.</li>
+      <li><b>Turn on Auto-read below.</b> At 2nd grade the CogAT is mostly pictures, with directions read aloud. Confirm this with your school.</li>
+      <li><b>No timer, no failing.</b> A wrong answer just grays out and he tries again. A hint appears after the second miss, and every answer comes with a short “why.”</li>
+      <li><b>Ask “How’d you crack it?”</b> Explaining his thinking is the real skill. For analogies, teach the sentence trick: “A dog <i>eats</i> a bone… a rabbit <i>eats</i> a ___.”</li>
+      <li><b>Use the Bonus Challenge.</b> Inventing a puzzle (with LEGO or a drawing) for you to solve builds the same reasoning, and it suits a builder.</li>
+      <li><b>Keep it light.</b> A few short sessions a week for a couple of weeks is plenty. The goal is that nothing looks unfamiliar on test day. Drilling for a high score can place a child where the pace doesn’t fit.</li>
+    </ul>
+    <h3>Settings</h3>
+    <div class="toggle"><span>🔊 Auto-read each question aloud</span><button class="sw ${P.autoread?'on':''}" aria-label="Auto-read" onclick="P.autoread=!P.autoread;save();grown()"></button></div>
+    <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
+    <h3>Progress <span class="note">(saved on this device only)</span></h3>
+    <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b></p>
+    <table class="tbl"><tr><th>Type</th><th>Puzzles solved</th><th>Right on 1st try</th></tr>${prog}</table>
+    <p class="note">Use this to see which formats feel new to him, not as a grade. Low first-try numbers usually just mean the format is unfamiliar.</p>
+    <div style="margin-top:12px"><button class="btn small" style="background:#fff" onclick="askReset()">Reset all progress</button></div>
+  </section>
+  <button class="btn big red" onclick="go('home')">⬅ BACK TO THE COMIC</button>`;
+}
+function askReset(){
+  const m=document.createElement('div');m.className='modal';
+  m.innerHTML=`<div class="panel center"><h3 style="font-size:26px">Erase all progress?</h3><p>Stickers, ranks and stats will be wiped on this device.</p>
+  <div class="row" style="justify-content:center"><button class="btn small red" id="yesR">Yes, reset</button><button class="btn small" style="background:#fff" id="noR">Cancel</button></div></div>`;
+  document.body.appendChild(m);
+  m.querySelector('#noR').onclick=()=>m.remove();
+  m.querySelector('#yesR').onclick=()=>{P.missions={};P.first={};P.stickers=[];P.total=0;save();m.remove();grown();};
+}
+
+updSnd();home();
+</script>
+</body>
+</html>
