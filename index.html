@@ -271,7 +271,8 @@ main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
 .heropick{display:flex;flex-wrap:wrap;gap:6px}
 .hp{width:48px;height:48px;font-size:28px;border:3px solid var(--ink);border-radius:10px;background:#fff;padding:0;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
 .hp.on{background:var(--yellow);transform:scale(1.12);box-shadow:2px 2px 0 var(--ink)}
-.games{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:760px){.games{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.games{grid-template-columns:1fr}}
 .game .gicon{font-size:50px}
 .game h3{font-size:26px}
@@ -1198,7 +1199,7 @@ function arcade(){
   </section>
   <section class="panel">
     <h3 class="bang" style="font-size:24px">YOUR HERO: <span class="emo" style="font-size:36px">${hero}</span></h3>
-    <p class="note" style="margin:2px 0 8px">Your hero is your paddle in Pong and your blaster in Invaders. Your other stickers become the invaders!</p>
+    <p class="note" style="margin:2px 0 8px">Your hero is your paddle in Pong, your blaster in Invaders and your runner in Dash. Your other stickers become the enemies!</p>
     <div class="heropick">${P.stickers.length?P.stickers.map((s,i)=>`<button class="hp ${s===hero?'on':''}" onclick="pickHero(${i})" aria-label="Pick sticker">${s}</button>`).join(''):'<p class="note">Finish missions to collect stickers!</p>'}</div>
   </section>
   <div class="games">
@@ -1210,6 +1211,10 @@ function arcade(){
       <p>Your stickers are invading! Blast them before they <b>land on you</b>.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.inv)||0}</b></p>
       <button class="btn red" ${toks?'':'disabled'} onclick="playGame('inv')">PLAY · 🎟️1</button></section>
+    <section class="panel game center"><div class="gicon">🏃</div><h3 class="bang">STICKER DASH</h3>
+      <p>Your hero runs and runs! Jump over cactuses and flying stickers. <b>One crash</b> and it’s over.</p>
+      <p class="note">Best score: <b>${(P.best&&P.best.run)||0}</b></p>
+      <button class="btn red" ${toks?'':'disabled'} onclick="playGame('run')">PLAY · 🎟️1</button></section>
   </div>
   ${toks?'':`<button class="btn big" onclick="P.challenge=true;save();go('map')">⚡ GO EARN TOKENS!</button>`}
   <button class="btn" style="width:100%;margin-top:12px;background:#fff" onclick="go('home')">🏠 Home</button>`;
@@ -1223,14 +1228,14 @@ function playGame(kind){
   try{speechSynthesis.cancel();}catch(e){}
   closeGame(true);
   const ov=document.createElement('div');ov.className='arc';ov.id='arc';
-  ov.innerHTML=`<div class="arcbar"><span class="arctitle">${kind==='pong'?'🏓 STICKER PONG':'👾 STICKER INVADERS'}</span><button class="mini" onclick="closeGame()">✖ Quit</button></div>
+  ov.innerHTML=`<div class="arcbar"><span class="arctitle">${({pong:'🏓 STICKER PONG',inv:'👾 STICKER INVADERS',run:'🏃 STICKER DASH'})[kind]}</span><button class="mini" onclick="closeGame()">✖ Quit</button></div>
     <div class="arcstage" id="arcStage"><canvas id="arcCv"></canvas><div class="arcmsg" id="arcMsg"></div></div>
-    <div class="archelp">${kind==='pong'?'Move: mouse, finger, or ↑ ↓ keys':'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE'}</div>`;
+    <div class="archelp">${({pong:'Move: mouse, finger, or ↑ ↓ keys',inv:'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE',run:'Jump: SPACE, ↑, click, or tap · Hold it down to jump higher'})[kind]}</div>`;
   document.body.appendChild(ov);document.body.classList.add('noscroll');
   const cv=ov.querySelector('#arcCv'),ctx=cv.getContext('2d');
   const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},kind,running:false,raf:0};
   G=api;
-  const game=kind==='pong'?pongGame(cv,ctx,api):invadersGame(cv,ctx,api);
+  const game=kind==='pong'?pongGame(cv,ctx,api):kind==='run'?runnerGame(cv,ctx,api):invadersGame(cv,ctx,api);
   api.game=game;
   const fit=()=>{const st=ov.querySelector('#arcStage');if(!st)return;const r=st.getBoundingClientRect();const sc=Math.min(r.width/cv.width,r.height/cv.height);
     cv.style.width=Math.floor(cv.width*sc)+'px';cv.style.height=Math.floor(cv.height*sc)+'px';};
@@ -1262,8 +1267,8 @@ function playGame(kind){
   game.render();
   api.waiting=true;
   api.msg(`<div class="panel center arcover"><div class="emo" style="font-size:64px">${heroSticker()}</div>
-    <h3 class="bang" style="font-size:28px;margin:6px 0">${kind==='pong'?'BEAT THE ROBOT!':'DEFEND THE PLANET!'}</h3>
-    <p style="margin:0 0 10px">${kind==='pong'?'Don’t let the waffle get past you. 3 misses and it’s over!':'Blast the invaders before they land on you! Watch out for freeze-rays ❄️'}</p>
+    <h3 class="bang" style="font-size:28px;margin:6px 0">${({pong:'BEAT THE ROBOT!',inv:'DEFEND THE PLANET!',run:'READY, SET, DASH!'})[kind]}</h3>
+    <p style="margin:0 0 10px">${({pong:'Don’t let the waffle get past you. 3 misses and it’s over!',inv:'Blast the invaders before they land on you! Watch out for freeze-rays ❄️',run:'Jump over cactuses and low flyers. Stay DOWN when a sticker flies high! One crash and it’s over.'})[kind]}</p>
     <button class="btn big red" onclick="G.start()">START! ▶</button></div>`);
 }
 function closeGame(silent){
@@ -1285,22 +1290,22 @@ function comicText(ctx,txt,x,y,size,fill='#FFD93D'){
 /* ---------- Pong ---------- */
 function pongGame(cv,ctx,api){
   const W=800,H=500;cv.width=W;cv.height=H;
-  const PW=34,PH=108,PM=18,PSPEED=520,BS=28;
+  const PW=34,PH=108,PHP=132,PM=18,PSPEED=560,BS=28;
   const hero=heroSticker(),cpuS=pick(enemyStickers(hero));
-  const L={x:PM,y:H/2-PH/2},R={x:W-PM-PW,y:H/2-PH/2};
+  const L={x:PM,y:H/2-PHP/2,h:PHP},R={x:W-PM-PW,y:H/2-PH/2,h:PH};
   const ball={x:W/2-BS/2,y:H/2-BS/2,vx:0,vy:0,spin:0};
-  let lives=3,score=0,mode='serve',serveT=1.0,serveDir=-1,cpuTarget=H/2,think=0,flash=null,flashT=0;
-  const cpuSpeed=()=>250+Math.min(score,40)*6;
-  const cpuErr=()=>Math.max(0.3,0.95-score*0.015)*PH;
-  const startSpeed=()=>300+Math.min(score,30)*4;
+  let lives=3,score=0,wins=0,mode='serve',serveT=1.0,serveDir=-1,cpuTarget=H/2,think=0,flash=null,flashT=0;
+  const cpuSpeed=()=>Math.min(320,135+wins*12);
+  const cpuErr=()=>Math.max(0.8,1.9-wins*0.07)*PH;
+  const startSpeed=()=>250+Math.min(wins,15)*8;
   function serve(){ball.x=W/2-BS/2;ball.y=H/2-BS/2;ball.vx=ball.vy=0;serveT=0.9;mode='serve';}
   function launch(){const a=Math.random()*0.8-0.4;ball.vx=Math.cos(a)*startSpeed()*serveDir;ball.vy=Math.sin(a)*startSpeed();mode='play';}
   function say(t){flash=t;flashT=0.9;}
   function predict(){if(ball.vx<=0) return H/2;const t=(R.x-(ball.x+BS))/ball.vx;let y=ball.y+ball.vy*t;const span=H-BS;y=((y%(2*span))+2*span)%(2*span);if(y>span)y=2*span-y;return y+BS/2;}
-  function hit(p){return ball.x<p.x+PW&&ball.x+BS>p.x&&ball.y<p.y+PH&&ball.y+BS>p.y;}
+  function hit(p){return ball.x<p.x+PW&&ball.x+BS>p.x&&ball.y<p.y+p.h&&ball.y+BS>p.y;}
   function bounce(p,dir){
-    const rel=((ball.y+BS/2)-(p.y+PH/2))/(PH/2),ang=Math.max(-1,Math.min(1,rel))*(Math.PI/3.2);
-    const sp=Math.min(760,Math.hypot(ball.vx,ball.vy)*1.05);ball.vx=Math.cos(ang)*sp*dir;ball.vy=Math.sin(ang)*sp;
+    const rel=((ball.y+BS/2)-(p.y+p.h/2))/(p.h/2),ang=Math.max(-1,Math.min(1,rel))*(Math.PI/3.2);
+    const sp=Math.min(620,Math.hypot(ball.vx,ball.vy)*1.04);ball.vx=Math.cos(ang)*sp*dir;ball.vy=Math.sin(ang)*sp;
     ball.x=dir>0?p.x+PW:p.x-BS;beepA(dir>0?520:440);
   }
   function update(dt){
@@ -1308,10 +1313,10 @@ function pongGame(cv,ctx,api){
     // player
     const k=api.keys,dirK=((k.has('arrowdown')||k.has('s'))?1:0)-((k.has('arrowup')||k.has('w'))?1:0);
     if(dirK) L.y+=dirK*PSPEED*dt;
-    else if(api.ptr.active){const tgt=api.ptr.y-PH/2,st=PSPEED*1.8*dt;L.y+=Math.max(-st,Math.min(st,tgt-L.y));}
-    L.y=Math.max(0,Math.min(H-PH,L.y));
+    else if(api.ptr.active){const tgt=api.ptr.y-PHP/2,st=PSPEED*1.8*dt;L.y+=Math.max(-st,Math.min(st,tgt-L.y));}
+    L.y=Math.max(0,Math.min(H-PHP,L.y));
     // cpu
-    think-=dt;if(think<=0){think=0.13;cpuTarget=predict()+(Math.random()-0.5)*cpuErr();}
+    think-=dt;if(think<=0){think=0.25;cpuTarget=(ball.vx>0&&ball.x>W*0.55)?predict()+(Math.random()-0.5)*cpuErr():H/2;}
     const st=cpuSpeed()*dt;R.y+=Math.max(-st,Math.min(st,cpuTarget-(R.y+PH/2)));R.y=Math.max(0,Math.min(H-PH,R.y));
     if(mode==='serve'){serveT-=dt;if(serveT<=0) launch();return;}
     ball.spin+=dt*(ball.vx>0?8:-8);
@@ -1324,13 +1329,13 @@ function pongGame(cv,ctx,api){
       if(ball.vx>0&&hit(R)){bounce(R,-1);}
       if(ball.x+BS<0){lives--;beepA(160,0.35,'triangle',0.1);serveDir=-1;
         if(lives<=0){mode='over';api.end(score);return;}say(['MISSED!','OOPS!','WHOOSH!'][rnd(3)]);serve();return;}
-      if(ball.x>W){score+=5;beepA(660,0.2,'triangle',0.1);say(pick(['POW! +5','KAPOW! +5','BAM! +5','SCORE! +5']));serveDir=1;serve();return;}
+      if(ball.x>W){score+=5;wins++;beepA(660,0.2,'triangle',0.1);say(pick(['POW! +5','KAPOW! +5','BAM! +5','SCORE! +5']));serveDir=1;serve();return;}
     }
   }
   function bumper(p,e,col){
     ctx.fillStyle=col;ctx.strokeStyle='#111';ctx.lineWidth=4;
-    ctx.beginPath();ctx.roundRect?ctx.roundRect(p.x,p.y,PW,PH,10):ctx.rect(p.x,p.y,PW,PH);ctx.fill();ctx.stroke();
-    for(let i=0;i<3;i++) drawE(ctx,e,p.x+PW/2,p.y+18+i*36,26);
+    ctx.beginPath();ctx.roundRect?ctx.roundRect(p.x,p.y,PW,p.h,10):ctx.rect(p.x,p.y,PW,p.h);ctx.fill();ctx.stroke();
+    const n=p.h>PH?4:3;for(let i=0;i<n;i++) drawE(ctx,e,p.x+PW/2,p.y+p.h/(2*n)+i*p.h/n,26);
   }
   function render(){
     const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1D2B53');g.addColorStop(1,'#0B1026');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
@@ -1344,7 +1349,7 @@ function pongGame(cv,ctx,api){
     comicText(ctx,'BEST '+((P.best&&P.best.pong)||0),W-80,26,20,'#fff');
     if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,64+(0.9-flashT)*30,'#FFD93D');
   }
-  return {update,render};
+  return {update,render,state:()=>({ball,L,wins,lives,score})};
 }
 
 /* ---------- Invaders ---------- */
@@ -1403,6 +1408,75 @@ function invadersGame(cv,ctx,api){
     if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,48,'#FFD93D');
   }
   return {update,render};
+}
+
+
+/* ---------- Sticker Dash (endless runner) ---------- */
+function runnerGame(cv,ctx,api){
+  const W=800,H=320;cv.width=W;cv.height=H;
+  const GROUND=H-48,PS=46,GRAV=2300,JUMP=-820;
+  const hero=heroSticker(),flyers=enemyStickers(hero),rocks=['🌵','🌵','🧱','🪨','🌵'];
+  const pl={x:110,y:GROUND,vy:0,onGround:true,hold:false};
+  let nextAfterHigh=false,obs=[],clouds=[],hills=[],speed=340,dist=0,score=0,spawnIn=1.1,t=0,flash=null,flashT=0,lastMile=0,wasJump=false;
+  for(let i=0;i<5;i++) clouds.push({x:Math.random()*W,y:30+Math.random()*90,s:0.4+Math.random()*0.5});
+  for(let i=0;i<4;i++) hills.push({x:i*260,h:40+Math.random()*50});
+  const jumpPressed=()=>api.keys.has(' ')||api.keys.has('arrowup')||api.keys.has('w')||api.ptr.down;
+  function spawn(){
+    const r=Math.random(),fast=speed>480;
+    if(r<0.62){ // ground obstacle, sometimes a double
+      const n=fast&&Math.random()<0.35?2:1,e=pick(rocks);
+      for(let i=0;i<n;i++) obs.push({x:W+30+i*38,y:GROUND,e,size:40,hw:14,hh:18,fly:false});
+    }else if(r<0.85){ // low flyer: must jump
+      obs.push({x:W+30,y:GROUND-14,e:pick(flyers),size:38,hw:15,hh:15,fly:true,bob:Math.random()*6});
+    }else{ // high flyer: stay on the ground (jumping into it is a crash)
+      obs.push({x:W+30,y:GROUND-92,e:pick(flyers),size:38,hw:15,hh:15,fly:true,bob:Math.random()*6});
+    }
+    // always leave more time than a full (held) jump, plus extra room around high flyers
+    const last=obs[obs.length-1],highNow=last&&last.y<GROUND-60;
+    spawnIn=Math.max(1.05,1.55-(speed-340)/760)+Math.random()*0.7+(highNow?0.35:0);
+    if(nextAfterHigh){spawnIn+=0.3;nextAfterHigh=false;}
+    if(highNow) nextAfterHigh=true;
+  }
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;
+    speed=t<42?340+t*9:Math.min(980,718+(t-42)*2.2); // ramps fast, then keeps creeping up
+    dist+=speed*dt;score=Math.floor(dist/40);
+    if(score>=lastMile+100){lastMile+=100;flash=`${lastMile}!`;flashT=1;beepA(880,0.12,'triangle',0.07);}
+    // jump (hold for a higher jump)
+    const jp=jumpPressed();
+    if(jp&&!wasJump&&pl.onGround){pl.vy=JUMP;pl.onGround=false;beepA(520,0.06,'square',0.04);}
+    wasJump=jp;
+    const g=(jp&&pl.vy<0)?GRAV*0.55:GRAV;
+    pl.vy+=g*dt;pl.y+=pl.vy*dt;
+    if(pl.y>=GROUND){pl.y=GROUND;pl.vy=0;pl.onGround=true;}
+    // world
+    spawnIn-=dt;if(spawnIn<=0) spawn();
+    obs.forEach(o=>o.x-=speed*dt*(o.fly?1.08:1));obs=obs.filter(o=>o.x>-60);
+    clouds.forEach(c=>{c.x-=speed*dt*0.15*c.s;if(c.x<-80){c.x=W+60;c.y=30+Math.random()*90;}});
+    hills.forEach(h=>{h.x-=speed*dt*0.35;if(h.x<-260){h.x+=4*260;h.h=40+Math.random()*50;}});
+    // crash? (forgiving hitboxes)
+    const px=pl.x,py=pl.y-PS/2+4;
+    for(const o of obs){
+      const oy=o.y-o.size/2+(o.fly?Math.sin(t*8+o.bob)*4:0);
+      if(Math.abs(px-o.x)<o.hw+14&&Math.abs(py-oy)<o.hh+16){flash='CRASH!';flashT=2;beepA(140,0.4,'sawtooth',0.08);api.end(score);return;}
+    }
+  }
+  function render(){
+    const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#5CC8FF');sky.addColorStop(1,'#CDEFFF');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,0.9)';clouds.forEach(c=>{ctx.beginPath();ctx.ellipse(c.x,c.y,40*c.s+20,14*c.s+8,0,0,7);ctx.fill();});
+    ctx.fillStyle='#7BC96F';ctx.strokeStyle='#111';ctx.lineWidth=3;
+    hills.forEach(h=>{ctx.beginPath();ctx.moveTo(h.x,GROUND+4);ctx.quadraticCurveTo(h.x+130,GROUND-h.h*2,h.x+260,GROUND+4);ctx.fill();ctx.stroke();});
+    ctx.fillStyle='#E8B96A';ctx.fillRect(0,GROUND+4,W,H-GROUND);ctx.fillStyle='#111';ctx.fillRect(0,GROUND+2,W,4);
+    ctx.fillStyle='rgba(0,0,0,0.25)';const off=(dist*1)%40;for(let x=-off;x<W;x+=40) ctx.fillRect(x,GROUND+18,14,4);
+    obs.forEach(o=>{const oy=o.y-o.size/2+(o.fly?Math.sin(t*8+o.bob)*4:0);drawE(ctx,o.e,o.x,oy,o.size);});
+    // shadow + hero (little squash on landing, tilt in the air)
+    ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.ellipse(pl.x,GROUND+4,18*(1-(GROUND-pl.y)/260),4,0,0,7);ctx.fill();
+    ctx.save();ctx.translate(pl.x,pl.y-PS/2+4);ctx.rotate(pl.onGround?Math.sin(t*18)*0.08:-0.2);drawE(ctx,hero,0,0,PS);ctx.restore();
+    comicText(ctx,'SCORE '+score,110,28,28);
+    comicText(ctx,'BEST '+((P.best&&P.best.run)||0),W-90,26,20,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2-30,56,'#FFD93D');
+  }
+  return {update,render,state:()=>({pl,obs,speed,score,GROUND})};
 }
 
 /* =========================================================
@@ -1616,7 +1690,7 @@ function grown(){
       <li><b>Challenge Mode</b> (switch at the top of the mission map) uses harder versions of all 9 types, closer to 3rd-grade (Level 9) style: written-word analogies, fill-in-the-blank sentences, odd-one-out, two-step number rules, numeral patterns, picture-algebra, 3×3 grids, side-counting, and slanted or reverse paper folds.</li>
       <li>A <b>Surprise Challenge</b> leans toward number and paper-folding puzzles, his growth areas.</li>
       <li>Finishing a Challenge mission earns <b>1 Arcade token</b>, and acing it earns <b>2</b> plus a gold ★. Regular missions don’t earn tokens.</li>
-      <li>You can turn the Arcade off in Settings below. Each token buys one game of <b>Sticker Pong</b> (ends after 3 misses against the computer) or <b>Sticker Invaders</b> (ends when the invaders reach him). Games usually last a few minutes, so the puzzles stay the main event.</li>
+      <li>You can turn the Arcade off in Settings below. Each token buys one game of <b>Sticker Pong</b> (ends after 3 misses against the computer) <b>Sticker Invaders</b> (ends when the invaders reach him), or <b>Sticker Dash</b>, an endless runner like the offline dino game (ends at the first crash). Games usually last a few minutes, so the puzzles stay the main event.</li>
     </ul>
     <h3>How to use it</h3>
     <ul>
@@ -1633,7 +1707,7 @@ function grown(){
     <div class="toggle"><span>🕹️ Arcade games<br><span class="note">When off, the Arcade is hidden. Tokens he earns are saved for when it's back on.</span></span><button class="sw ${P.arcadeOn?'on':''}" aria-label="Arcade games" onclick="P.arcadeOn=!P.arcadeOn;save();grown()"></button></div>
     <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
     <h3>Progress <span class="note">(saved on this device only)</span></h3>
-    <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b></p>
+    <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b> · Best Dash: <b>${(P.best&&P.best.run)||0}</b></p>
     <div style="overflow-x:auto"><table class="tbl"><tr><th>Type</th><th>Solved</th><th>1st try</th><th>Aced</th><th>⚡ Solved</th><th>⚡ 1st try</th><th>⚡ Gold</th></tr>${prog}</table></div>
     <p class="note">Use this to see which formats feel new to him, not as a grade. Low first-try numbers usually just mean the format is unfamiliar.</p>
     <div style="margin-top:12px"><button class="btn small" style="background:#fff" onclick="askReset()">Reset all progress</button></div>
