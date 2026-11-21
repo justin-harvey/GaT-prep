@@ -287,6 +287,17 @@ main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
 .arcover{max-width:380px;width:100%}
 .archelp{color:#cfd8ff;text-align:center;font-size:14px;padding:6px 10px 10px}
 body.noscroll{overflow:hidden}
+.mbtn{position:relative}
+.mbtn.bonusm{box-shadow:3px 3px 0 var(--ink),0 0 0 3px #2BB673 inset}
+.bonustag{position:absolute;top:-11px;right:-8px;background:var(--green);color:#fff;border:2px solid var(--ink);border-radius:8px;font-size:12px;font-weight:700;padding:1px 5px;transform:rotate(6deg);text-shadow:none;font-family:'Comic Neue',sans-serif}
+.bonustag.inline{position:static;display:inline-block;font-size:16px;vertical-align:middle}
+.costbtn{width:40px;height:36px;border:3px solid var(--ink);border-radius:8px;background:#fff;font-family:Bangers,Impact,sans-serif;font-size:20px}
+.costbtn.on{background:var(--yellow);box-shadow:2px 2px 0 var(--ink)}
+.catchbtn{width:100%;margin-bottom:18px;font-size:28px;line-height:1.1}
+.catchbtn small{font-family:'Comic Neue',sans-serif;font-weight:700;font-size:16px;letter-spacing:0;text-shadow:none}
+.freepill{display:inline-block;font-size:16px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);border-radius:20px;padding:0 8px;vertical-align:middle;text-shadow:none;transform:rotate(-4deg)}
+.freegame{background:#E8FBEA}
+.freetag{position:absolute;top:-14px;right:-10px;background:var(--green);color:#fff;font-family:Bangers,Impact,sans-serif;font-size:20px;letter-spacing:1px;border:3px solid var(--ink);border-radius:10px;padding:2px 10px;transform:rotate(8deg);text-shadow:1px 1px 0 var(--ink)}
 
 @media (max-width:420px){
   .matrix3 .cell{width:70px;height:70px}
@@ -363,7 +374,7 @@ const GIZMO = `<svg viewBox="0 0 104 126" xmlns="http://www.w3.org/2000/svg" ari
    STATE & STORAGE
    ========================================================= */
 const KEY='brainblasters_v1';
-let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false,arcadeOn:true};
+let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false,arcadeOn:true,catchOn:true,cstat:{made:0,miss:0},cost:2};
 try{const s=localStorage.getItem(KEY); if(s) P=Object.assign(P,JSON.parse(s));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
 
@@ -1183,6 +1194,12 @@ function sprite(e,size){
   return SPR[k]=c;
 }
 function drawE(ctx,e,cx,cy,size){const s=sprite(e,size);ctx.drawImage(s,cx-s.width/2,cy-s.height/2);}
+const gameCost=()=>Math.max(1,Math.min(3,P.cost||2));
+// Bonus missions: the 4 types with the lowest first-try rate (regular + challenge). Too little data counts as a growth area.
+function bonusTypes(){
+  const rate=t=>{const a=P.first[t]||[0,0],b=P.firstH[t]||[0,0],n=a[1]+b[1];return n<5?-1:(a[0]+b[0])/n;};
+  return Object.keys(TYPES).map(t=>[t,rate(t)]).sort((x,y)=>x[1]-y[1]).slice(0,4).map(x=>x[0]);
+}
 function heroSticker(){return P.hero&&P.stickers.includes(P.hero)?P.hero:(P.stickers[0]||'🦸');}
 function enemyStickers(hero){
   let pool=P.stickers.filter(s=>s!==hero);
@@ -1195,47 +1212,63 @@ function arcade(){
   <section class="panel arcadehead center">
     <h2 style="font-size:40px">🕹️ STICKER ARCADE</h2>
     <div class="tokens">🎟️ × <b>${toks}</b></div>
-    <p style="margin:8px 0 0">${toks?'Pick your hero sticker, then pick a game! Each game uses 1 token.':'You need a 🎟️ token to play! Finish a <b>⚡ CHALLENGE</b> mission to win one — ACE it to win 2!'}</p>
+    <p style="margin:8px 0 0">${toks>=gameCost()?`Pick your hero sticker, then pick a game! Each game costs <b>${gameCost()} token${gameCost()>1?'s':''}</b>.`:`Each game costs <b>${gameCost()} token${gameCost()>1?'s':''}</b>. ${toks?'Earn more':'Earn some'} by finishing <b>⚡ CHALLENGE</b> missions — <b>🎟️×2 BONUS</b> missions earn double! Tip: 🧺 Number Catcher is always FREE.`}</p>
   </section>
   <section class="panel">
     <h3 class="bang" style="font-size:24px">YOUR HERO: <span class="emo" style="font-size:36px">${hero}</span></h3>
-    <p class="note" style="margin:2px 0 8px">Your hero is your paddle in Pong, your blaster in Invaders and your runner in Dash. Your other stickers become the enemies!</p>
+    <p class="note" style="margin:2px 0 8px">Your hero is your paddle in Pong and Smash, your blaster in Invaders and your runner in Dash. Your other stickers become the enemies and the bricks!</p>
     <div class="heropick">${P.stickers.length?P.stickers.map((s,i)=>`<button class="hp ${s===hero?'on':''}" onclick="pickHero(${i})" aria-label="Pick sticker">${s}</button>`).join(''):'<p class="note">Finish missions to collect stickers!</p>'}</div>
   </section>
   <div class="games">
     <section class="panel game center"><div class="gicon">🏓</div><h3 class="bang">STICKER PONG</h3>
       <p>Your hero is the paddle! Bounce the waffle past Gizmo’s robot. <b>3 misses</b> and the game is over.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.pong)||0}</b></p>
-      <button class="btn red" ${toks?'':'disabled'} onclick="playGame('pong')">PLAY · 🎟️1</button></section>
+      <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('pong')">PLAY · 🎟️${gameCost()}</button></section>
     <section class="panel game center"><div class="gicon">👾</div><h3 class="bang">STICKER INVADERS</h3>
       <p>Your stickers are invading! Blast them before they <b>land on you</b>.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.inv)||0}</b></p>
-      <button class="btn red" ${toks?'':'disabled'} onclick="playGame('inv')">PLAY · 🎟️1</button></section>
+      <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('inv')">PLAY · 🎟️${gameCost()}</button></section>
     <section class="panel game center"><div class="gicon">🏃</div><h3 class="bang">STICKER DASH</h3>
       <p>Your hero runs and runs! Jump over cactuses and flying stickers. <b>One crash</b> and it’s over.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.run)||0}</b></p>
-      <button class="btn red" ${toks?'':'disabled'} onclick="playGame('run')">PLAY · 🎟️1</button></section>
+      <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('run')">PLAY · 🎟️${gameCost()}</button></section>
+    <section class="panel game center"><div class="gicon">🧱</div><h3 class="bang">STICKER SMASH</h3>
+      <p>Bounce the waffle to smash a wall of sticker bricks! Clear the wall to level up. <b>3 misses</b> and it’s over.</p>
+      <p class="note">Best score: <b>${(P.best&&P.best.brick)||0}</b></p>
+      <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('brick')">PLAY · 🎟️${gameCost()}</button></section>
+    <section class="panel game center"><div class="gicon">🃏</div><h3 class="bang">STICKER MATCH</h3>
+      <p>Flip the cards and find all 8 sticker pairs. The <b>fewer flips</b>, the higher your score!</p>
+      <p class="note">Best score: <b>${(P.best&&P.best.mem)||0}</b> <span class="note">(200 is perfect)</span></p>
+      <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('mem')">PLAY · 🎟️${gameCost()}</button></section>
+    ${P.catchOn?`<section class="panel game center freegame"><div class="freetag">FREE!</div><div class="gicon">🧺</div><h3 class="bang">NUMBER CATCHER</h3>
+      <p>Catch falling numbers that add up to the target. <b>No token needed</b>, so play as much as you want!</p>
+      <p class="note">Best score: <b>${(P.best&&P.best.catch)||0}</b></p>
+      <button class="btn green" onclick="playGame('catch','arcade')">PLAY · FREE!</button></section>`:''}
   </div>
-  ${toks?'':`<button class="btn big" onclick="P.challenge=true;save();go('map')">⚡ GO EARN TOKENS!</button>`}
+  ${toks>=gameCost()?'':`<button class="btn big" onclick="P.challenge=true;save();go('map')">⚡ GO EARN TOKENS!</button>`}
   <button class="btn" style="width:100%;margin-top:12px;background:#fff" onclick="go('home')">🏠 Home</button>`;
 }
 function pickHero(i){P.hero=P.stickers[i];save();arcade();}
 
 let G=null; // running game
-function playGame(kind){
-  if(!P.arcadeOn||(P.tokens||0)<1) return;
-  P.tokens--;save();
+let ARC_BACK='arcade';
+function playGame(kind,back){
+  const free=kind==='catch';
+  if(back) ARC_BACK=back;else if(!G) ARC_BACK='arcade';
+  if(free){if(!P.catchOn) return;}
+  else{if(!P.arcadeOn||(P.tokens||0)<gameCost()) return;P.tokens-=gameCost();}
+  P.cstat=P.cstat||{made:0,miss:0};save();
   try{speechSynthesis.cancel();}catch(e){}
   closeGame(true);
   const ov=document.createElement('div');ov.className='arc';ov.id='arc';
-  ov.innerHTML=`<div class="arcbar"><span class="arctitle">${({pong:'🏓 STICKER PONG',inv:'👾 STICKER INVADERS',run:'🏃 STICKER DASH'})[kind]}</span><button class="mini" onclick="closeGame()">✖ Quit</button></div>
+  ov.innerHTML=`<div class="arcbar"><span class="arctitle">${({pong:'🏓 STICKER PONG',inv:'👾 STICKER INVADERS',run:'🏃 STICKER DASH',brick:'🧱 STICKER SMASH',mem:'🃏 STICKER MATCH',catch:'🧺 NUMBER CATCHER · FREE'})[kind]}</span><button class="mini" onclick="closeGame()">✖ Quit</button></div>
     <div class="arcstage" id="arcStage"><canvas id="arcCv"></canvas><div class="arcmsg" id="arcMsg"></div></div>
-    <div class="archelp">${({pong:'Move: mouse, finger, or ↑ ↓ keys',inv:'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE',run:'Jump: SPACE, ↑, click, or tap · Hold it down to jump higher'})[kind]}</div>`;
+    <div class="archelp">${({pong:'Move: mouse, finger, or ↑ ↓ keys',inv:'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE',run:'Jump: SPACE, ↑, click, or tap · Hold it down to jump higher',brick:'Move: mouse, finger, or ← → keys',mem:'Flip: click or tap a card · or use arrow keys + SPACE',catch:'Move the basket: mouse, finger, or ← → keys'})[kind]}</div>`;
   document.body.appendChild(ov);document.body.classList.add('noscroll');
   const cv=ov.querySelector('#arcCv'),ctx=cv.getContext('2d');
-  const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},kind,running:false,raf:0};
+  const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},taps:[],kind,running:false,raf:0};
   G=api;
-  const game=kind==='pong'?pongGame(cv,ctx,api):kind==='run'?runnerGame(cv,ctx,api):invadersGame(cv,ctx,api);
+  const game=({pong:pongGame,run:runnerGame,inv:invadersGame,brick:brickGame,mem:memoryGame,catch:catcherGame})[kind](cv,ctx,api);
   api.game=game;
   const fit=()=>{const st=ov.querySelector('#arcStage');if(!st)return;const r=st.getBoundingClientRect();const sc=Math.min(r.width/cv.width,r.height/cv.height);
     cv.style.width=Math.floor(cv.width*sc)+'px';cv.style.height=Math.floor(cv.height*sc)+'px';};
@@ -1244,7 +1277,7 @@ function playGame(kind){
   api.kd=e=>{const k=e.key.toLowerCase();if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k)) e.preventDefault();api.keys.add(k);if(k===' '&&api.waiting) api.start();};
   api.ku=e=>api.keys.delete(e.key.toLowerCase());
   window.addEventListener('keydown',api.kd);window.addEventListener('keyup',api.ku);
-  cv.addEventListener('pointerdown',e=>{e.preventDefault();const p=map(e);Object.assign(api.ptr,p,{down:true,active:true,touch:e.pointerType!=='mouse'});try{cv.setPointerCapture(e.pointerId);}catch(_){}});
+  cv.addEventListener('pointerdown',e=>{e.preventDefault();const p=map(e);if(api.running) api.taps.push(p);Object.assign(api.ptr,p,{down:true,active:true,touch:e.pointerType!=='mouse'});try{cv.setPointerCapture(e.pointerId);}catch(_){}});
   cv.addEventListener('pointermove',e=>{const p=map(e);Object.assign(api.ptr,p);if(e.pointerType==='mouse') api.ptr.active=true;});
   const up=e=>{api.ptr.down=false;if(e.pointerType!=='mouse') api.ptr.active=false;};
   cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
@@ -1254,27 +1287,28 @@ function playGame(kind){
   api.start=()=>{api.waiting=false;api.msg('');api.running=true;let last=performance.now();
     const frame=now=>{if(!api.running)return;const dt=Math.min(0.033,(now-last)/1000);last=now;game.update(dt);game.render();api.raf=requestAnimationFrame(frame);};
     api.raf=requestAnimationFrame(frame);};
-  api.end=(score)=>{
+  api.end=(score,note)=>{
     api.running=false;cancelAnimationFrame(api.raf);game.render();
     P.best=P.best||{};const key=kind;const prev=P.best[key]||0,isBest=score>prev;if(isBest) P.best[key]=score;save();sfx('yay');
     const t=P.tokens||0;
     api.msg(`<div class="panel center arcover"><div class="burstbig" style="font-size:30px">GAME OVER!</div>
       <p style="font-size:22px;margin:6px 0">Score: <b>${score}</b></p>
+      ${note?`<p style="margin:0 0 6px;font-size:17px">${note}</p>`:''}
       <p style="margin:0 0 10px">${isBest?'🏆 NEW BEST SCORE!':'Best: '+(P.best[key]||0)}</p>
-      <div class="stack">${t?`<button class="btn red" onclick="playGame('${kind}')">PLAY AGAIN · 🎟️1 <small>(${t} left)</small></button>`:`<p class="note">Out of tokens! Finish a ⚡ Challenge mission to win more.</p><button class="btn red" onclick="closeGame();P.challenge=true;save();go('map')">⚡ EARN MORE TOKENS</button>`}
-      <button class="btn" style="background:#fff" onclick="closeGame()">🕹️ Back to Arcade</button></div></div>`);
+      <div class="stack">${free?`<button class="btn red" onclick="playGame('catch')">PLAY AGAIN · FREE!</button>`:t>=gameCost()?`<button class="btn red" onclick="playGame('${kind}')">PLAY AGAIN · 🎟️${gameCost()} <small>(${t} left)</small></button>`:`<p class="note">${t?`You have ${t} token${t>1?'s':''} — you need ${gameCost()} to play.`:'Out of tokens!'} Finish a ⚡ Challenge mission to win more.</p><button class="btn red" onclick="closeGame();P.challenge=true;save();go('map')">⚡ EARN MORE TOKENS</button>`}
+      <button class="btn" style="background:#fff" onclick="closeGame()">${ARC_BACK==='arcade'&&P.arcadeOn?'🕹️ Back to Arcade':ARC_BACK==='map'?'🗺️ Back to Missions':'🏠 Back Home'}</button></div></div>`);
   };
   game.render();
   api.waiting=true;
   api.msg(`<div class="panel center arcover"><div class="emo" style="font-size:64px">${heroSticker()}</div>
-    <h3 class="bang" style="font-size:28px;margin:6px 0">${({pong:'BEAT THE ROBOT!',inv:'DEFEND THE PLANET!',run:'READY, SET, DASH!'})[kind]}</h3>
-    <p style="margin:0 0 10px">${({pong:'Don’t let the waffle get past you. 3 misses and it’s over!',inv:'Blast the invaders before they land on you! Watch out for freeze-rays ❄️',run:'Jump over cactuses and low flyers. Stay DOWN when a sticker flies high! One crash and it’s over.'})[kind]}</p>
+    <h3 class="bang" style="font-size:28px;margin:6px 0">${({pong:'BEAT THE ROBOT!',inv:'DEFEND THE PLANET!',run:'READY, SET, DASH!',brick:'SMASH THE WALL!',mem:'MATCH ’EM ALL!',catch:'NUMBER CATCHER!'})[kind]}</h3>
+    <p style="margin:0 0 10px">${({pong:'Don’t let the waffle get past you. 3 misses and it’s over!',inv:'Blast the invaders before they land on you! Watch out for freeze-rays ❄️',run:'Jump over cactuses and low flyers. Stay DOWN when a sticker flies high! One crash and it’s over.',brick:'Keep the waffle bouncing and smash every sticker brick. 3 misses and it’s over!',mem:'Find all 8 pairs. Try to remember where each sticker is hiding!',catch:'Catch TWO numbers that add up to the target. Catch 7, then catch 3 to make 10! 3 wrong pairs and it’s over. This game is FREE!'})[kind]}</p>
     <button class="btn big red" onclick="G.start()">START! ▶</button></div>`);
 }
 function closeGame(silent){
   if(G){G.running=false;cancelAnimationFrame(G.raf);window.removeEventListener('keydown',G.kd);window.removeEventListener('keyup',G.ku);window.removeEventListener('resize',G.fit);G=null;}
   const ov=document.getElementById('arc');if(ov) ov.remove();document.body.classList.remove('noscroll');
-  if(!silent) arcade();
+  if(!silent) go(ARC_BACK||'arcade');
 }
 function beepA(freq,dur=0.06,type='square',vol=0.06){
   if(!P.sound) return;
@@ -1479,6 +1513,209 @@ function runnerGame(cv,ctx,api){
   return {update,render,state:()=>({pl,obs,speed,score,GROUND})};
 }
 
+
+/* ---------- Brick Breaker ---------- */
+function brickGame(cv,ctx,api){
+  const W=800,H=560;cv.width=W;cv.height=H;
+  const PW=132,PH=22,PY=H-46,BS=24,COLS=10,BW=70,BH=34,GAP=6,LEFT=(W-(COLS*BW+(COLS-1)*GAP))/2,TOP=78;
+  const hero=heroSticker(),pool=enemyStickers(hero);
+  const ROWCOL=['#E63946','#FF8C42','#FFD93D','#2BB673','#2F80ED','#8E44AD'];
+  const pad={x:W/2-PW/2};
+  const ball={x:0,y:0,vx:0,vy:0,spin:0};
+  let bricks=[],lives=3,score=0,level=0,mode='serve',serveT=1.1,flash=null,flashT=0,t=0;
+  function build(){
+    level++;bricks=[];const rows=Math.min(3+level,6),picks=shuffle(pool);
+    for(let r=0;r<rows;r++)for(let c=0;c<COLS;c++)
+      bricks.push({x:LEFT+c*(BW+GAP),y:TOP+r*(BH+GAP),e:picks[r%picks.length],col:ROWCOL[r%ROWCOL.length],hp:(level>=3&&r===0)?2:1,alive:true});
+    if(level>1){flash=`LEVEL ${level}!`;flashT=1.4;}
+    serve();
+  }
+  const speed0=()=>290+(level-1)*35;
+  function serve(){mode='serve';serveT=1.1;ball.vx=ball.vy=0;}
+  function launch(){const a=(-Math.PI/2)+(Math.random()*0.7-0.35);ball.vx=Math.cos(a)*speed0();ball.vy=Math.sin(a)*speed0();mode='play';}
+  build();
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;
+    const k=api.keys,dk=((k.has('arrowright')||k.has('d'))?1:0)-((k.has('arrowleft')||k.has('a'))?1:0);
+    if(dk) pad.x+=dk*620*dt;else if(api.ptr.active){const tgt=api.ptr.x-PW/2,st=1100*dt;pad.x+=Math.max(-st,Math.min(st,tgt-pad.x));}
+    pad.x=Math.max(0,Math.min(W-PW,pad.x));
+    if(mode==='serve'){ball.x=pad.x+PW/2-BS/2;ball.y=PY-BS-2;serveT-=dt;if(serveT<=0) launch();return;}
+    ball.spin+=dt*6;
+    const steps=Math.max(1,Math.ceil(Math.hypot(ball.vx,ball.vy)*dt/(BS/3))),sdt=dt/steps;
+    for(let i=0;i<steps;i++){
+      ball.x+=ball.vx*sdt;ball.y+=ball.vy*sdt;
+      if(ball.x<=0){ball.x=0;ball.vx=Math.abs(ball.vx);beepA(300,0.03);}
+      if(ball.x+BS>=W){ball.x=W-BS;ball.vx=-Math.abs(ball.vx);beepA(300,0.03);}
+      if(ball.y<=0){ball.y=0;ball.vy=Math.abs(ball.vy);beepA(300,0.03);}
+      // paddle
+      if(ball.vy>0&&ball.y+BS>=PY&&ball.y+BS<=PY+PH+10&&ball.x+BS>pad.x&&ball.x<pad.x+PW){
+        const rel=Math.max(-1,Math.min(1,((ball.x+BS/2)-(pad.x+PW/2))/(PW/2))),ang=rel*(Math.PI/3)-Math.PI/2;
+        const sp=Math.min(620,Math.hypot(ball.vx,ball.vy)*1.01);ball.vx=Math.cos(ang)*sp;ball.vy=Math.sin(ang)*sp;ball.y=PY-BS;beepA(460,0.05);
+      }
+      // bricks
+      for(const b of bricks){
+        if(!b.alive) continue;
+        if(ball.x+BS>b.x&&ball.x<b.x+BW&&ball.y+BS>b.y&&ball.y<b.y+BH){
+          const ox=Math.min(ball.x+BS-b.x,b.x+BW-ball.x),oy=Math.min(ball.y+BS-b.y,b.y+BH-ball.y);
+          if(ox<oy){ball.vx=-ball.vx;ball.x+=ball.vx>0?ox:-ox;}else{ball.vy=-ball.vy;ball.y+=ball.vy>0?oy:-oy;}
+          b.hp--;if(b.hp<=0){b.alive=false;score+=10;beepA(520+Math.random()*200,0.06,'square',0.05);}else beepA(250,0.06);
+          break;
+        }
+      }
+      if(ball.y>H){lives--;beepA(160,0.35,'triangle',0.1);
+        if(lives<=0){mode='over';api.end(score);return;}
+        flash=pick(['OOPS!','WHOOSH!','MISSED!']);flashT=0.9;serve();return;}
+    }
+    if(!bricks.some(b=>b.alive)){score+=100;beepA(990,0.25,'triangle',0.08);build();}
+  }
+  function render(){
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1D2B53');g.addColorStop(1,'#0B1026');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,0.05)';for(let x=10;x<W;x+=22)for(let y=10;y<H;y+=22){ctx.beginPath();ctx.arc(x,y,1.5,0,7);ctx.fill();}
+    bricks.forEach(b=>{if(!b.alive)return;
+      ctx.fillStyle=b.col;ctx.strokeStyle='#111';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect?ctx.roundRect(b.x,b.y,BW,BH,7):ctx.rect(b.x,b.y,BW,BH);ctx.fill();ctx.stroke();
+      if(b.hp>1){ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.strokeRect(b.x+4,b.y+4,BW-8,BH-8);}
+      drawE(ctx,b.e,b.x+BW/2,b.y+BH/2,24);});
+    ctx.fillStyle='#E63946';ctx.strokeStyle='#111';ctx.lineWidth=4;ctx.beginPath();ctx.roundRect?ctx.roundRect(pad.x,PY,PW,PH,11):ctx.rect(pad.x,PY,PW,PH);ctx.fill();ctx.stroke();
+    for(let i=0;i<3;i++) drawE(ctx,hero,pad.x+PW*(i+0.5)/3,PY+PH/2,20);
+    if(mode!=='serve'||Math.floor(serveT*6)%2===0){ctx.save();ctx.translate(ball.x+BS/2,ball.y+BS/2);ctx.rotate(ball.spin);drawE(ctx,'🧇',0,0,BS);ctx.restore();}
+    for(let i=0;i<3;i++) drawE(ctx,i<lives?'❤️':'🖤',26+i*30,30,22);
+    comicText(ctx,'SCORE '+score,W/2,32,32);
+    comicText(ctx,'LEVEL '+level,W-80,30,22,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2+40,60,'#FFD93D');
+  }
+  return {update,render,state:()=>({ball,pad,lives,score,level,bricks,PY,PW})};
+}
+
+/* ---------- Memory Match ---------- */
+function memoryGame(cv,ctx,api){
+  const W=640,H=640;cv.width=W;cv.height=H;
+  const COLS=4,ROWS=4,PAIRS=8,CW=132,CH=124,GX=16,LEFT=(W-(COLS*CW+(COLS-1)*GX))/2,TOP=84;
+  const hero=heroSticker();
+  let faces=shuffle([hero,...enemyStickers(hero)]).filter((x,i,a)=>a.indexOf(x)===i);
+  ['🦸','🚀','🦖','🐙','🌋','🛸','🤖','🧠','⚡','🐉'].forEach(x=>{if(!faces.includes(x)) faces.push(x);});
+  faces=faces.slice(0,PAIRS);
+  const cards=shuffle([...faces,...faces]).map((e,i)=>({e,r:Math.floor(i/COLS),c:i%COLS,up:false,done:false,flip:0}));
+  let open=[],flips=0,matches=0,lock=0,wasDown=false,t=0,flash=null,flashT=0,streak=0;
+  const pos=cd=>({x:LEFT+cd.c*(CW+GX),y:TOP+cd.r*(CH+GX)});
+  const scoreNow=()=>Math.max(10,200-5*Math.max(0,flips-PAIRS*2));
+  // keyboard: arrows move a cursor, space/enter flips
+  let cur=0;const kprev=new Set();
+  function tryFlip(cd){
+    if(!cd||cd.up||cd.done||lock>0||open.length>=2) return;
+    cd.up=true;open.push(cd);flips++;beepA(500,0.04,'square',0.04);
+    if(open.length===2){
+      if(open[0].e===open[1].e){open.forEach(o=>o.done=true);matches++;streak++;open=[];beepA(880,0.15,'triangle',0.08);
+        flash=streak>1?`${streak} IN A ROW!`:pick(['MATCH!','POW!','ZAP!']);flashT=0.8;
+        if(matches===PAIRS){flash='ALL MATCHED!';flashT=3;setTimeout(()=>{if(api.running) api.end(scoreNow());},700);}}
+      else{lock=0.9;streak=0;}
+    }
+  }
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;
+    if(lock>0){lock-=dt;if(lock<=0){open.forEach(o=>o.up=false);open=[];}}
+    cards.forEach(cd=>{const tg=(cd.up||cd.done)?1:0;cd.flip+=(tg-cd.flip)*Math.min(1,dt*14);});
+    while(api.taps.length){const p=api.taps.shift();tryFlip(cards.find(cd=>{const q=pos(cd);return p.x>=q.x&&p.x<=q.x+CW&&p.y>=q.y&&p.y<=q.y+CH;}));}
+    const k=api.keys,press=key=>k.has(key)&&!kprev.has(key);
+    if(press('arrowright'))cur=Math.min(cards.length-1,cur+1);if(press('arrowleft'))cur=Math.max(0,cur-1);
+    if(press('arrowdown'))cur=Math.min(cards.length-1,cur+COLS);if(press('arrowup'))cur=Math.max(0,cur-COLS);
+    if(press(' ')||press('enter')) tryFlip(cards[cur]);
+    kprev.clear();k.forEach(x=>kprev.add(x));
+  }
+  function render(){
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2F80ED');g.addColorStop(1,'#8E44AD');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,0.08)';for(let x=10;x<W;x+=22)for(let y=10;y<H;y+=22){ctx.beginPath();ctx.arc(x,y,1.6,0,7);ctx.fill();}
+    cards.forEach((cd,i)=>{
+      const q=pos(cd),f=cd.flip,sx=Math.abs(Math.cos(f*Math.PI)),showFace=f>0.5;
+      ctx.save();ctx.translate(q.x+CW/2,q.y+CH/2);ctx.scale(Math.max(0.04,sx),1);
+      ctx.fillStyle=showFace?(cd.done?'#C9F7C6':'#FFF8E1'):'#FFD93D';ctx.strokeStyle='#111';ctx.lineWidth=5;
+      ctx.beginPath();ctx.roundRect?ctx.roundRect(-CW/2,-CH/2,CW,CH,14):ctx.rect(-CW/2,-CH/2,CW,CH);ctx.fill();ctx.stroke();
+      if(showFace) drawE(ctx,cd.e,0,0,64);
+      else{ctx.clip();ctx.fillStyle='rgba(230,57,70,0.25)';for(let a=0;a<12;a++){ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,90,a*Math.PI/6,a*Math.PI/6+Math.PI/12);ctx.fill();}
+        comicText(ctx,'?',0,4,58,'#fff');}
+      ctx.restore();
+      if(i===cur&&api.keys.size){ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.setLineDash([8,6]);ctx.strokeRect(q.x-6,q.y-6,CW+12,CH+12);ctx.setLineDash([]);}
+    });
+    comicText(ctx,`MATCHES ${matches}/${PAIRS}`,150,40,30);
+    comicText(ctx,`FLIPS ${flips}`,W-110,40,30,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,58,'#FFD93D');
+  }
+  return {update,render,state:()=>({cards,flips,matches,pos:cards.map(pos),CW,CH,score:scoreNow()})};
+}
+
+
+/* ---------- Number Catcher (FREE math game) ---------- */
+function catcherGame(cv,ctx,api){
+  const W=480,H=640;cv.width=W;cv.height=H;
+  const hero=heroSticker(),BY=H-96,BW=96;
+  const bk={x:W/2};
+  let pendingNext=0,drops=[],slot=null,target=10,made=0,strikes=0,score=0,streak=0,spawnIn=0.4,t=0,flash=null,flashT=0,flashCol='#FFD93D',level=1,pairsThisTarget=0,facts=[];
+  const TARGETS=[10,10,8,9,10,7,12,10,11,6,13,14,15,10,16,18,20];
+  function nextTarget(){level++;pairsThisTarget=0;target=TARGETS[Math.min(level-1,TARGETS.length-1)]+(level>TARGETS.length?rnd(5):0);
+    flash=`NOW MAKE ${target}!`;flashT=1.8;flashCol='#5CE1E6';beepA(990,0.2,'triangle',0.08);if(P.autoread) speak(`Now make ${target}!`);}
+  function spawn(){
+    // when the basket holds a number, make its partner show up often
+    if(drops.length>=3){spawnIn=0.3;return;}
+    let n;
+    if(slot!==null&&Math.random()<0.55) n=target-slot;
+    else n=1+rnd(target-1);
+    const fall=60+level*6+Math.random()*25;
+    // keep new numbers away from the last one so he has room to dodge
+    let x,tries=0;const lastX=drops.length?drops[drops.length-1].x:-999;
+    do{x=40+Math.random()*(W-80);}while(Math.abs(x-lastX)<130&&tries++<20);
+    drops.push({x,y:-30,n,vy:fall,wob:Math.random()*6});
+    spawnIn=Math.max(1.0,1.6-level*0.05)+Math.random()*0.45;
+  }
+  function catchNum(n){
+    if(slot===null){slot=n;beepA(600,0.06,'square',0.05);return;}
+    if(slot+n===target){
+      made++;pairsThisTarget++;P.cstat.made++;streak++;const pts=10+Math.min(streak-1,5)*2;score+=pts;
+      facts.push(`${slot}+${n}`);flash=`${slot} + ${n} = ${target}!`;flashT=1.2;flashCol='#FFD93D';slot=null;beepA(880,0.18,'triangle',0.09);
+      if(pairsThisTarget>=5) pendingNext=0.9;
+    }else{
+      strikes++;streak=0;P.cstat.miss++;flash=`${slot} + ${n} = ${slot+n}… not ${target}!`;flashT=1.6;flashCol='#FF8C42';slot=null;beepA(160,0.35,'triangle',0.1);
+      if(strikes>=3){api.end(score,`You made <b>${made}</b> number pair${made===1?'':'s'}! ${made?'Nice math!':''}`);}
+    }
+  }
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;
+    if(pendingNext>0){pendingNext-=dt;if(pendingNext<=0) nextTarget();}
+    const k=api.keys,dk=((k.has('arrowright')||k.has('d'))?1:0)-((k.has('arrowleft')||k.has('a'))?1:0);
+    if(dk) bk.x+=dk*380*dt;else if(api.ptr.active){const st=700*dt;bk.x+=Math.max(-st,Math.min(st,api.ptr.x-bk.x));}
+    bk.x=Math.max(BW/2,Math.min(W-BW/2,bk.x));
+    spawnIn-=dt;if(spawnIn<=0) spawn();
+    for(const d of drops){
+      d.y+=d.vy*dt;
+      if(!d.gone&&d.y>BY-20&&d.y<BY+12&&Math.abs(d.x-bk.x)<BW/2+6){d.gone=true;catchNum(d.n);if(!api.running) return;}
+    }
+    drops=drops.filter(d=>!d.gone&&d.y<H+40);
+  }
+  function bubble(x,y,n,hi){
+    ctx.fillStyle=hi?'#FFD93D':'#fff';ctx.strokeStyle='#111';ctx.lineWidth=4;ctx.beginPath();ctx.arc(x,y,26,0,7);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#111';ctx.font='34px Bangers, Impact, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(n,x,y+2);
+  }
+  function render(){
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2BB673');g.addColorStop(1,'#0E6B3A');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,0.08)';for(let x=10;x<W;x+=22)for(let y=10;y<H;y+=22){ctx.beginPath();ctx.arc(x,y,1.6,0,7);ctx.fill();}
+    // target banner
+    ctx.fillStyle='#E63946';ctx.strokeStyle='#111';ctx.lineWidth=4;ctx.beginPath();ctx.roundRect?ctx.roundRect(W/2-100,14,200,52,12):ctx.rect(W/2-100,14,200,52);ctx.fill();ctx.stroke();
+    comicText(ctx,`MAKE ${target}!`,W/2,42,38,'#fff');
+    // equation helper
+    const eq=slot===null?`? + ? = ${target}`:`${slot} + ? = ${target}`;
+    comicText(ctx,eq,W/2,96,32,slot===null?'#fff':'#FFD93D');
+    drops.forEach(d=>bubble(d.x+Math.sin(t*3+d.wob)*6,d.y,d.n,slot!==null&&slot+d.n===target&&level<=2));
+    // basket with hero
+    ctx.fillStyle='#8B5A2B';ctx.strokeStyle='#111';ctx.lineWidth=4;ctx.beginPath();
+    ctx.moveTo(bk.x-BW/2,BY);ctx.lineTo(bk.x+BW/2,BY);ctx.lineTo(bk.x+BW/2-12,BY+40);ctx.lineTo(bk.x-BW/2+12,BY+40);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.strokeStyle='#D9A35F';ctx.lineWidth=3;for(let i=1;i<4;i++){ctx.beginPath();ctx.moveTo(bk.x-BW/2+6+i*3,BY+i*10);ctx.lineTo(bk.x+BW/2-6-i*3,BY+i*10);ctx.stroke();}
+    drawE(ctx,hero,bk.x,BY+62,32);
+    if(slot!==null) bubble(bk.x,BY-4,slot,true);
+    for(let i=0;i<3;i++) drawE(ctx,i<3-strikes?'❤️':'🖤',26+i*30,34,22);
+    comicText(ctx,'SCORE '+score,W-62,40,20,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,flash.length>14?34:52,flashCol);
+  }
+  return {update,render,state:()=>({drops,slot,target,made,strikes,score,bk,BY,level})};
+}
+
 /* =========================================================
    SCREENS
    ========================================================= */
@@ -1523,6 +1760,7 @@ function home(){
     <button class="btn big red" style="flex:2;min-width:200px" onclick="go('map')">🚀 START A MISSION!</button>
     ${P.arcadeOn?`<button class="btn big arcbtn" style="flex:1;min-width:130px;font-size:24px;padding:10px 6px" onclick="go('arcade')">🕹️ ARCADE<br><small>🎟️ × ${toks}</small></button>`:''}
   </div>
+  ${P.catchOn?`<button class="btn big green catchbtn" onclick="playGame('catch','home')">🧺 NUMBER CATCHER <span class="freepill">FREE GAME!</span><br><small>Catch two numbers that make 10!</small></button>`:''}
   ${checklist()}
   <section class="panel" style="padding:6px">
     <div class="strip">
@@ -1537,19 +1775,21 @@ function home(){
   </div>`;
 }
 function map(){
-  const H=!!P.challenge;
+  const H=!!P.challenge,BON=bonusTypes();
   app.innerHTML=`
   <div class="modebar ${H?'gold':''}">
     <button class="modebtn ${!H?'on':''}" onclick="setMode(false)">🙂 REGULAR</button>
     <button class="modebtn ${H?'on':''}" onclick="setMode(true)">⚡ CHALLENGE</button>
   </div>
-  <div class="panel maphead ${H?'goldpanel':''}">${H?GIZMO:WAFFLE}<div class="bubble left">${H?'<b>CHALLENGE MODE!</b> Harder puzzles. '+(P.arcadeOn?'Finish one to win a 🎟️ Arcade token — ACE it for 2 tokens and a gold ★!':'ACE one to win a gold ★ on your checklist!'):'Pick a world, partner! Each mission is only <b>5 puzzles</b>.'}</div></div>
+  <div class="panel maphead ${H?'goldpanel':''}">${H?GIZMO:WAFFLE}<div class="bubble left">${H?'<b>CHALLENGE MODE!</b> Harder puzzles. '+(P.arcadeOn?'Finish one to win 🎟️ Arcade tokens. <b>🎟️×2 BONUS</b> missions earn DOUBLE! ACE any one for extra tokens and a gold ★.':'ACE one to win a gold ★ on your checklist!'):'Pick a world, partner! Each mission is only <b>5 puzzles</b>.'}</div></div>
   ${WORLDS.map(w=>`<section class="panel world ${H?'goldpanel':''}" style="--wc:${w.color}">
     <h2>${w.emoji} ${w.name}${H?' ⚡':''}</h2><p class="wblurb">${w.blurb}</p>
+    ${w.name==='Number Mountain'&&P.catchOn?`<button class="btn small green" style="width:100%;margin-bottom:10px" onclick="playGame('catch','map')">🧺 Warm up with NUMBER CATCHER — FREE!</button>`:''}
     <div class="mlist">${w.types.map(t=>{
       const c=H?(P.missionsH[t]||0):(P.missions[t]||0),done=H?P.gold[t]:P.aced[t];
       const tag=done?(H?'<span class="acetag goldtag">★ GOLD</span>':'<span class="acetag">✔ ACED</span>'):c?((H?'⚡':'⭐').repeat(Math.min(c,5))+(c>5?'+':'')):'<span class="newtag">NEW!</span>';
-      return `<button class="mbtn ${done?(H?'golded':'aced'):''}" onclick="startMission('${t}')">
+      const bonus=H&&P.arcadeOn&&BON.includes(t);
+      return `<button class="mbtn ${done?(H?'golded':'aced'):''} ${bonus?'bonusm':''}" onclick="startMission('${t}')">${bonus?'<span class="bonustag">🎟️×2</span>':''}
       <span class="micon">${TYPES[t].icon}</span><span class="mname">${TYPES[t].name}</span><span class="mcount">${tag}</span></button>`;}).join('')}</div>
   </section>`).join('')}
   <button class="btn big ${H?'arcbtn':'green'}" onclick="startMission('mix')">🎲 ${H?'SURPRISE CHALLENGE!':'SURPRISE MISSION!'}</button>`;
@@ -1563,7 +1803,7 @@ function startMission(type,hard){
     else list=shuffle(Object.keys(TYPES)).slice(0,5);
   }else list=Array(5).fill(type);
   const qs=list.map(t=>hard?TYPES[t].hard():TYPES[t].gen()).filter(Boolean);
-  M={type,qs,i:0,tries:0,first:0,done:false,hard};
+  M={type,qs,i:0,tries:0,first:0,done:false,hard,bonus:hard&&type!=='mix'&&bonusTypes().includes(type)};
   window.scrollTo(0,0);
   const seen=hard?P.missionsH[type]:P.missions[type];
   if(type!=='mix'&&!seen) intro(type); else showQ();
@@ -1635,7 +1875,8 @@ function finish(){
   const perfect=M.first===M.qs.length;
   const aceKey=H?'gold':'aced',newAce=!mix&&perfect&&!P[aceKey][M.type];
   if(!mix&&perfect) P[aceKey][M.type]=(P[aceKey][M.type]||0)+1;
-  const won=H?(perfect?2:1):0;P.tokens=(P.tokens||0)+won;
+  // Challenge: 1 token (+1 if aced). Bonus missions and Surprise Challenges (which lean toward growth areas) earn double.
+  const won=H?((perfect?2:1)*((M.bonus||mix)?2:1)):0;P.tokens=(P.tokens||0)+won;
   const left=STICKERS.filter(s=>!P.stickers.includes(s));
   const st=left.length?pick(left):pick(STICKERS);
   if(left.length) P.stickers.push(st);
@@ -1654,7 +1895,7 @@ function finish(){
     <div class="newsticker">${st}</div>
     <p style="font-size:15px">Rank: <b>${rank()}</b></p>
   </section>
-  ${!P.arcadeOn?'':H?`<section class="panel center tokenwin"><div class="bang" style="font-size:30px">🎟️ +${won} ARCADE TOKEN${won>1?'S':''}!</div>
+  ${!P.arcadeOn?'':H?`<section class="panel center tokenwin"><div class="bang" style="font-size:30px">🎟️ +${won} ARCADE TOKEN${won>1?'S':''}!${M.bonus||mix?' <span class="bonustag inline">×2 BONUS</span>':''}</div>
      <p style="margin:4px 0 10px">You have <b>${P.tokens}</b>. Use your stickers in Pong or Invaders!</p>
      <button class="btn big arcbtn" onclick="go('arcade')">🕹️ PLAY IN THE ARCADE!</button></section>`
    :`<section class="panel center tokenwin dim"><p style="margin:0">🎟️ Want Arcade tokens? Try a <b>⚡ CHALLENGE</b> mission!</p></section>`}
@@ -1689,8 +1930,10 @@ function grown(){
     <ul>
       <li><b>Challenge Mode</b> (switch at the top of the mission map) uses harder versions of all 9 types, closer to 3rd-grade (Level 9) style: written-word analogies, fill-in-the-blank sentences, odd-one-out, two-step number rules, numeral patterns, picture-algebra, 3×3 grids, side-counting, and slanted or reverse paper folds.</li>
       <li>A <b>Surprise Challenge</b> leans toward number and paper-folding puzzles, his growth areas.</li>
-      <li>Finishing a Challenge mission earns <b>1 Arcade token</b>, and acing it earns <b>2</b> plus a gold ★. Regular missions don’t earn tokens.</li>
-      <li>You can turn the Arcade off in Settings below. Each token buys one game of <b>Sticker Pong</b> (ends after 3 misses against the computer) <b>Sticker Invaders</b> (ends when the invaders reach him), or <b>Sticker Dash</b>, an endless runner like the offline dino game (ends at the first crash). Games usually last a few minutes, so the puzzles stay the main event.</li>
+      <li>Finishing a Challenge mission earns <b>1 Arcade token</b>, and acing it earns <b>2</b> plus a gold ★. <b>Bonus missions earn double</b> (2, or 4 if aced). Bonus missions are the 4 types where his first-try rate is lowest, so the list follows his growth areas automatically and changes as he improves. They’re marked 🎟️×2 on the Challenge map. Surprise Challenges also earn double, since they lean toward number and paper-folding puzzles. Regular missions don’t earn tokens.</li>
+      <li><b>Right now the bonus missions are:</b> ${bonusTypes().map(t=>TYPES[t].icon+' '+TYPES[t].name+' ('+TYPES[t].real+')').join(', ')}.</li>
+      <li><b>🧺 Number Catcher</b> is free and never costs a token, so it’s always worth playing. He catches two falling numbers that add up to a target, starting with “make 10,” then moving to 8, 9, 12 and eventually up to 20 after every 5 correct pairs. On the first two targets the matching partner glows to help him learn. A wrong pair counts as a strike, and 3 strikes ends the game. It has a button on the home screen and on Number Mountain, and it stays available even when the Arcade is off.</li>
+      <li>You can turn the Arcade off and set how many tokens a game costs (2 by default) in Settings below. The games are <b>Sticker Pong</b> (ends after 3 misses against the computer) <b>Sticker Invaders</b> (ends when the invaders reach him), <b>Sticker Dash</b>, an endless runner like the offline dino game (ends at the first crash), <b>Sticker Smash</b>, a brick breaker (ends after 3 missed balls), or <b>Sticker Match</b>, a memory card game (ends when all 8 pairs are found; fewer flips scores higher). Games usually last a few minutes, so the puzzles stay the main event.</li>
     </ul>
     <h3>How to use it</h3>
     <ul>
@@ -1705,9 +1948,12 @@ function grown(){
     <h3>Settings</h3>
     <div class="toggle"><span>🔊 Auto-read each question aloud</span><button class="sw ${P.autoread?'on':''}" aria-label="Auto-read" onclick="P.autoread=!P.autoread;save();grown()"></button></div>
     <div class="toggle"><span>🕹️ Arcade games<br><span class="note">When off, the Arcade is hidden. Tokens he earns are saved for when it's back on.</span></span><button class="sw ${P.arcadeOn?'on':''}" aria-label="Arcade games" onclick="P.arcadeOn=!P.arcadeOn;save();grown()"></button></div>
+    <div class="toggle"><span>🎟️ Tokens per Arcade game<br><span class="note">Number Catcher is always free.</span></span><span class="row" style="gap:6px;flex-wrap:nowrap">${[1,2,3].map(n=>`<button class="costbtn ${gameCost()===n?'on':''}" onclick="P.cost=${n};save();grown()">${n}</button>`).join('')}</span></div>
+    <div class="toggle"><span>🧺 Number Catcher (free math game)<br><span class="note">Always free, even when the Arcade is off. Turn it off to hide it.</span></span><button class="sw ${P.catchOn?'on':''}" aria-label="Number Catcher" onclick="P.catchOn=!P.catchOn;save();grown()"></button></div>
     <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
     <h3>Progress <span class="note">(saved on this device only)</span></h3>
-    <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b> · Best Dash: <b>${(P.best&&P.best.run)||0}</b></p>
+    <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b> · Best Dash: <b>${(P.best&&P.best.run)||0}</b> · Best Smash: <b>${(P.best&&P.best.brick)||0}</b> · Best Match: <b>${(P.best&&P.best.mem)||0}</b></p>
+    <p>🧺 Number Catcher: <b>${(P.cstat&&P.cstat.made)||0}</b> correct number pairs, <b>${(P.cstat&&P.cstat.miss)||0}</b> wrong pairs · Best score: <b>${(P.best&&P.best.catch)||0}</b></p>
     <div style="overflow-x:auto"><table class="tbl"><tr><th>Type</th><th>Solved</th><th>1st try</th><th>Aced</th><th>⚡ Solved</th><th>⚡ 1st try</th><th>⚡ Gold</th></tr>${prog}</table></div>
     <p class="note">Use this to see which formats feel new to him, not as a grade. Low first-try numbers usually just mean the format is unfamiliar.</p>
     <div style="margin-top:12px"><button class="btn small" style="background:#fff" onclick="askReset()">Reset all progress</button></div>
@@ -1720,7 +1966,7 @@ function askReset(){
   <div class="row" style="justify-content:center"><button class="btn small red" id="yesR">Yes, reset</button><button class="btn small" style="background:#fff" id="noR">Cancel</button></div></div>`;
   document.body.appendChild(m);
   m.querySelector('#noR').onclick=()=>m.remove();
-  m.querySelector('#yesR').onclick=()=>{Object.assign(P,{missions:{},first:{},stickers:[],total:0,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false});save();m.remove();grown();};
+  m.querySelector('#yesR').onclick=()=>{Object.assign(P,{missions:{},first:{},stickers:[],total:0,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false,cstat:{made:0,miss:0}});save();m.remove();grown();};
 }
 
 updSnd();home();
