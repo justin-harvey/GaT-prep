@@ -362,7 +362,7 @@ const GIZMO = `<svg viewBox="0 0 104 126" xmlns="http://www.w3.org/2000/svg" ari
    STATE & STORAGE
    ========================================================= */
 const KEY='brainblasters_v1';
-let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false};
+let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false,arcadeOn:true};
 try{const s=localStorage.getItem(KEY); if(s) P=Object.assign(P,JSON.parse(s));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
 
@@ -1218,7 +1218,7 @@ function pickHero(i){P.hero=P.stickers[i];save();arcade();}
 
 let G=null; // running game
 function playGame(kind){
-  if((P.tokens||0)<1) return;
+  if(!P.arcadeOn||(P.tokens||0)<1) return;
   P.tokens--;save();
   try{speechSynthesis.cancel();}catch(e){}
   closeGame(true);
@@ -1415,7 +1415,7 @@ function go(screen){
   else if(screen==='map') map();
   else if(screen==='vault') vault();
   else if(screen==='grown') grown();
-  else if(screen==='arcade') arcade();
+  else if(screen==='arcade') (P.arcadeOn?arcade():home());
 }
 function setMode(h){P.challenge=h;save();map();}
 function checklist(){
@@ -1447,7 +1447,7 @@ function home(){
   </section>
   <div class="row" style="margin-bottom:18px">
     <button class="btn big red" style="flex:2;min-width:200px" onclick="go('map')">🚀 START A MISSION!</button>
-    <button class="btn big arcbtn" style="flex:1;min-width:130px;font-size:24px;padding:10px 6px" onclick="go('arcade')">🕹️ ARCADE<br><small>🎟️ × ${toks}</small></button>
+    ${P.arcadeOn?`<button class="btn big arcbtn" style="flex:1;min-width:130px;font-size:24px;padding:10px 6px" onclick="go('arcade')">🕹️ ARCADE<br><small>🎟️ × ${toks}</small></button>`:''}
   </div>
   ${checklist()}
   <section class="panel" style="padding:6px">
@@ -1469,7 +1469,7 @@ function map(){
     <button class="modebtn ${!H?'on':''}" onclick="setMode(false)">🙂 REGULAR</button>
     <button class="modebtn ${H?'on':''}" onclick="setMode(true)">⚡ CHALLENGE</button>
   </div>
-  <div class="panel maphead ${H?'goldpanel':''}">${H?GIZMO:WAFFLE}<div class="bubble left">${H?'<b>CHALLENGE MODE!</b> Harder puzzles. Finish one to win a 🎟️ Arcade token — ACE it for 2 tokens and a gold ★!':'Pick a world, partner! Each mission is only <b>5 puzzles</b>.'}</div></div>
+  <div class="panel maphead ${H?'goldpanel':''}">${H?GIZMO:WAFFLE}<div class="bubble left">${H?'<b>CHALLENGE MODE!</b> Harder puzzles. '+(P.arcadeOn?'Finish one to win a 🎟️ Arcade token — ACE it for 2 tokens and a gold ★!':'ACE one to win a gold ★ on your checklist!'):'Pick a world, partner! Each mission is only <b>5 puzzles</b>.'}</div></div>
   ${WORLDS.map(w=>`<section class="panel world ${H?'goldpanel':''}" style="--wc:${w.color}">
     <h2>${w.emoji} ${w.name}${H?' ⚡':''}</h2><p class="wblurb">${w.blurb}</p>
     <div class="mlist">${w.types.map(t=>{
@@ -1580,7 +1580,7 @@ function finish(){
     <div class="newsticker">${st}</div>
     <p style="font-size:15px">Rank: <b>${rank()}</b></p>
   </section>
-  ${H?`<section class="panel center tokenwin"><div class="bang" style="font-size:30px">🎟️ +${won} ARCADE TOKEN${won>1?'S':''}!</div>
+  ${!P.arcadeOn?'':H?`<section class="panel center tokenwin"><div class="bang" style="font-size:30px">🎟️ +${won} ARCADE TOKEN${won>1?'S':''}!</div>
      <p style="margin:4px 0 10px">You have <b>${P.tokens}</b>. Use your stickers in Pong or Invaders!</p>
      <button class="btn big arcbtn" onclick="go('arcade')">🕹️ PLAY IN THE ARCADE!</button></section>`
    :`<section class="panel center tokenwin dim"><p style="margin:0">🎟️ Want Arcade tokens? Try a <b>⚡ CHALLENGE</b> mission!</p></section>`}
@@ -1616,7 +1616,7 @@ function grown(){
       <li><b>Challenge Mode</b> (switch at the top of the mission map) uses harder versions of all 9 types, closer to 3rd-grade (Level 9) style: written-word analogies, fill-in-the-blank sentences, odd-one-out, two-step number rules, numeral patterns, picture-algebra, 3×3 grids, side-counting, and slanted or reverse paper folds.</li>
       <li>A <b>Surprise Challenge</b> leans toward number and paper-folding puzzles, his growth areas.</li>
       <li>Finishing a Challenge mission earns <b>1 Arcade token</b>, and acing it earns <b>2</b> plus a gold ★. Regular missions don’t earn tokens.</li>
-      <li>Each token buys one game of <b>Sticker Pong</b> (ends after 3 misses against the computer) or <b>Sticker Invaders</b> (ends when the invaders reach him). Games usually last a few minutes, so the puzzles stay the main event.</li>
+      <li>You can turn the Arcade off in Settings below. Each token buys one game of <b>Sticker Pong</b> (ends after 3 misses against the computer) or <b>Sticker Invaders</b> (ends when the invaders reach him). Games usually last a few minutes, so the puzzles stay the main event.</li>
     </ul>
     <h3>How to use it</h3>
     <ul>
@@ -1630,6 +1630,7 @@ function grown(){
     </ul>
     <h3>Settings</h3>
     <div class="toggle"><span>🔊 Auto-read each question aloud</span><button class="sw ${P.autoread?'on':''}" aria-label="Auto-read" onclick="P.autoread=!P.autoread;save();grown()"></button></div>
+    <div class="toggle"><span>🕹️ Arcade games<br><span class="note">When off, the Arcade is hidden. Tokens he earns are saved for when it's back on.</span></span><button class="sw ${P.arcadeOn?'on':''}" aria-label="Arcade games" onclick="P.arcadeOn=!P.arcadeOn;save();grown()"></button></div>
     <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
     <h3>Progress <span class="note">(saved on this device only)</span></h3>
     <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b></p>
