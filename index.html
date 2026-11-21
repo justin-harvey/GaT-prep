@@ -227,7 +227,70 @@ main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
 .intro .bubble{font-size:18px}
 .intro svg{height:110px;width:auto}
 
+/* challenge mode */
+.modebar{display:flex;gap:0;margin-bottom:16px;border:4px solid var(--ink);border-radius:12px;overflow:hidden;box-shadow:4px 4px 0 var(--ink);background:#fff}
+.modebtn{flex:1;font-family:Bangers,Impact,sans-serif;font-size:22px;letter-spacing:1.5px;padding:10px 6px;border:none;background:#fff;color:#888}
+.modebtn+.modebtn{border-left:4px solid var(--ink)}
+.modebtn.on{background:var(--blue);color:#fff;text-shadow:1px 1px 0 var(--ink)}
+.modebar.gold .modebtn.on{background:linear-gradient(135deg,#FFD93D,#FF8C42);color:var(--ink);text-shadow:none}
+.goldpanel{background:linear-gradient(180deg,#FFF8DC,#FFFFFF 40%);border-color:#B8860B;box-shadow:6px 6px 0 #8B6508}
+.world.goldpanel h2{background:linear-gradient(90deg,var(--wc),#FFB800)}
+.mbtn.golded{background:#FFF1B8}
+.goldtag{background:linear-gradient(135deg,#FFD93D,#FF8C42);color:var(--ink)}
+.arcbtn{background:linear-gradient(135deg,#8E44AD,#2F80ED);color:#fff;text-shadow:2px 2px 0 var(--ink)}
+.arcbtn small{font-family:'Comic Neue',sans-serif;font-weight:700;font-size:15px;letter-spacing:0}
+.ccount.gold{background:linear-gradient(135deg,#FFD93D,#FF8C42);color:var(--ink);text-shadow:none}
+.citem .cname{flex:1;background:none;border:none;text-align:left;font-size:17px;font-weight:700;padding:4px 0}
+.citem .cbox{cursor:pointer;padding:0}
+.cbox.goldbox{font-size:16px;color:#bbb;text-shadow:none;background:#fff}
+.cbox.goldbox.on{background:linear-gradient(135deg,#FFD93D,#FF8C42);color:var(--ink);font-size:20px}
+.citem.golded{background:#FFF1B8}
+.citem.golded .cstat{background:linear-gradient(135deg,#FFD93D,#FF8C42);transform:rotate(-5deg)}
+.goldstamp{color:#B8860B;border-color:#DAA520}
+.tokenwin{background:linear-gradient(135deg,#EDE7F6,#E3F2FD)}
+.tokenwin.dim{background:#fff;font-size:15px}
+.wtile{min-width:76px;height:56px;border:3px solid var(--ink);border-radius:10px;background:#FFF8E1;display:flex;align-items:center;justify-content:center;font-size:21px;padding:0 10px;font-weight:700}
+.wtile.q{background:#E3F2FD;font-family:Bangers,Impact,sans-serif;font-size:36px;color:var(--blue)}
+.row3.wrap{flex-wrap:wrap}
+.optword{font-size:24px;font-weight:700}
+.blank{display:inline-block;min-width:70px;border-bottom:3px solid var(--ink)}
+.numbig{font-family:Bangers,Impact,sans-serif;font-size:40px}
+.seq{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;font-family:Bangers,Impact,sans-serif}
+.seq .nt{min-width:48px;font-size:32px}
+.comma{font-size:30px}
+.keybox{display:flex;gap:14px;justify-content:center;font-size:26px;font-weight:700;background:#FFF1B8;border:3px dashed var(--ink);border-radius:10px;padding:6px 10px;margin:0 auto 12px;width:max-content;max-width:100%}
+.keybox span{font-family:'Comic Neue','Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;white-space:nowrap}
+.nt.emo-t{font-size:30px;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+.matrix3{display:grid;grid-template-columns:repeat(3,auto);gap:6px;justify-content:center}
+.matrix3 .cell{width:80px;height:80px}
+
+/* arcade */
+.arcadehead{background:linear-gradient(135deg,#2F80ED,#8E44AD);color:#fff}
+.arcadehead h2{text-shadow:3px 3px 0 var(--ink)}
+.tokens{display:inline-block;font-size:26px;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:30px;padding:4px 18px;margin-top:6px}
+.heropick{display:flex;flex-wrap:wrap;gap:6px}
+.hp{width:48px;height:48px;font-size:28px;border:3px solid var(--ink);border-radius:10px;background:#fff;padding:0;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+.hp.on{background:var(--yellow);transform:scale(1.12);box-shadow:2px 2px 0 var(--ink)}
+.games{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.games{grid-template-columns:1fr}}
+.game .gicon{font-size:50px}
+.game h3{font-size:26px}
+.game p{font-size:15px;margin:6px 0}
+.btn:disabled{opacity:.45;filter:grayscale(.6);cursor:not-allowed}
+.arc{position:fixed;inset:0;z-index:80;background:#0B1026;display:flex;flex-direction:column}
+.arcbar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--red);border-bottom:4px solid var(--ink)}
+.arctitle{font-family:Bangers,Impact,sans-serif;font-size:24px;letter-spacing:1.5px;color:#fff;text-shadow:2px 2px 0 var(--ink)}
+.arcstage{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:8px;min-height:0}
+.arcstage canvas{border:4px solid var(--ink);border-radius:8px;box-shadow:0 0 0 3px #FFD93D;background:#000;touch-action:none}
+.arcmsg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(11,16,38,.55)}
+.arcover{max-width:380px;width:100%}
+.archelp{color:#cfd8ff;text-align:center;font-size:14px;padding:6px 10px 10px}
+body.noscroll{overflow:hidden}
+
 @media (max-width:420px){
+  .matrix3 .cell{width:70px;height:70px}
+  .wtile{min-width:64px;font-size:18px}
+
   .title{font-size:46px}
   .tile{width:70px;height:70px}.tile .emo{font-size:40px}
   .cell{width:76px;height:76px}
@@ -299,7 +362,7 @@ const GIZMO = `<svg viewBox="0 0 104 126" xmlns="http://www.w3.org/2000/svg" ari
    STATE & STORAGE
    ========================================================= */
 const KEY='brainblasters_v1';
-let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{}};
+let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false};
 try{const s=localStorage.getItem(KEY); if(s) P=Object.assign(P,JSON.parse(s));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
 
@@ -710,6 +773,641 @@ const RANKS=[[0,'Rookie'],[3,'Sidekick'],[8,'Hero'],[15,'Super Hero'],[25,'Puzzl
 const rank=()=>RANKS.filter(r=>P.total>=r[0]).pop()[1];
 let M=null;
 
+/* =========================================================
+   MORE REGULAR WORD PUZZLES
+   ========================================================= */
+PA.push(
+ {a:'🐔',b:'🥚',c:'🐄',ans:'🥛',w:['🍯','🍞','🍎'],n:['chicken','egg','cow'],hint:'A chicken gives us eggs. A cow gives us ___.',why:'A chicken gives us eggs, and a cow gives us milk!'},
+ {a:'🦶',b:'👟',c:'✋',ans:'🧤',w:['🧢','🧦','👓'],n:['foot','sneaker','hand'],hint:'A sneaker goes on your foot. What goes on your hand?',why:'A sneaker goes on a foot, and a glove goes on a hand.'},
+ {a:'🔥',b:'🚒',c:'🤒',ans:'🚑',w:['🚓','🚜','🚲'],n:['fire','fire truck','sick face'],hint:'When there is a fire, a fire truck comes to help. When someone is sick or hurt, what comes?',why:'A fire truck helps with fires, and an ambulance helps sick or hurt people.'},
+ {a:'🐱',b:'🐭',c:'🐦',ans:'🐛',w:['🐟','🌳','🥚'],n:['cat','mouse','bird'],hint:'A cat chases a mouse to eat. What does a bird catch to eat?',why:'A cat catches mice, and a bird catches bugs like caterpillars.'},
+ {a:'🍞',b:'🥪',c:'🥔',ans:'🍟',w:['🥕','🍎','🥚'],n:['bread','sandwich','potato'],hint:'Bread is used to make a sandwich. A potato is used to make ___.',why:'Bread makes a sandwich, and a potato makes French fries!'},
+ {a:'🌳',b:'🍃',c:'🐦',ans:'🪶',w:['🥚','🐛','☁️'],n:['tree','leaf','bird'],hint:'A tree is covered in leaves. A bird is covered in ___.',why:'Trees are covered in leaves, and birds are covered in feathers.'},
+ {a:'🔦',b:'🔋',c:'🚗',ans:'⛽',w:['🔧','🧽','🚦'],n:['flashlight','battery','car'],hint:'A flashlight needs a battery to work. What does a car need to go?',why:'A flashlight runs on batteries, and a car runs on gas.'},
+ {a:'🐝',b:'🌸',c:'🐒',ans:'🍌',w:['🌴','🐵','🥥'],n:['bee','flower','monkey'],hint:'A bee gets its food from a flower. What food does a monkey love?',why:'A bee eats from flowers, and a monkey eats bananas.'}
+);
+SC.push(
+ {q:'Which one can roll, but cannot fly?',ans:'⚽',w:['🦅','✈️','🎈'],why:'A ball rolls but cannot fly.'},
+ {q:'Which one do you wear on your head?',ans:'🧢',w:['🧦','👖','🧤'],why:'A cap goes on your head!'},
+ {q:'Which one would melt on a hot day?',ans:'🍦',w:['🧱','🔨','📚'],why:'Ice cream melts when it is hot!'},
+ {q:'Which animal has a long neck to eat leaves from tall trees?',ans:'🦒',w:['🐷','🐢','🐇'],why:'A giraffe’s long neck reaches the tall leaves.'},
+ {q:'Which one is used to cut paper?',ans:'✂️',w:['🖍️','📏','🧽'],why:'Scissors cut paper.'},
+ {q:'Which one would you NOT find in the ocean?',ans:'🐄',w:['🐙','🐬','🦀'],why:'Cows live on farms, not in the ocean!'},
+ {q:'Which one has MORE legs than a dog?',ans:'🕷️',w:['🐔','🐒','🐍'],why:'A spider has 8 legs. A dog has only 4!'},
+ {q:'Which one shines in the sky at night, but is NOT a star?',ans:'🌙',w:['☀️','🌈','☁️'],why:'The moon shines at night. The sun shines in the daytime.'}
+);
+PC.push(
+ {top:['🍕','🍔','🌭'],ans:'🌮',w:['🍴','🧽','🪑'],why:'They are all foods you can eat, like the taco!'},
+ {top:['🌹','🌻','🌷'],ans:'🌼',w:['🌳','🍄','🌵'],why:'They are all flowers.'},
+ {top:['🐄','🐷','🐑'],ans:'🐐',w:['🦁','🐧','🦈'],why:'They are all farm animals, like the goat.'},
+ {top:['✏️','🖍️','🖊️'],ans:'🖌️',w:['📏','📎','✂️'],why:'You can draw or write with all of them, like the paintbrush.'},
+ {top:['🍪','🍩','🎂'],ans:'🧁',w:['🥦','🥕','🥚'],why:'They are all sweet treats!'},
+ {top:['🦁','🐯','🐆'],ans:'🐱',w:['🐶','🐻','🐺'],why:'Tricky! They are all in the CAT family — even a little house cat.'},
+ {top:['🌧️','❄️','🌩️'],ans:'🌪️',w:['🌳','🏠','🚗'],why:'They are all kinds of weather.'},
+ {top:['🥄','🍴','🔪'],ans:'🥢',w:['🧹','🔨','🧸'],why:'You use them all to eat, like chopsticks!'}
+);
+['🐲','🦉','🐳','🚁','🛶','🏎️','🧙','🥷','🦾','🎸','🥁','🍕','🍩','🌋','🌟','🔥','❄️','🎈','🪁','🦋','🐝','🐞','🦀','🐬','🦁','🐯','🐼','🐨','🐸','🐵'].forEach(x=>{if(!STICKERS.includes(x))STICKERS.push(x);});
+
+/* =========================================================
+   CHALLENGE MODE CONTENT
+   ========================================================= */
+const WA=[
+ {a:'hot',b:'cold',c:'up',ans:'down',w:['high','top','sky'],why:'Hot and cold are opposites. The opposite of up is down!'},
+ {a:'bird',b:'fly',c:'fish',ans:'swim',w:['water','fin','jump'],why:'A bird flies and a fish swims. Both are how they move!'},
+ {a:'puppy',b:'dog',c:'kitten',ans:'cat',w:['yarn','mouse','baby'],why:'A puppy grows into a dog, and a kitten grows into a cat.'},
+ {a:'day',b:'night',c:'summer',ans:'winter',w:['hot','spring','sun'],why:'Day and night are opposites. Summer and winter are opposite seasons.'},
+ {a:'glove',b:'hand',c:'hat',ans:'head',w:['coat','cap','hair'],why:'A glove goes on your hand, and a hat goes on your head.'},
+ {a:'big',b:'small',c:'tall',ans:'short',w:['giant','long','high'],why:'Big is the opposite of small. Tall is the opposite of short.'},
+ {a:'cow',b:'moo',c:'dog',ans:'bark',w:['bone','cat','tail'],why:'A cow says moo, and a dog says bark — the sound each one makes!'},
+ {a:'eye',b:'see',c:'ear',ans:'hear',w:['head','sound','nose'],why:'You see with your eyes and hear with your ears.'},
+ {a:'three',b:'triangle',c:'four',ans:'square',w:['circle','five','corner'],why:'A triangle has three sides. A square has four sides!'},
+ {a:'pencil',b:'write',c:'scissors',ans:'cut',w:['paper','sharp','glue'],why:'You write with a pencil and cut with scissors.'},
+ {a:'bee',b:'hive',c:'bird',ans:'nest',w:['tree','egg','fly'],why:'A bee lives in a hive, and a bird lives in a nest.'},
+ {a:'fast',b:'slow',c:'happy',ans:'sad',w:['smile','glad','quick'],why:'Fast and slow are opposites. Happy and sad are opposites too.'},
+ {a:'morning',b:'breakfast',c:'evening',ans:'dinner',w:['lunch','night','moon'],why:'You eat breakfast in the morning and dinner in the evening.'},
+ {a:'page',b:'book',c:'leaf',ans:'tree',w:['green','fall','rake'],why:'A page is part of a book. A leaf is part of a tree.'},
+ {a:'wet',b:'dry',c:'full',ans:'empty',w:['cup','more','half'],why:'Wet is the opposite of dry. Full is the opposite of empty.'},
+ {a:'ice',b:'cold',c:'fire',ans:'hot',w:['smoke','wood','red'],why:'Ice feels cold, and fire feels hot.'},
+ {a:'egg',b:'chick',c:'seed',ans:'plant',w:['soil','bird','water'],why:'A chick hatches from an egg. A plant grows from a seed.'},
+ {a:'doctor',b:'hospital',c:'teacher',ans:'school',w:['book','student','bus'],why:'A doctor works at a hospital. A teacher works at a school.'},
+ {a:'two',b:'pair',c:'twelve',ans:'dozen',w:['ten','eggs','many'],why:'Two things make a pair. Twelve things make a dozen!'},
+ {a:'left',b:'right',c:'in',ans:'out',w:['inside','door','on'],why:'Left and right are opposites. In and out are opposites.'},
+ {a:'caterpillar',b:'butterfly',c:'tadpole',ans:'frog',w:['pond','fish','egg'],why:'A caterpillar grows into a butterfly. A tadpole grows into a frog!'},
+ {a:'above',b:'below',c:'first',ans:'last',w:['one','winner','next'],why:'Above and below are opposites. First and last are opposites.'},
+ {a:'broom',b:'sweep',c:'knife',ans:'cut',w:['fork','sharp','kitchen'],why:'You sweep with a broom and cut with a knife.'},
+ {a:'lion',b:'roar',c:'snake',ans:'hiss',w:['slither','bite','long'],why:'A lion roars and a snake hisses — the sound each one makes.'},
+];
+const SCH=[
+ {q:'It was so ___ outside that we needed our coats.',ans:'cold',w:['hot','sunny','loud'],why:'You need a coat when it is cold.'},
+ {q:'The baby was ___, so everyone whispered.',ans:'sleeping',w:['singing','running','eating'],why:'We whisper so we don’t wake a sleeping baby.'},
+ {q:'Sam was ___ because he lost his favorite toy.',ans:'sad',w:['proud','hungry','tall'],why:'Losing a favorite toy would make you sad.'},
+ {q:'We use a ___ to see things that are very far away.',ans:'telescope',w:['microscope','mirror','magnet'],why:'A telescope sees far away. A microscope sees tiny things up close.'},
+ {q:'The ice cream ___ because it was a hot day.',ans:'melted',w:['froze','grew','bounced'],why:'Heat makes ice cream melt.'},
+ {q:'Plants need water and ___ to grow.',ans:'sunlight',w:['candy','toys','darkness'],why:'Plants need water and sunlight.'},
+ {q:'At the library, you can ___ books and bring them back later.',ans:'borrow',w:['buy','eat','paint'],why:'You borrow library books and return them.'},
+ {q:'After the long race, the runner was ___.',ans:'tired',w:['early','dry','tiny'],why:'Running a long race makes you tired.'},
+ {q:'An astronaut rides a ___ into space.',ans:'rocket',w:['submarine','tractor','kite'],why:'Rockets go to space. Submarines go under the sea!'},
+ {q:'The opposite of “noisy” is ___.',ans:'quiet',w:['loud','busy','happy'],why:'Noisy and quiet are opposites.'},
+ {q:'Squirrels hide ___ so they have food in the winter.',ans:'nuts',w:['snow','rocks','leaves'],why:'Squirrels store nuts for winter.'},
+ {q:'Ben forgot his umbrella, so he got ___ in the rain.',ans:'soaked',w:['dry','warm','lost'],why:'No umbrella in the rain means you get soaked!'},
+ {q:'A ___ shows you which way is north.',ans:'compass',w:['clock','ruler','calendar'],why:'A compass points north.'},
+ {q:'Mia’s glass was ___, so she poured more milk.',ans:'empty',w:['full','heavy','cold'],why:'You pour more when your glass is empty.'},
+ {q:'I have wheels, but I am NOT a car. I have pedals. What am I?',ans:'🚲',w:['🚗','🛹','🚂'],pic:true,why:'A bike has wheels AND pedals. A skateboard has wheels but no pedals.'},
+ {q:'I am round and orange, and I grow in a patch on the ground. What am I?',ans:'🎃',w:['🍊','🏀','🥕'],pic:true,why:'Pumpkins grow in a pumpkin patch. Oranges grow on trees.'},
+ {q:'I have stripes, but I am NOT a cat. What am I?',ans:'🦓',w:['🐯','🐆','🐴'],pic:true,why:'A zebra has stripes. A tiger has stripes too, but a tiger IS a big cat!'},
+ {q:'I can fly, but I have no feathers. I come out at night. What am I?',ans:'🦇',w:['🦉','🦋','🐝'],pic:true,why:'Bats fly at night and have no feathers. Owls have feathers; butterflies and bees fly in the day.'},
+ {q:'I have hands, but I cannot clap. What am I?',ans:'⏰',w:['🧤','🐒','🤖'],pic:true,why:'A clock has hands that point to the time, but they can’t clap!'},
+ {q:'I have a trunk, but I am NOT a tree. What am I?',ans:'🐘',w:['🌳','🧳','🦒'],pic:true,why:'An elephant has a trunk for a nose!'},
+];
+const OOO=[
+ {g:['🍎','🍌','🍇'],odd:'🥕',why:'Apple, banana and grapes are fruits. A carrot is a vegetable.'},
+ {g:['🐶','🐱','🐰'],odd:'🦈',why:'Dogs, cats and bunnies can be pets. A shark is not a pet!'},
+ {g:['🚗','🚌','🚕'],odd:'⛵',why:'Cars, buses and taxis drive on roads. A sailboat floats on water.'},
+ {g:['🦅','🦉','🦆'],odd:'🦇',why:'Eagles, owls and ducks are birds. A bat flies, but it is NOT a bird.'},
+ {g:['🧊','⛄','🍦'],odd:'🔥',why:'Ice, a snowman and ice cream are cold. Fire is hot!'},
+ {g:['🐝','🦋','🐞'],odd:'🕷️',why:'Bees, butterflies and ladybugs are insects with 6 legs. A spider has 8 legs — not an insect!'},
+ {g:['🎸','🎹','🥁'],odd:'📺',why:'Guitar, piano and drum make music. A TV is not an instrument.'},
+ {g:['🥕','🥦','🌽'],odd:'🍓',why:'Carrot, broccoli and corn are vegetables. A strawberry is a fruit.'},
+ {g:['✈️','🚁','🚀'],odd:'🚢',why:'Planes, helicopters and rockets fly. A ship floats.'},
+ {g:['🔨','🪛','🔧'],odd:'🧸',why:'Hammer, screwdriver and wrench are tools. A teddy bear is a toy.'},
+ {g:['⚽','🏀','🎾'],odd:'🎲',why:'Soccer ball, basketball and tennis ball are all balls. A die is a cube!'},
+ {g:['🧦','👟','🥾'],odd:'🧢',why:'Socks, sneakers and boots go on your feet. A cap goes on your head.'},
+ {g:['🐟','🐠','🐡'],odd:'🐬',why:'Super tricky! These are fish. A dolphin lives in the sea, but it is a mammal that breathes air.'},
+ {g:['🌲','🌵','🌻'],odd:'🧱',why:'Tree, cactus and sunflower are plants. A brick is not alive.'},
+];
+const OOW=[
+ {g:['apple','banana','cherry'],odd:'carrot',why:'Apple, banana and cherry are fruits. A carrot is a vegetable.'},
+ {g:['run','jump','skip'],odd:'chair',why:'Run, jump and skip are things you DO. A chair is a thing.'},
+ {g:['happy','glad','cheerful'],odd:'angry',why:'Happy, glad and cheerful mean the same thing. Angry is different.'},
+ {g:['circle','square','triangle'],odd:'purple',why:'Circle, square and triangle are shapes. Purple is a color.'},
+ {g:['Monday','Tuesday','Friday'],odd:'March',why:'Monday, Tuesday and Friday are days. March is a month.'},
+ {g:['huge','giant','enormous'],odd:'tiny',why:'Huge, giant and enormous all mean BIG. Tiny means small.'},
+ {g:['shout','yell','scream'],odd:'whisper',why:'Shout, yell and scream are loud. A whisper is quiet.'},
+ {g:['ocean','lake','river'],odd:'mountain',why:'Ocean, lake and river are water. A mountain is land.'},
+ {g:['robin','eagle','penguin'],odd:'bat',why:'Robins, eagles and penguins are birds. A bat is not a bird!'},
+ {g:['nine','four','seven'],odd:'green',why:'Nine, four and seven are numbers. Green is a color.'},
+];
+const WCL=[
+ {top:['robin','eagle','sparrow'],ans:'owl',w:['bat','kite','plane'],why:'They are all birds. An owl is a bird too!'},
+ {top:['carrot','pea','corn'],ans:'potato',w:['apple','cookie','grape'],why:'They are all vegetables.'},
+ {top:['happy','glad','cheerful'],ans:'joyful',w:['sad','angry','sleepy'],why:'They all mean happy!'},
+ {top:['red','yellow','blue'],ans:'green',w:['ball','sky','paint'],why:'They are all colors.'},
+ {top:['spoon','fork','knife'],ans:'chopsticks',w:['table','napkin','oven'],why:'You use them all to pick up food and eat.'},
+ {top:['January','March','July'],ans:'October',w:['Monday','Friday','summer'],why:'They are all months.'},
+ {top:['huge','giant','enormous'],ans:'gigantic',w:['tiny','small','short'],why:'They all mean really BIG.'},
+ {top:['hammer','saw','drill'],ans:'wrench',w:['pillow','blanket','sock'],why:'They are all tools.'},
+ {top:['triangle','circle','square'],ans:'rectangle',w:['red','ball','box'],why:'They are all shapes.'},
+ {top:['nose','eyes','mouth'],ans:'cheeks',w:['hat','glasses','toes'],why:'They are all parts of your face.'},
+ {top:['lake','river','ocean'],ans:'pond',w:['mountain','desert','forest'],why:'They are all water.'},
+ {top:['run','hop','skip'],ans:'jump',w:['sleep','sit','think'],why:'They are all ways to move your body fast.'},
+];
+const W=x=>`<span class="optword">${x}</span>`;
+const WT=x=>`<div class="wtile">${x}</div>`;
+
+/* ---------- Challenge: verbal ---------- */
+function genPA_H(){
+  const it=draw('wa',WA);
+  const prompt=`<div class="pairs-wrap">
+    <div class="pair">${WT(it.a)}<div class="arrow">➜</div>${WT(it.b)}</div>
+    <div class="sep">SO…</div>
+    <div class="pair">${WT(it.c)}<div class="arrow">➜</div><div class="wtile q">?</div></div></div>`;
+  return mk('pa',prompt,W(it.ans),it.w.map(W),it.why,{hard:true,
+    text:'These two words go together. Which word goes with the third word in the <u>same way</u>?',
+    hint:`Make a sentence about “${it.a}” and “${it.b}.” Then use the same sentence for “${it.c}.”`,
+    speak:`${it.a} goes with ${it.b}. ${it.c} goes with what?`});
+}
+function genSC_H(){
+  const it=draw('sch',SCH);
+  const fmt=it.pic?E:W;
+  const q=it.pic?it.q:it.q.replace('___','<span class="blank">______</span>');
+  return mk('sc',`<div class="riddle">${q}</div>`,fmt(it.ans),it.w.map(fmt),it.why,{hard:true,
+    text:it.pic?'Read the riddle. Which picture is it?':'Which word fits best in the blank?',
+    hint:it.pic?'Check EVERY clue. The answer has to match all of them!':'Read the sentence with each word in the blank. Which one makes the most sense?',
+    speak:it.q.replace('___','blank')});
+}
+function genPC_H(){
+  const v=pick(['oop','oop','oow','wcl','wcl']);
+  if(v==='wcl'){
+    const it=draw('wcl',WCL);
+    const prompt=`<div class="club"><div class="clublabel">⭐ THESE 3 WORDS ARE ALIKE ⭐</div><div class="row3 wrap">${it.top.map(WT).join('')}</div></div>`;
+    return mk('pc',prompt,W(it.ans),it.w.map(W),it.why,{hard:true,text:'The top 3 words are alike. Which word belongs with them?',
+      hint:'Give the group a name, like “colors” or “animals.” Which word fits the name?',speak:`${it.top.join(', ')}. Which word belongs with them?`});
+  }
+  const it=v==='oop'?draw('oop',OOO):draw('oow',OOW);
+  const fmt=v==='oop'?E:W;
+  return mk('pc',`<div class="riddle">🕵️ Three of the answers belong together.<br>Find the one that <b>doesn’t fit!</b></div>`,fmt(it.odd),it.g.map(fmt),it.why,{hard:true,
+    text:'Which one does <u>NOT</u> belong?',hint:'Find what THREE of them have in common. The one left over is the answer!',
+    speak:'Three of these go together. Which one does NOT belong?'});
+}
+
+/* ---------- Challenge: quantitative ---------- */
+const NB=n=>`<span class="numbig">${n}</span>`;
+function genNA_H(){
+  const rules=[
+    {f:x=>2*x+1,ok:x=>x<=9,say:'doubles the number, then adds 1'},
+    {f:x=>2*x-1,ok:x=>x<=9,say:'doubles the number, then takes away 1'},
+    {f:x=>2*x+2,ok:x=>x<=8,say:'doubles the number, then adds 2'},
+    {f:x=>x+5,ok:x=>x<=15,say:'adds 5'},
+    {f:x=>x+10,ok:x=>x<=20,say:'adds 10'},
+    {f:x=>x-4,ok:x=>x>=5&&x<=20,say:'takes away 4'},
+    {f:x=>3*x,ok:x=>x<=6,say:'makes it three times as big'},
+    {f:x=>10-x,ok:x=>x<=9,say:'finds the number that makes 10 with it'},
+    {f:x=>x/2+1,ok:x=>x%2===0&&x<=16,say:'cuts it in half, then adds 1'}];
+  for(let t=0;t<200;t++){
+    const r=pick(rules);const pool=[];for(let x=1;x<=20;x++) if(r.ok(x)) pool.push(x);
+    const xs=shuffle(pool).slice(0,3);if(xs.length<3) continue;
+    const ans=r.f(xs[2]);
+    const others=rules.filter(o=>o!==r&&o.ok(xs[2])).map(o=>o.f(xs[2]));
+    const cands=shuffle([...new Set([ans+1,ans-1,ans+2,...others])]).filter(v=>v>=0&&v!==ans&&Number.isInteger(v));
+    if(cands.length<3) continue;
+    const rows=xs.map((x,i)=>`<div class="mrow"><div class="mbox">${NB(x)}</div><div class="gear">⚙️➜</div><div class="mbox">${i<2?NB(r.f(x)):'<span class="qbig">?</span>'}</div></div>`).join('');
+    return mk('na',`<div class="machine">${rows}</div>`,`<span class="optnum">${ans}</span>`,cands.slice(0,3).map(v=>`<span class="optnum">${v}</span>`),
+      `The machine ${r.say}! ${xs[0]} → ${r.f(xs[0])} and ${xs[1]} → ${r.f(xs[1])}. So ${xs[2]} → ${ans}.`,
+      {hard:true,text:'The machine uses a <u>secret rule</u>. What number comes out at the end?',
+       hint:'Some machines do TWO things, like “double it, then add 1.” Test your rule on BOTH examples!',
+       speak:`The number machine turns ${xs[0]} into ${r.f(xs[0])}, and ${xs[1]} into ${r.f(xs[1])}. What does it turn ${xs[2]} into?`});
+  }
+}
+function genNP_H(){
+  const tok=x=>x==='?'?'<span class="nt q">?</span>':(typeof x==='number'?`<span class="nt">${x}</span>`:(['+','−','='].includes(x)?`<span class="op">${x}</span>`:`<span class="nt emo-t">${x}</span>`));
+  for(let t=0;t<200;t++){
+    const v=pick(['big','big','sym','dbl','mid']);
+    let L=[],R=[],ans,why,key='',cands;
+    if(v==='big'){
+      const a=3+rnd(7),b=2+rnd(7),c=1+rnd(Math.min(a+b-2,8)),tot=a+b-c;if(tot<4) continue;
+      const d=1+rnd(tot-1);ans=tot-d;L=[a,'+',b,'−',c];R=[d,'+','?'];
+      why=`${a} + ${b} − ${c} = ${tot}. The right side has ${d}, so it needs ${ans} more.`;cands=[ans+1,ans-1,ans+2,tot,a+b-d];
+    }else if(v==='dbl'){
+      const n=2+rnd(8),ex=pick([0,0,1,2,3]),T=2*n+ex;ans=n;L=ex?['?','+','?','+',ex]:['?','+','?'];R=[T];
+      why=`Both ? are the SAME number. ${n} + ${n}${ex?' + '+ex:''} = ${T}.`;cands=[n+1,n-1,T-ex,T,n+2];
+    }else if(v==='mid'){
+      const a=9+rnd(10);ans=2+rnd(a-4);L=[a,'−','?'];R=[a-ans];
+      why=`${a} take away ${ans} leaves ${a-ans}.`;cands=[ans+1,ans-1,a-ans,a,ans+2];
+    }else{
+      const [o1,o2]=shuffle(['🍎','🍌','🍓','🍩','⭐','🍪']).slice(0,2);const va=2+rnd(4);let vb=1+rnd(4);if(vb===va) vb=va===1?2:va-1;
+      key=`<div class="keybox"><span>${o1} = ${va}</span><span>${o2} = ${vb}</span></div>`;
+      if(Math.random()<0.5){ans=2*va+vb;L=[o1,'+',o1,'+',o2];R=['?'];why=`${o1} + ${o1} + ${o2} = ${va} + ${va} + ${vb} = ${ans}.`;cands=[ans+1,ans-1,va+vb,ans+va];}
+      else{ans=3*vb-va;if(ans<1) continue;L=[o1,'+','?'];R=[o2,'+',o2,'+',o2];why=`The right side is ${vb} + ${vb} + ${vb} = ${3*vb}. ${o1} is ${va}, so ? must be ${ans}.`;cands=[ans+1,ans-1,3*vb,vb];}
+    }
+    cands=shuffle([...new Set(cands)]).filter(x=>x>=1&&x!==ans);
+    if(cands.length<3) continue;
+    const prompt=`<div style="width:100%">${key}<div class="eq"><div class="eqside">${L.map(tok).join('')}</div><span class="bigeq">=</span><div class="eqside">${R.map(tok).join('')}</div></div></div>`;
+    return mk('np',prompt,`<span class="optnum">${ans}</span>`,cands.slice(0,3).map(x=>`<span class="optnum">${x}</span>`),why,
+      {hard:true,text:v==='sym'?'Each picture stands for a number. What number is the <b>?</b>':'Both sides must be <u>equal</u>. What number is the <b>?</b>',
+       hint:v==='sym'?'Swap each picture for its number first. Then solve it like a normal number puzzle!':'Work out the side WITHOUT the ? first. Then figure out what the ? needs to be.',
+       speak:'Both sides need to be equal. What number goes where the question mark is?'});
+  }
+}
+function genNS_H(){
+  const pats=[
+    ()=>{const s=1+rnd(5);return [[0,1,2,3,4,5].map(i=>s+3*i),'Each number is 3 more than the one before.'];},
+    ()=>{const s=pick([5,10]);return [[0,1,2,3,4,5].map(i=>s+5*i),'Counting by 5s!'];},
+    ()=>{const s=16+rnd(5);return [[0,1,2,3,4,5].map(i=>s-2*i),'Each number is 2 less — counting down by 2s.'];},
+    ()=>{const s=1+rnd(3);return [[0,1,3,6,10,15].map(i=>s+i),'The jumps keep growing: +1, +2, +3, +4, +5!'];},
+    ()=>{const s=pick([1,2]);return [[1,2,4,8,16,32].map(i=>s*i),'Each number DOUBLES!'];},
+    ()=>{const s=1+rnd(4);return [[0,1,3,4,6,7].map(i=>s+i),'The jumps take turns: +1, +2, +1, +2…'];},
+    ()=>{const [a,b]=shuffle([1,2,3,4,5,6,7,8,9]).slice(0,2);return [[a,b,b,a,b,b],`It repeats: one ${a}, then two ${b}s.`];},
+    ()=>{const e=pick([1,2]),d=9+rnd(4);return [[e,d,e+2,d-1,e+4,d-2],'Two patterns are taking turns! One goes up by 2, the other goes down by 1.'];},
+    ()=>{const s=1+rnd(9);return [[0,1,2,3,4,5].map(i=>s+10*i),'Each number is 10 more!'];},
+  ];
+  for(let t=0;t<100;t++){
+    const [seq,why]=pick(pats)();
+    const shown=seq.slice(0,-1),ans=seq[seq.length-1];
+    const gap=shown[1]-shown[0];
+    const cands=shuffle([...new Set([ans+1,ans-1,ans+2,shown[shown.length-1]+gap,shown[shown.length-1],ans-2])]).filter(v=>v>=0&&v!==ans);
+    if(cands.length<3) continue;
+    const prompt=`<div class="seq">${shown.map(n=>`<span class="nt">${n}</span>`).join('<span class="comma">,</span>')}<span class="comma">,</span><span class="nt q">?</span></div>`;
+    return mk('ns',prompt,`<span class="optnum">${ans}</span>`,cands.slice(0,3).map(v=>`<span class="optnum">${v}</span>`),
+      `${shown.join(', ')}… ${why} So next comes ${ans}.`,
+      {hard:true,text:'The numbers make a pattern. What number comes <u>next</u>?',
+       hint:'Look at the JUMP between each pair of numbers. Do the jumps stay the same, grow, or take turns?',
+       speak:`${shown.join(', ')}. What number comes next?`});
+  }
+}
+
+/* ---------- Challenge: nonverbal ---------- */
+Object.assign(SHP,{
+  rect:'<rect x="-0.95" y="-0.55" width="1.9" height="1.1"/>',
+  trap:poly([[-0.5,-0.6],[0.5,-0.6],[0.95,0.6],[-0.95,0.6]]),
+  pgram:poly([[-0.45,-0.6],[0.95,-0.6],[0.45,0.6],[-0.95,0.6]]),
+  pentagon:poly(regPts(5,0.95,-Math.PI/2)),
+  oval:'<ellipse rx="0.95" ry="0.6"/>',
+  semi:'<path d="M-0.95,0.35 A0.95,0.95 0 0 1 0.95,0.35 Z"/>',
+  pie:'<path d="M-0.75,0.75 L-0.75,-0.85 A1.6,1.6 0 0 1 0.85,0.75 Z"/>',
+});
+Object.assign(SNAME,{rect:'rectangle',trap:'trapezoid',pgram:'slanted box',pentagon:'pentagon',oval:'oval',semi:'half circle',pie:'quarter circle'});
+const FOUR=['square','diamond','rect','trap','pgram'],CURVY=['circle','oval','semi','pie'],STRAIGHT=['triangle','star','hexagon','pentagon','plus'],NOT4=['triangle','pentagon','hexagon','circle','star','oval'];
+function genFM_H(){
+  const CH={
+    color:(o,c2)=>{o.color=c2;},count:o=>{o.count=2;},fill:o=>{o.solid=false;},size:o=>{o.big=false;},dot:o=>{o.dot=true;},rotate:o=>{o.rot=(o.rot+90)%360;}};
+  const DESC={color:c=>`it turned ${c}`,count:()=>'it became 2 shapes',fill:()=>'it got emptied out',size:()=>'it shrank',dot:()=>'a dot appeared',rotate:()=>'it turned a quarter turn'};
+  for(let t=0;t<200;t++){
+    const v=pick(['rc','rcount','rstyle','latin','two','two']);
+    const sh=shuffle(BASIC),co=shuffle(CN);let grid,ans,d,why;
+    if(v==='two'){
+      const [c1,c2]=pick([['color','count'],['fill','size'],['color','dot'],['rotate','color'],['size','dot'],['fill','count']]);
+      const s1=c1==='rotate'?'arrow':sh[0],s2=c1==='rotate'?'arrow':sh[1];
+      const A=F({shape:s1,color:co[0]}),B=F({shape:s2,color:co[0],rot:c1==='rotate'?180:0});
+      const ap=(o,list)=>{o=Object.assign({},o);list.forEach(k=>CH[k](o,co[1]));return o;};
+      const A2=ap(A,[c1,c2]),B2=ap(B,[c1,c2]);
+      d=[ap(B,[c1]),ap(B,[c2]),B];
+      if(!uniq([B2,...d])) continue;
+      why=`TWO things changed: ${DESC[c1](co[1])} AND ${DESC[c2](co[1])}. The bottom shape has to do both!`;
+      const prompt=`<div class="matrix"><div class="cell">${fig(A)}</div><div class="marrow">➜</div><div class="cell">${fig(A2)}</div>
+        <div class="cell">${fig(B)}</div><div class="marrow">➜</div><div class="cell q">?</div></div>`;
+      return mk('fm',prompt,fig(B2),d.map(fig),why,{hard:true,text:'The top shape changes in <u>two ways</u> at once. Make the same changes to the bottom shape!',
+        hint:'Find BOTH changes in the top row. The right answer has to show both of them.',speak:'Look at the top row. The shape changes in two ways. Which answer shows the bottom shape changing in the same two ways?'});
+    }
+    if(v==='rc'){grid=[0,1,2].map(r=>[0,1,2].map(c=>F({shape:sh[r],color:co[c]})));ans=grid[2][2];
+      d=[F({shape:sh[2],color:co[1]}),F({shape:sh[1],color:co[2]}),F({shape:sh[2],color:co[3]})];
+      why=`Each ROW keeps the same shape, and each COLUMN keeps the same color. Bottom row = ${SNAME[sh[2]]}s, last column = ${co[2]}.`;}
+    else if(v==='rcount'){grid=[0,1,2].map(r=>[0,1,2].map(c=>F({shape:sh[r],color:co[r],count:c+1})));ans=grid[2][2];
+      d=[F({shape:sh[2],color:co[2],count:2}),F({shape:sh[2],color:co[2]}),F({shape:sh[1],color:co[1],count:3})];
+      why='Every row counts up: 1 shape, 2 shapes, 3 shapes!';}
+    else if(v==='rstyle'){const st=shuffle([{},{solid:false},{dot:true}]);grid=[0,1,2].map(r=>[0,1,2].map(c=>F(Object.assign({shape:sh[r],color:co[r]},st[c]))));ans=grid[2][2];
+      d=[F(Object.assign({shape:sh[2],color:co[2]},st[0])),F(Object.assign({shape:sh[2],color:co[2]},st[1])),F(Object.assign({shape:sh[1],color:co[1]},st[2]))];
+      why='Each COLUMN has its own style, and each ROW keeps its own shape and color.';}
+    else{grid=[0,1,2].map(r=>[0,1,2].map(c=>F({shape:sh[(r+c)%3],color:co[r]})));ans=grid[2][2];
+      d=[F({shape:sh[(2+0)%3],color:co[2]}),F({shape:sh[(2+1)%3],color:co[2]}),F({shape:sh[(2+2)%3],color:co[1]})];
+      why=`Every row has one ${SNAME[sh[0]]}, one ${SNAME[sh[1]]} and one ${SNAME[sh[2]]}. The bottom row is missing its ${SNAME[ans.shape]}!`;}
+    if(!uniq([ans,...d])) continue;
+    const prompt=`<div class="matrix3">${grid.flat().map((f,i)=>i===8?'<div class="cell q">?</div>':`<div class="cell">${fig(f)}</div>`).join('')}</div>`;
+    return mk('fm',prompt,fig(ans),d.map(fig),why,{hard:true,text:'Look across the <u>rows</u> and down the <u>columns</u>. Which shape fills the empty box?',
+      hint:'Check what stays the same across each ROW, then what stays the same down each COLUMN.',speak:'Look across the rows and down the columns. Which shape belongs in the empty box?'});
+  }
+}
+function genFC_H(){
+  for(let t=0;t<200;t++){
+    const v=pick(['four','curvy','colout','colcount','coldot']);
+    const sh=shuffle(BASIC),co=shuffle(CN);let top,ans,d,why;
+    if(v==='four'){const f=shuffle(FOUR),n=shuffle(NOT4);top=[0,1,2].map(i=>F({shape:f[i],color:co[i]}));ans=F({shape:f[3],color:co[3]});
+      d=[0,1,2].map(i=>F({shape:n[i],color:co[i]}));why='Count the sides! Every shape on top has exactly 4 sides.';}
+    else if(v==='curvy'){const c=shuffle(CURVY),s=shuffle(STRAIGHT);top=[0,1,2].map(i=>F({shape:c[i],color:co[i]}));ans=F({shape:c[3],color:co[3]});
+      d=[0,1,2].map(i=>F({shape:s[i],color:co[i]}));why='All the top shapes have a curvy, round edge. Only one answer has a curve!';}
+    else if(v==='colout'){top=[0,1,2].map(i=>F({shape:sh[i],color:co[0],solid:false}));ans=F({shape:sh[3],color:co[0],solid:false});
+      d=[F({shape:sh[4],color:co[0]}),F({shape:sh[3],color:co[1],solid:false}),F({shape:sh[0],color:co[1]})];why=`Two clues: they are all ${co[0]} AND all empty inside.`;}
+    else if(v==='colcount'){top=[0,1,2].map(i=>F({shape:sh[i],color:co[0],count:2}));ans=F({shape:sh[3],color:co[0],count:2});
+      d=[F({shape:sh[3],color:co[0]}),F({shape:sh[4],color:co[1],count:2}),F({shape:sh[0],color:co[0],count:3})];why=`Two clues: every box has TWO shapes AND they are all ${co[0]}.`;}
+    else{top=[0,1,2].map(i=>F({shape:sh[i],color:co[0],dot:true}));ans=F({shape:sh[3],color:co[0],dot:true});
+      d=[F({shape:sh[4],color:co[0]}),F({shape:sh[3],color:co[1],dot:true}),F({shape:sh[0],color:co[2]})];why=`Two clues: they are all ${co[0]} AND all have a dot.`;}
+    if(!uniq([ans,...d])) continue;
+    const prompt=`<div class="club"><div class="clublabel">⭐ THE SHAPE SQUAD ⭐</div><div class="row3">${top.map(f=>`<div class="cell">${fig(f)}</div>`).join('')}</div></div>`;
+    return mk('fc',prompt,fig(ans),d.map(fig),why,{hard:true,text:'The squad shares a <u>sneaky</u> secret. Which shape can join?',
+      hint:v==='four'?'Count the corners or sides on each shape!':v==='curvy'?'Run your finger around each edge. Straight or curvy?':'Look for TWO things they all share, not just one!',
+      speak:'The three shapes on top share a secret. Which shape at the bottom can join them?'});
+  }
+}
+function curvedArrow(x0,y0,x1,y1,bend){
+  const mx=(x0+x1)/2,my=(y0+y1)/2,dx=x1-x0,dy=y1-y0,L=Math.hypot(dx,dy),px=-dy/L,py=dx/L;
+  const cx=mx+px*bend,cy=my+py*bend;let tx=x1-cx,ty=y1-cy;const tl=Math.hypot(tx,ty);tx/=tl;ty/=tl;
+  const bx=x1-tx*0.45,by=y1-ty*0.45,nx=-ty,ny=tx,f=v=>v.toFixed(2);
+  return `<path d="M${f(x0)},${f(y0)} Q${f(cx)},${f(cy)} ${f(x1)},${f(y1)}" fill="none" stroke="#E63946" stroke-width="0.16"/><polygon points="${f(x1)},${f(y1)} ${f(bx+nx*0.25)},${f(by+ny*0.25)} ${f(bx-nx*0.25)},${f(by-ny*0.25)}" fill="#E63946"/>`;
+}
+function paperPoly(pts,holes){
+  let s=`<svg class="paper" viewBox="-1.2 -1.2 6.4 6.4" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="4" height="4" fill="none" stroke="#bbb" stroke-width="0.07" stroke-dasharray="0.2 0.15"/>`;
+  s+=`<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="#FFD77A" stroke="#111" stroke-width="0.14"/>`;
+  holes.forEach(([r,c])=>{s+=`<circle cx="${c+0.5}" cy="${r+0.5}" r="0.3" fill="#111"/>`;});
+  return s+'</svg>';
+}
+const DASH=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#111" stroke-width="0.1" stroke-dasharray="0.25 0.15"/>`;
+function genPF_H(){
+  const mv=p=>[p[0],3-p[1]],mh=p=>[3-p[0],p[1]],tr=p=>[p[1],p[0]],at=p=>[3-p[1],3-p[0]];
+  const inb=hs=>hs.filter(([r,c])=>r>=0&&r<=3&&c>=0&&c<=3);
+  const dedupe=hs=>[...new Set(hs.map(p=>p.join(',')))].map(s=>s.split(',').map(Number));
+  const FOLDS={
+    vr:{vis:(r,c)=>c<=1,m:mv,wrong:[mh,p=>[p[0],p[1]+2]],step1:DASH(2,-0.2,2,4.2)+curvedArrow(3.2,-0.25,0.8,-0.25,0.9),fold:paper({region:[0,0,2,4],shade:true,ghost:true}),
+        why:'The RIGHT side folded over to the left. Each hole gets a mirror twin on the right side!'},
+    hu:{vis:(r,c)=>r<=1,m:mh,wrong:[mv,p=>[p[0]+2,p[1]]],step1:DASH(-0.2,2,4.2,2)+curvedArrow(4.25,3.2,4.25,0.8,0.9),fold:paper({region:[0,0,4,2],shade:true,ghost:true}),
+        why:'The BOTTOM folded up to the top. Each hole gets a mirror twin below the fold!'},
+    d:{vis:(r,c)=>r>c,m:tr,wrong:[at,mv],step1:DASH(-0.2,-0.2,4.2,4.2)+curvedArrow(3.2,0.8,0.8,3.2,-0.9),poly:[[0,0],[0,4],[4,4]],
+        why:'The paper folded corner-to-corner on the slanted line. Each hole gets a mirror twin across the slanted fold!'},
+    ad:{vis:(r,c)=>r+c>3,m:at,wrong:[tr,mh],step1:DASH(4.2,-0.2,-0.2,4.2)+curvedArrow(0.8,0.8,3.2,3.2,0.9),poly:[[4,0],[4,4],[0,4]],
+        why:'The paper folded corner-to-corner on the slanted line. Each hole gets a mirror twin across the slanted fold!'},
+  };
+  for(let t=0;t<300;t++){
+    const kind=pick(['vr','hu','d','ad','d','ad','dbl','dbl']);
+    let H=[],correct,d,steps,why;
+    if(kind==='dbl'){
+      const rev=Math.random()<0.5;const rows=rev?[0,1]:[2,3],cols=rev?[0,1]:[2,3];const nh=pick([1,2,2]);
+      let g=0;while(H.length<nh&&g++<20){const p=[pick(rows),pick(cols)];if(!H.some(q=>q[0]===p[0]&&q[1]===p[1]))H.push(p);}
+      const mvh=p=>mv(mh(p));
+      correct=[...H,...H.map(mv),...H.map(mh),...H.map(mvh)];
+      d=[[...H,...H.map(mv)],[...H,...H.map(mh)],[...H,...H.map(mv),...H.map(mh)]];
+      if(nh===1) d[2]=inb([...H,...H.map(p=>[p[0]+(rev?2:-2),p[1]]),...H.map(p=>[p[0],p[1]+(rev?2:-2)]),...H.map(p=>[p[0]+(rev?2:-2),p[1]+(rev?2:-2)])]);
+      steps=rev?[['1. FOLD',paper({extra:DASH(2,-0.2,2,4.2)+curvedArrow(3.2,-0.25,0.8,-0.25,0.9)})],
+                 ['2. FOLD',paper({region:[0,0,2,4],shade:true,ghost:true,extra:DASH(-0.2,2,2.2,2)+curvedArrow(2.25,3.2,2.25,0.8,0.9)})],
+                 ['3. PUNCH',paper({region:[0,0,2,2],holes:H,shade:true,ghost:true})]]
+               :[['1. FOLD',paper({extra:DASH(2,-0.2,2,4.2)+arrowV(0.8,3.2,-0.25)})],
+                 ['2. FOLD',paper({region:[2,0,2,4],shade:true,ghost:true,extra:DASH(1.8,2,4.2,2)+arrowH(0.8,3.2,1.75)})],
+                 ['3. PUNCH',paper({region:[2,2,2,2],holes:H,shade:true,ghost:true})]];
+      why=`Two folds make FOUR layers. So every punch makes 4 holes — ${H.length*4} holes in all!`;
+    }else{
+      const f=FOLDS[kind];const cells=[];for(let r=0;r<4;r++)for(let c=0;c<4;c++) if(f.vis(r,c)) cells.push([r,c]);
+      H=shuffle(cells).slice(0,pick([1,2,2]));
+      correct=[...H,...H.map(f.m)];
+      d=[H,inb([...H,...H.map(f.wrong[0])]),inb([...H,...H.map(f.wrong[1])])];
+      steps=[['1. FOLD',paper({extra:f.step1})],['2. PUNCH',f.poly?paperPoly(f.poly,H):paper({region:kind==='vr'?[0,0,2,4]:[0,0,4,2],holes:H,shade:true,ghost:true})]];
+      why=f.why;
+    }
+    const keys=[correct,...d].map(hkey);
+    if(new Set(keys).size!==4) continue;
+    const prompt=`<div class="pfsteps">${steps.map(([l,s])=>`<div class="pfstep"><span class="pflabel">${l}</span>${s}</div>`).join('')}<div class="pfstep"><span class="pflabel">OPEN = ?</span><svg class="paper" viewBox="0 0 10 10" style="width:100px;height:100px;background:#E3F2FD;border:3px solid #111;border-radius:8px"><text x="5" y="7.3" font-size="6" text-anchor="middle" font-family="Bangers,Impact" fill="#2F80ED">?</text></svg></div></div>`;
+    return mk('pf',prompt,paper({holes:dedupe(correct),tight:true}),d.map(x=>paper({holes:dedupe(x),tight:true})),why,
+      {hard:true,text:'Watch the fold carefully — it might be <u>slanted</u> or come from a new side! What does the paper look like opened up?',
+       hint:'Find the fold line first. Each hole gets a twin on the OTHER side of that line, the same distance away.',
+       speak:'Watch which way the paper folds. Then holes are punched. What will it look like when you open it?'});
+  }
+}
+Object.assign(TYPES.pa,{hard:genPA_H,tipH:'Now with WORDS! Use the sentence trick: “Hot is the OPPOSITE of cold. Up is the opposite of…”'});
+Object.assign(TYPES.sc,{hard:genSC_H,tipH:'Fill-in-the-blank sentences and tricky riddles. Try each word in the blank and read it out loud!'});
+Object.assign(TYPES.pc,{hard:genPC_H,tipH:'Word groups and “odd one out.” Find what three things share — the leftover one doesn’t belong!'});
+Object.assign(TYPES.na,{hard:genNA_H,tipH:'These machines can do TWO things, like “double it, then add 1.” Check your rule on both examples!'});
+Object.assign(TYPES.np,{hard:genNP_H,tipH:'Bigger equations, and pictures that stand for numbers. Swap pictures for numbers first!'});
+Object.assign(TYPES.ns,{hard:genNS_H,tipH:'Number patterns! Look at the JUMPS between numbers — do they stay the same, grow, or take turns?'});
+Object.assign(TYPES.fm,{hard:genFM_H,tipH:'Big 3×3 grids and double changes! Check the rows AND the columns.'});
+Object.assign(TYPES.fc,{hard:genFC_H,tipH:'Sneaky secrets: count the sides, look for curves, or find TWO things they share.'});
+Object.assign(TYPES.pf,{hard:genPF_H,tipH:'Slanted folds and folds from new sides! Find the fold line, then mirror each hole across it.'});
+
+/* =========================================================
+   STICKER ARCADE — prizes for Challenge missions
+   Pong physics adapted from justin-harvey/test (Pong)
+   ========================================================= */
+const SPR={};
+function sprite(e,size){
+  const k=e+'|'+size;if(SPR[k]) return SPR[k];
+  const c=document.createElement('canvas'),s=Math.ceil(size*1.35);c.width=c.height=s;
+  const x=c.getContext('2d');x.textAlign='center';x.textBaseline='middle';
+  x.font=`${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+  x.fillText(e,s/2,s/2+size*0.08);
+  return SPR[k]=c;
+}
+function drawE(ctx,e,cx,cy,size){const s=sprite(e,size);ctx.drawImage(s,cx-s.width/2,cy-s.height/2);}
+function heroSticker(){return P.hero&&P.stickers.includes(P.hero)?P.hero:(P.stickers[0]||'🦸');}
+function enemyStickers(hero){
+  let pool=P.stickers.filter(s=>s!==hero);
+  if(pool.length<4) pool=pool.concat(['👾','🛸','🤖','👽'].filter(s=>!pool.includes(s)));
+  return pool;
+}
+function arcade(){
+  const toks=P.tokens||0,hero=heroSticker();
+  app.innerHTML=`
+  <section class="panel arcadehead center">
+    <h2 style="font-size:40px">🕹️ STICKER ARCADE</h2>
+    <div class="tokens">🎟️ × <b>${toks}</b></div>
+    <p style="margin:8px 0 0">${toks?'Pick your hero sticker, then pick a game! Each game uses 1 token.':'You need a 🎟️ token to play! Finish a <b>⚡ CHALLENGE</b> mission to win one — ACE it to win 2!'}</p>
+  </section>
+  <section class="panel">
+    <h3 class="bang" style="font-size:24px">YOUR HERO: <span class="emo" style="font-size:36px">${hero}</span></h3>
+    <p class="note" style="margin:2px 0 8px">Your hero is your paddle in Pong and your blaster in Invaders. Your other stickers become the invaders!</p>
+    <div class="heropick">${P.stickers.length?P.stickers.map((s,i)=>`<button class="hp ${s===hero?'on':''}" onclick="pickHero(${i})" aria-label="Pick sticker">${s}</button>`).join(''):'<p class="note">Finish missions to collect stickers!</p>'}</div>
+  </section>
+  <div class="games">
+    <section class="panel game center"><div class="gicon">🏓</div><h3 class="bang">STICKER PONG</h3>
+      <p>Your hero is the paddle! Bounce the waffle past Gizmo’s robot. <b>3 misses</b> and the game is over.</p>
+      <p class="note">Best score: <b>${(P.best&&P.best.pong)||0}</b></p>
+      <button class="btn red" ${toks?'':'disabled'} onclick="playGame('pong')">PLAY · 🎟️1</button></section>
+    <section class="panel game center"><div class="gicon">👾</div><h3 class="bang">STICKER INVADERS</h3>
+      <p>Your stickers are invading! Blast them before they <b>land on you</b>.</p>
+      <p class="note">Best score: <b>${(P.best&&P.best.inv)||0}</b></p>
+      <button class="btn red" ${toks?'':'disabled'} onclick="playGame('inv')">PLAY · 🎟️1</button></section>
+  </div>
+  ${toks?'':`<button class="btn big" onclick="P.challenge=true;save();go('map')">⚡ GO EARN TOKENS!</button>`}
+  <button class="btn" style="width:100%;margin-top:12px;background:#fff" onclick="go('home')">🏠 Home</button>`;
+}
+function pickHero(i){P.hero=P.stickers[i];save();arcade();}
+
+let G=null; // running game
+function playGame(kind){
+  if((P.tokens||0)<1) return;
+  P.tokens--;save();
+  try{speechSynthesis.cancel();}catch(e){}
+  closeGame(true);
+  const ov=document.createElement('div');ov.className='arc';ov.id='arc';
+  ov.innerHTML=`<div class="arcbar"><span class="arctitle">${kind==='pong'?'🏓 STICKER PONG':'👾 STICKER INVADERS'}</span><button class="mini" onclick="closeGame()">✖ Quit</button></div>
+    <div class="arcstage" id="arcStage"><canvas id="arcCv"></canvas><div class="arcmsg" id="arcMsg"></div></div>
+    <div class="archelp">${kind==='pong'?'Move: mouse, finger, or ↑ ↓ keys':'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE'}</div>`;
+  document.body.appendChild(ov);document.body.classList.add('noscroll');
+  const cv=ov.querySelector('#arcCv'),ctx=cv.getContext('2d');
+  const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},kind,running:false,raf:0};
+  G=api;
+  const game=kind==='pong'?pongGame(cv,ctx,api):invadersGame(cv,ctx,api);
+  api.game=game;
+  const fit=()=>{const st=ov.querySelector('#arcStage');if(!st)return;const r=st.getBoundingClientRect();const sc=Math.min(r.width/cv.width,r.height/cv.height);
+    cv.style.width=Math.floor(cv.width*sc)+'px';cv.style.height=Math.floor(cv.height*sc)+'px';};
+  api.fit=fit;fit();window.addEventListener('resize',fit);
+  const map=e=>{const r=cv.getBoundingClientRect();return {x:(e.clientX-r.left)*cv.width/r.width,y:(e.clientY-r.top)*cv.height/r.height};};
+  api.kd=e=>{const k=e.key.toLowerCase();if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k)) e.preventDefault();api.keys.add(k);if(k===' '&&api.waiting) api.start();};
+  api.ku=e=>api.keys.delete(e.key.toLowerCase());
+  window.addEventListener('keydown',api.kd);window.addEventListener('keyup',api.ku);
+  cv.addEventListener('pointerdown',e=>{e.preventDefault();const p=map(e);Object.assign(api.ptr,p,{down:true,active:true,touch:e.pointerType!=='mouse'});try{cv.setPointerCapture(e.pointerId);}catch(_){}});
+  cv.addEventListener('pointermove',e=>{const p=map(e);Object.assign(api.ptr,p);if(e.pointerType==='mouse') api.ptr.active=true;});
+  const up=e=>{api.ptr.down=false;if(e.pointerType!=='mouse') api.ptr.active=false;};
+  cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+  cv.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){api.ptr.active=false;api.ptr.down=false;}});
+  cv.style.touchAction='none';
+  api.msg=(html)=>{const m=document.getElementById('arcMsg');if(!m)return;m.innerHTML=html;m.style.display=html?'flex':'none';};
+  api.start=()=>{api.waiting=false;api.msg('');api.running=true;let last=performance.now();
+    const frame=now=>{if(!api.running)return;const dt=Math.min(0.033,(now-last)/1000);last=now;game.update(dt);game.render();api.raf=requestAnimationFrame(frame);};
+    api.raf=requestAnimationFrame(frame);};
+  api.end=(score)=>{
+    api.running=false;cancelAnimationFrame(api.raf);game.render();
+    P.best=P.best||{};const key=kind;const prev=P.best[key]||0,isBest=score>prev;if(isBest) P.best[key]=score;save();sfx('yay');
+    const t=P.tokens||0;
+    api.msg(`<div class="panel center arcover"><div class="burstbig" style="font-size:30px">GAME OVER!</div>
+      <p style="font-size:22px;margin:6px 0">Score: <b>${score}</b></p>
+      <p style="margin:0 0 10px">${isBest?'🏆 NEW BEST SCORE!':'Best: '+(P.best[key]||0)}</p>
+      <div class="stack">${t?`<button class="btn red" onclick="playGame('${kind}')">PLAY AGAIN · 🎟️1 <small>(${t} left)</small></button>`:`<p class="note">Out of tokens! Finish a ⚡ Challenge mission to win more.</p><button class="btn red" onclick="closeGame();P.challenge=true;save();go('map')">⚡ EARN MORE TOKENS</button>`}
+      <button class="btn" style="background:#fff" onclick="closeGame()">🕹️ Back to Arcade</button></div></div>`);
+  };
+  game.render();
+  api.waiting=true;
+  api.msg(`<div class="panel center arcover"><div class="emo" style="font-size:64px">${heroSticker()}</div>
+    <h3 class="bang" style="font-size:28px;margin:6px 0">${kind==='pong'?'BEAT THE ROBOT!':'DEFEND THE PLANET!'}</h3>
+    <p style="margin:0 0 10px">${kind==='pong'?'Don’t let the waffle get past you. 3 misses and it’s over!':'Blast the invaders before they land on you! Watch out for freeze-rays ❄️'}</p>
+    <button class="btn big red" onclick="G.start()">START! ▶</button></div>`);
+}
+function closeGame(silent){
+  if(G){G.running=false;cancelAnimationFrame(G.raf);window.removeEventListener('keydown',G.kd);window.removeEventListener('keyup',G.ku);window.removeEventListener('resize',G.fit);G=null;}
+  const ov=document.getElementById('arc');if(ov) ov.remove();document.body.classList.remove('noscroll');
+  if(!silent) arcade();
+}
+function beepA(freq,dur=0.06,type='square',vol=0.06){
+  if(!P.sound) return;
+  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(vol,AC.currentTime);g.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+dur);
+    o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+dur);}catch(_){}
+}
+function comicText(ctx,txt,x,y,size,fill='#FFD93D'){
+  ctx.font=`${size}px Bangers, Impact, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.lineWidth=Math.max(3,size/8);ctx.strokeStyle='#111';ctx.strokeText(txt,x,y);ctx.fillStyle=fill;ctx.fillText(txt,x,y);
+}
+
+/* ---------- Pong ---------- */
+function pongGame(cv,ctx,api){
+  const W=800,H=500;cv.width=W;cv.height=H;
+  const PW=34,PH=108,PM=18,PSPEED=520,BS=28;
+  const hero=heroSticker(),cpuS=pick(enemyStickers(hero));
+  const L={x:PM,y:H/2-PH/2},R={x:W-PM-PW,y:H/2-PH/2};
+  const ball={x:W/2-BS/2,y:H/2-BS/2,vx:0,vy:0,spin:0};
+  let lives=3,score=0,mode='serve',serveT=1.0,serveDir=-1,cpuTarget=H/2,think=0,flash=null,flashT=0;
+  const cpuSpeed=()=>250+Math.min(score,40)*6;
+  const cpuErr=()=>Math.max(0.3,0.95-score*0.015)*PH;
+  const startSpeed=()=>300+Math.min(score,30)*4;
+  function serve(){ball.x=W/2-BS/2;ball.y=H/2-BS/2;ball.vx=ball.vy=0;serveT=0.9;mode='serve';}
+  function launch(){const a=Math.random()*0.8-0.4;ball.vx=Math.cos(a)*startSpeed()*serveDir;ball.vy=Math.sin(a)*startSpeed();mode='play';}
+  function say(t){flash=t;flashT=0.9;}
+  function predict(){if(ball.vx<=0) return H/2;const t=(R.x-(ball.x+BS))/ball.vx;let y=ball.y+ball.vy*t;const span=H-BS;y=((y%(2*span))+2*span)%(2*span);if(y>span)y=2*span-y;return y+BS/2;}
+  function hit(p){return ball.x<p.x+PW&&ball.x+BS>p.x&&ball.y<p.y+PH&&ball.y+BS>p.y;}
+  function bounce(p,dir){
+    const rel=((ball.y+BS/2)-(p.y+PH/2))/(PH/2),ang=Math.max(-1,Math.min(1,rel))*(Math.PI/3.2);
+    const sp=Math.min(760,Math.hypot(ball.vx,ball.vy)*1.05);ball.vx=Math.cos(ang)*sp*dir;ball.vy=Math.sin(ang)*sp;
+    ball.x=dir>0?p.x+PW:p.x-BS;beepA(dir>0?520:440);
+  }
+  function update(dt){
+    if(flashT>0) flashT-=dt;
+    // player
+    const k=api.keys,dirK=((k.has('arrowdown')||k.has('s'))?1:0)-((k.has('arrowup')||k.has('w'))?1:0);
+    if(dirK) L.y+=dirK*PSPEED*dt;
+    else if(api.ptr.active){const tgt=api.ptr.y-PH/2,st=PSPEED*1.8*dt;L.y+=Math.max(-st,Math.min(st,tgt-L.y));}
+    L.y=Math.max(0,Math.min(H-PH,L.y));
+    // cpu
+    think-=dt;if(think<=0){think=0.13;cpuTarget=predict()+(Math.random()-0.5)*cpuErr();}
+    const st=cpuSpeed()*dt;R.y+=Math.max(-st,Math.min(st,cpuTarget-(R.y+PH/2)));R.y=Math.max(0,Math.min(H-PH,R.y));
+    if(mode==='serve'){serveT-=dt;if(serveT<=0) launch();return;}
+    ball.spin+=dt*(ball.vx>0?8:-8);
+    const steps=Math.max(1,Math.ceil(Math.hypot(ball.vx,ball.vy)*dt/(BS/2))),sdt=dt/steps;
+    for(let i=0;i<steps;i++){
+      ball.x+=ball.vx*sdt;ball.y+=ball.vy*sdt;
+      if(ball.y<=0){ball.y=0;ball.vy=Math.abs(ball.vy);beepA(300,0.04);}
+      if(ball.y+BS>=H){ball.y=H-BS;ball.vy=-Math.abs(ball.vy);beepA(300,0.04);}
+      if(ball.vx<0&&hit(L)){bounce(L,1);score+=1;}
+      if(ball.vx>0&&hit(R)){bounce(R,-1);}
+      if(ball.x+BS<0){lives--;beepA(160,0.35,'triangle',0.1);serveDir=-1;
+        if(lives<=0){mode='over';api.end(score);return;}say(['MISSED!','OOPS!','WHOOSH!'][rnd(3)]);serve();return;}
+      if(ball.x>W){score+=5;beepA(660,0.2,'triangle',0.1);say(pick(['POW! +5','KAPOW! +5','BAM! +5','SCORE! +5']));serveDir=1;serve();return;}
+    }
+  }
+  function bumper(p,e,col){
+    ctx.fillStyle=col;ctx.strokeStyle='#111';ctx.lineWidth=4;
+    ctx.beginPath();ctx.roundRect?ctx.roundRect(p.x,p.y,PW,PH,10):ctx.rect(p.x,p.y,PW,PH);ctx.fill();ctx.stroke();
+    for(let i=0;i<3;i++) drawE(ctx,e,p.x+PW/2,p.y+18+i*36,26);
+  }
+  function render(){
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1D2B53');g.addColorStop(1,'#0B1026');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,0.06)';for(let x=10;x<W;x+=22)for(let y=10;y<H;y+=22){ctx.beginPath();ctx.arc(x,y,1.5,0,7);ctx.fill();}
+    ctx.fillStyle='rgba(255,217,61,0.5)';for(let y=8;y<H;y+=30) ctx.fillRect(W/2-3,y,6,16);
+    bumper(L,hero,'#E63946');bumper(R,cpuS,'#2F80ED');
+    if(mode!=='serve'||Math.floor(serveT*6)%2===0){ctx.save();ctx.translate(ball.x+BS/2,ball.y+BS/2);ctx.rotate(ball.spin);drawE(ctx,'🧇',0,0,BS);ctx.restore();}
+    ctx.textAlign='left';ctx.textBaseline='top';
+    for(let i=0;i<3;i++) drawE(ctx,i<lives?'❤️':'🖤',24+i*30,22,22);
+    comicText(ctx,'SCORE '+score,W/2,30,34);
+    comicText(ctx,'BEST '+((P.best&&P.best.pong)||0),W-80,26,20,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,64+(0.9-flashT)*30,'#FFD93D');
+  }
+  return {update,render};
+}
+
+/* ---------- Invaders ---------- */
+function invadersGame(cv,ctx,api){
+  const W=480,H=600;cv.width=W;cv.height=H;
+  const hero=heroSticker(),pool=enemyStickers(hero);
+  const pl={x:W/2,y:H-46,frozen:0};let shots=[],bombs=[],inv=[],booms=[],dir=1,wave=0,score=0,cool=0,flash=null,flashT=0,t=0,total=0;
+  const stars=Array.from({length:60},()=>({x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.6+0.4}));
+  function spawn(){
+    wave++;inv=[];const rows=4,cols=6,picks=shuffle(pool);const top=56+Math.min(wave-1,6)*14;
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++) inv.push({x:62+c*66,y:top+r*50,e:picks[(r*2+(c%2))%picks.length],alive:true});
+    total=inv.length;dir=1;if(wave>1){flash=`WAVE ${wave}!`;flashT=1.2;}
+  }
+  spawn();
+  const speed=()=>{const alive=inv.filter(i=>i.alive).length;return (28+wave*10)*(1+(1-alive/total)*1.8);};
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;if(cool>0) cool-=dt;if(pl.frozen>0) pl.frozen-=dt;
+    const k=api.keys;
+    if(pl.frozen<=0){
+      const dk=((k.has('arrowright')||k.has('d'))?1:0)-((k.has('arrowleft')||k.has('a'))?1:0);
+      if(dk) pl.x+=dk*300*dt;else if(api.ptr.active){const st=420*dt;pl.x+=Math.max(-st,Math.min(st,api.ptr.x-pl.x));}
+      pl.x=Math.max(24,Math.min(W-24,pl.x));
+      const fire=k.has(' ')||(api.ptr.down);
+      if(fire&&cool<=0&&shots.length<3){shots.push({x:pl.x,y:pl.y-26});cool=0.3;beepA(880,0.05,'square',0.04);}
+    }
+    // invaders move
+    const alive=inv.filter(i=>i.alive);const v=speed()*dir*dt;let edge=false;
+    alive.forEach(i=>{i.x+=v;if(i.x<22||i.x>W-22) edge=true;});
+    if(edge){dir*=-1;alive.forEach(i=>{i.x=Math.max(22,Math.min(W-22,i.x));i.y+=18;});beepA(110,0.08,'triangle',0.05);}
+    // bombs
+    if(Math.random()<dt*(0.5+wave*0.15)&&alive.length){
+      const cols={};alive.forEach(i=>{const key=Math.round(i.x/30);if(!cols[key]||cols[key].y<i.y) cols[key]=i;});
+      const shooters=Object.values(cols),s=pick(shooters);bombs.push({x:s.x,y:s.y+20,vy:150+wave*15});
+    }
+    shots.forEach(s=>s.y-=520*dt);shots=shots.filter(s=>s.y>-20);
+    bombs.forEach(b=>b.y+=b.vy*dt);bombs=bombs.filter(b=>b.y<H+20);
+    // hits
+    shots.forEach(s=>{for(const i of alive){if(i.alive&&Math.abs(s.x-i.x)<22&&Math.abs(s.y-i.y)<20){i.alive=false;s.y=-99;score+=10;booms.push({x:i.x,y:i.y,t:0.35});beepA(240+Math.random()*80,0.08,'sawtooth',0.05);break;}}});
+    bombs.forEach(b=>{if(pl.frozen<=0&&Math.abs(b.x-pl.x)<22&&Math.abs(b.y-pl.y)<22){pl.frozen=1.0;b.y=H+99;flash='FROZEN!';flashT=0.8;beepA(150,0.3,'sine',0.08);}});
+    booms.forEach(b=>b.t-=dt);booms=booms.filter(b=>b.t>0);
+    // landed?
+    if(alive.some(i=>i.alive&&i.y+18>=pl.y-20)){flash='THEY LANDED!';flashT=2;api.end(score);return;}
+    if(!inv.some(i=>i.alive)){score+=50;beepA(990,0.25,'triangle',0.08);shots=[];bombs=[];spawn();}
+  }
+  function render(){
+    ctx.fillStyle='#0B1026';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#fff';stars.forEach(s=>{ctx.globalAlpha=0.4+0.4*Math.sin(t*2+s.x);ctx.fillRect(s.x,s.y,s.s,s.s);});ctx.globalAlpha=1;
+    ctx.fillStyle='#2BB673';ctx.fillRect(0,H-14,W,14);ctx.fillStyle='#111';ctx.fillRect(0,H-16,W,3);
+    inv.forEach(i=>{if(i.alive) drawE(ctx,i.e,i.x,i.y+Math.sin(t*6+i.x)*2,32);});
+    booms.forEach(b=>{comicText(ctx,'POW',b.x,b.y,18+(0.35-b.t)*40,'#FFD93D');});
+    ctx.fillStyle='#FFD93D';shots.forEach(s=>{ctx.fillRect(s.x-3,s.y-12,6,16);});
+    bombs.forEach(b=>drawE(ctx,'❄️',b.x,b.y,18));
+    if(pl.frozen>0){ctx.fillStyle='rgba(92,225,230,0.35)';ctx.beginPath();ctx.arc(pl.x,pl.y,28,0,7);ctx.fill();}
+    drawE(ctx,hero,pl.x,pl.y,38);
+    comicText(ctx,'SCORE '+score,90,24,26);comicText(ctx,'WAVE '+wave,W-70,24,22,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,48,'#FFD93D');
+  }
+  return {update,render};
+}
+
+/* =========================================================
+   SCREENS
+   ========================================================= */
 function go(screen){
   try{speechSynthesis.cancel();}catch(e){}
   window.scrollTo(0,0);
@@ -717,20 +1415,27 @@ function go(screen){
   else if(screen==='map') map();
   else if(screen==='vault') vault();
   else if(screen==='grown') grown();
+  else if(screen==='arcade') arcade();
 }
+function setMode(h){P.challenge=h;save();map();}
 function checklist(){
-  const n=Object.keys(TYPES).filter(t=>P.aced[t]).length;
+  const ts=Object.keys(TYPES),n=ts.filter(t=>P.aced[t]).length,g=ts.filter(t=>P.gold[t]).length;
   return `<section class="panel checklist">
-    <h2>🏅 MISSION CHECKLIST <span class="ccount">${n}/9 ACED</span></h2>
-    <p class="note">Get all 5 puzzles right on the first try to ACE a mission and check it off!</p>
+    <h2>🏅 MISSION CHECKLIST <span class="row" style="gap:6px"><span class="ccount">${n}/9 ✔</span><span class="ccount gold">${g}/9 ★</span></span></h2>
+    <p class="note">✔ = aced a regular mission. ★ = aced a ⚡ CHALLENGE mission. Ace = all 5 right on the first try!</p>
     ${WORLDS.map(w=>`<div class="cworld" style="--wc:${w.color}"><div class="cwname">${w.emoji} ${w.name}</div>
-      ${w.types.map(t=>{const a=P.aced[t],p=P.missions[t];
-        return `<button class="citem ${a?'aced':p?'played':''}" onclick="startMission('${t}')"><span class="cbox">${a?'✔':''}</span><span class="cname">${TYPES[t].icon} ${TYPES[t].name}</span><span class="cstat">${a?'ACED!':p?'KEEP GOING':'NEW'}</span></button>`;}).join('')}
+      ${w.types.map(t=>{const a=P.aced[t],gd=P.gold[t],p=P.missions[t]||P.missionsH[t];
+        return `<div class="citem ${gd?'golded':a?'aced':p?'played':''}">
+          <button class="cbox" title="Regular mission" onclick="startMission('${t}',false)">${a?'✔':''}</button>
+          <button class="cbox goldbox ${gd?'on':''}" title="Challenge mission" onclick="startMission('${t}',true)">${gd?'★':'⚡'}</button>
+          <button class="cname" onclick="startMission('${t}')">${TYPES[t].icon} ${TYPES[t].name}</button>
+          <span class="cstat">${gd?'GOLD!':a?'ACED!':p?'KEEP GOING':'NEW'}</span></div>`;}).join('')}
     </div>`).join('')}
-    ${n===9?'<div class="allaced">🏆 ALL 9 ACED — PUZZLE LEGEND! 🏆</div>':''}
+    ${g===9?'<div class="allaced">🌟 ALL 9 GOLD — GALACTIC GENIUS! 🌟</div>':n===9?'<div class="allaced">🏆 ALL 9 ACED! Now try for ★ GOLD in Challenge Mode! 🏆</div>':''}
   </section>`;
 }
 function home(){
+  const toks=P.tokens||0;
   app.innerHTML=`
   <section class="panel cover">
     <div class="issue">ISSUE #${P.total+1}</div>
@@ -740,7 +1445,10 @@ function home(){
     <div class="rank">Your rank: <b>${rank()}</b> · Missions: ${P.total}</div>
     <div class="heroes">${WAFFLE}${GIZMO}</div>
   </section>
-  <button class="btn big red" style="margin-bottom:18px" onclick="go('map')">🚀 START A MISSION!</button>
+  <div class="row" style="margin-bottom:18px">
+    <button class="btn big red" style="flex:2;min-width:200px" onclick="go('map')">🚀 START A MISSION!</button>
+    <button class="btn big arcbtn" style="flex:1;min-width:130px;font-size:24px;padding:10px 6px" onclick="go('arcade')">🕹️ ARCADE<br><small>🎟️ × ${toks}</small></button>
+  </div>
   ${checklist()}
   <section class="panel" style="padding:6px">
     <div class="strip">
@@ -755,31 +1463,45 @@ function home(){
   </div>`;
 }
 function map(){
+  const H=!!P.challenge;
   app.innerHTML=`
-  <div class="panel maphead">${WAFFLE}<div class="bubble left">Pick a world, partner! Each mission is only <b>5 puzzles</b>.</div></div>
-  ${WORLDS.map(w=>`<section class="panel world" style="--wc:${w.color}">
-    <h2>${w.emoji} ${w.name}</h2><p class="wblurb">${w.blurb}</p>
-    <div class="mlist">${w.types.map(t=>{const c=P.missions[t]||0;return `<button class="mbtn ${P.aced[t]?'aced':''}" onclick="startMission('${t}')">
-      <span class="micon">${TYPES[t].icon}</span><span class="mname">${TYPES[t].name}</span>
-      <span class="mcount">${P.aced[t]?'<span class="acetag">✔ ACED</span>':c?('⭐'.repeat(Math.min(c,5))+(c>5?'+':'')):'<span class="newtag">NEW!</span>'}</span></button>`;}).join('')}</div>
+  <div class="modebar ${H?'gold':''}">
+    <button class="modebtn ${!H?'on':''}" onclick="setMode(false)">🙂 REGULAR</button>
+    <button class="modebtn ${H?'on':''}" onclick="setMode(true)">⚡ CHALLENGE</button>
+  </div>
+  <div class="panel maphead ${H?'goldpanel':''}">${H?GIZMO:WAFFLE}<div class="bubble left">${H?'<b>CHALLENGE MODE!</b> Harder puzzles. Finish one to win a 🎟️ Arcade token — ACE it for 2 tokens and a gold ★!':'Pick a world, partner! Each mission is only <b>5 puzzles</b>.'}</div></div>
+  ${WORLDS.map(w=>`<section class="panel world ${H?'goldpanel':''}" style="--wc:${w.color}">
+    <h2>${w.emoji} ${w.name}${H?' ⚡':''}</h2><p class="wblurb">${w.blurb}</p>
+    <div class="mlist">${w.types.map(t=>{
+      const c=H?(P.missionsH[t]||0):(P.missions[t]||0),done=H?P.gold[t]:P.aced[t];
+      const tag=done?(H?'<span class="acetag goldtag">★ GOLD</span>':'<span class="acetag">✔ ACED</span>'):c?((H?'⚡':'⭐').repeat(Math.min(c,5))+(c>5?'+':'')):'<span class="newtag">NEW!</span>';
+      return `<button class="mbtn ${done?(H?'golded':'aced'):''}" onclick="startMission('${t}')">
+      <span class="micon">${TYPES[t].icon}</span><span class="mname">${TYPES[t].name}</span><span class="mcount">${tag}</span></button>`;}).join('')}</div>
   </section>`).join('')}
-  <button class="btn big green" onclick="startMission('mix')">🎲 SURPRISE MISSION!</button>`;
+  <button class="btn big ${H?'arcbtn':'green'}" onclick="startMission('mix')">🎲 ${H?'SURPRISE CHALLENGE!':'SURPRISE MISSION!'}</button>`;
 }
-function startMission(type){
-  const list=type==='mix'?shuffle(Object.keys(TYPES)).slice(0,5):Array(5).fill(type);
-  const qs=list.map(t=>TYPES[t].gen()).filter(Boolean);
-  M={type,qs,i:0,tries:0,first:0,done:false};
+function startMission(type,hard){
+  if(typeof hard==='boolean'&&hard!==!!P.challenge){P.challenge=hard;save();}
+  hard=!!P.challenge;
+  let list;
+  if(type==='mix'){
+    if(hard){const bag=['na','na','np','np','ns','ns','pf','pf','pa','sc','pc','fm','fc'];list=[];const b=shuffle(bag);for(const t of b){if(list.filter(x=>x===t).length<2) list.push(t);if(list.length===5)break;}}
+    else list=shuffle(Object.keys(TYPES)).slice(0,5);
+  }else list=Array(5).fill(type);
+  const qs=list.map(t=>hard?TYPES[t].hard():TYPES[t].gen()).filter(Boolean);
+  M={type,qs,i:0,tries:0,first:0,done:false,hard};
   window.scrollTo(0,0);
-  if(type!=='mix'&&!(P.missions[type])) intro(type); else showQ();
+  const seen=hard?P.missionsH[type]:P.missions[type];
+  if(type!=='mix'&&!seen) intro(type); else showQ();
 }
 function intro(t){
-  const w=WORLDS.find(w=>w.types.includes(t));
-  app.innerHTML=`<section class="panel intro center">
-    <div class="qtype">NEW MISSION!</div>
+  const w=WORLDS.find(w=>w.types.includes(t)),H=M&&M.hard;
+  app.innerHTML=`<section class="panel intro center ${H?'goldpanel':''}">
+    <div class="qtype">${H?'⚡ NEW CHALLENGE!':'NEW MISSION!'}</div>
     <h2 style="font-size:40px;margin-top:8px">${TYPES[t].icon} ${TYPES[t].name}</h2>
-    <p style="font-size:17px">${w.line}</p>
+    <p style="font-size:17px">${H?'These are tougher — the kind of puzzles bigger kids get. Take your time!':w.line}</p>
     <div class="row" style="align-items:center;justify-content:center;flex-wrap:nowrap;text-align:left">
-      ${GIZMO}<div class="bubble left"><b>Gizmo’s tip:</b> ${TYPES[t].tip}</div>
+      ${GIZMO}<div class="bubble left"><b>Gizmo’s tip:</b> ${H?TYPES[t].tipH:TYPES[t].tip}</div>
     </div>
     <div style="margin-top:16px"><button class="btn big red" onclick="showQ()">LET’S GO! ➜</button></div>
   </section>`;
@@ -793,8 +1515,8 @@ function showQ(){
     <div class="dots">${M.qs.map((_,j)=>`<span class="dot ${j<M.i?'done':j===M.i?'now':''}"></span>`).join('')}</div>
     <button class="mini" onclick="speakQ()">🔊 Read</button>
   </div>
-  <section class="panel">
-    <div class="qtype">${TYPES[q.type].icon} ${TYPES[q.type].name}</div>
+  <section class="panel ${M.hard?'goldpanel':''}">
+    <div class="qtype">${M.hard?'⚡ ':''}${TYPES[q.type].icon} ${TYPES[q.type].name}</div>
     <div class="qtext">${q.text}</div>
     <div class="qvis">${q.prompt}</div>
   </section>
@@ -811,7 +1533,8 @@ function answer(j){
   const q=M.qs[M.i],btn=document.querySelector(`.opt[data-j="${j}"]`);
   if(q.options[j].correct){
     M.done=true;const first=M.tries===0;if(first)M.first++;
-    P.first[q.type]=P.first[q.type]||[0,0];P.first[q.type][0]+=first?1:0;P.first[q.type][1]++;save();
+    const st=M.hard?P.firstH:P.first;
+    st[q.type]=st[q.type]||[0,0];st[q.type][0]+=first?1:0;st[q.type][1]++;save();
     btn.classList.add('right');pow(btn);sfx('yay');
     document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
     say(`<b>${pick(WINS)}</b> ${q.why}`);
@@ -832,25 +1555,35 @@ function pow(btn){
 }
 function finish(){
   clearPows();
-  P.total++;P.missions[M.type]=(P.missions[M.type]||0)+1;
-  const perfect=M.type!=='mix'&&M.first===M.qs.length,newAce=perfect&&!P.aced[M.type];
-  if(perfect) P.aced[M.type]=(P.aced[M.type]||0)+1;
+  const H=M.hard,mix=M.type==='mix';
+  P.total++;
+  if(H) P.missionsH[M.type]=(P.missionsH[M.type]||0)+1; else P.missions[M.type]=(P.missions[M.type]||0)+1;
+  const perfect=M.first===M.qs.length;
+  const aceKey=H?'gold':'aced',newAce=!mix&&perfect&&!P[aceKey][M.type];
+  if(!mix&&perfect) P[aceKey][M.type]=(P[aceKey][M.type]||0)+1;
+  const won=H?(perfect?2:1):0;P.tokens=(P.tokens||0)+won;
   const left=STICKERS.filter(s=>!P.stickers.includes(s));
   const st=left.length?pick(left):pick(STICKERS);
   if(left.length) P.stickers.push(st);
   save();sfx('yay');window.scrollTo(0,0);
-  const name=M.type==='mix'?'Surprise':TYPES[M.type].name;
-  const bonusT=M.type==='mix'?pick(Object.keys(TYPES)):M.type;
-  app.innerHTML=`<section class="panel center">
-    <div class="burstbig">MISSION COMPLETE!</div>
+  const name=mix?(H?'Surprise Challenge':'Surprise'):TYPES[M.type].name;
+  const bonusT=mix?pick(Object.keys(TYPES)):M.type;
+  const aceMsg=mix?'':(perfect?`<div class="acestamp ${H?'goldstamp':''}">${H?'★ GOLD!':'✔ ACED!'}</div><p style="margin:4px 0">${newAce?(H?'Gold star on your Mission Checklist!':'Checked off on your Mission Checklist!'):'Aced it AGAIN!'}</p>`
+      :`<p class="note">Get all 5 on the first try to ${H?'win a GOLD ★':'ACE it and check it off your list'}!</p>`);
+  app.innerHTML=`<section class="panel center ${H?'goldpanel':''}">
+    <div class="burstbig">${H?'CHALLENGE COMPLETE!':'MISSION COMPLETE!'}</div>
     <div class="heroes" style="margin:0">${WAFFLE}${GIZMO}</div>
     <p style="font-size:20px;margin:8px 0">You cracked all ${M.qs.length} ${name} puzzles!</p>
     <p class="zaps">⚡ First-try zaps: ${'⚡'.repeat(M.first)||'— (that’s okay, you kept trying!)'}</p>
-    ${perfect?`<div class="acestamp">✔ ACED!</div><p style="margin:4px 0">${newAce?'Checked off on your Mission Checklist!':'Aced it AGAIN!'}</p>`:(M.type!=='mix'?'<p class="note">Get all 5 on the first try to ACE it and check it off your list!</p>':'')}
+    ${aceMsg}
     <p style="margin:12px 0 0">${left.length?'NEW sticker for your vault!':'Bonus sticker!'}</p>
     <div class="newsticker">${st}</div>
     <p style="font-size:15px">Rank: <b>${rank()}</b></p>
   </section>
+  ${H?`<section class="panel center tokenwin"><div class="bang" style="font-size:30px">🎟️ +${won} ARCADE TOKEN${won>1?'S':''}!</div>
+     <p style="margin:4px 0 10px">You have <b>${P.tokens}</b>. Use your stickers in Pong or Invaders!</p>
+     <button class="btn big arcbtn" onclick="go('arcade')">🕹️ PLAY IN THE ARCADE!</button></section>`
+   :`<section class="panel center tokenwin dim"><p style="margin:0">🎟️ Want Arcade tokens? Try a <b>⚡ CHALLENGE</b> mission!</p></section>`}
   <section class="panel brk"><h3>🧃 BRAIN BREAK!</h3><p>${pick(BREAKS)}</p></section>
   <section class="panel bonus"><b>🧱 Bonus challenge:</b> Invent your own <b>${TYPES[bonusT].name}</b> puzzle for a grown-up — draw it, or build it with LEGO! Can they crack it?</section>
   <div class="stack">
@@ -861,22 +1594,30 @@ function finish(){
 function vault(){
   app.innerHTML=`<section class="panel">
     <h2 style="font-size:34px">🏆 STICKER VAULT</h2>
-    <p>You have <b>${P.stickers.length}</b> of ${STICKERS.length} stickers. Finish a mission to win a new one!</p>
+    <p>You have <b>${P.stickers.length}</b> of ${STICKERS.length} stickers. Finish a mission to win a new one! Your stickers become players in the 🕹️ Arcade.</p>
     <div class="vault">${STICKERS.map(s=>P.stickers.includes(s)?`<div class="slot">${s}</div>`:'<div class="slot locked">?</div>').join('')}</div>
   </section>
   <button class="btn big red" onclick="go('map')">🚀 WIN MORE STICKERS!</button>`;
 }
 function grown(){
-  const rows=Object.keys(TYPES).map(t=>{const f=P.first[t]||[0,0];const w=WORLDS.find(w=>w.types.includes(t));
+  const pct=f=>f&&f[1]?Math.round(100*f[0]/f[1])+'%':'—';
+  const rows=Object.keys(TYPES).map(t=>{const w=WORLDS.find(w=>w.types.includes(t));
     return `<tr><td>${TYPES[t].bat}</td><td>${TYPES[t].real}</td><td>${TYPES[t].icon} ${TYPES[t].name}<br><span class="note">${w.name}</span></td><td>${TYPES[t].learn}</td></tr>`;}).join('');
-  const prog=Object.keys(TYPES).map(t=>{const f=P.first[t]||[0,0];
-    return `<tr><td>${TYPES[t].real}</td><td>${f[1]}</td><td>${f[1]?Math.round(100*f[0]/f[1])+'%':'—'}</td><td>${P.aced[t]?'✅ '+P.aced[t]+'×':'—'}</td></tr>`;}).join('');
+  const prog=Object.keys(TYPES).map(t=>{const f=P.first[t]||[0,0],h=P.firstH[t]||[0,0];
+    return `<tr><td>${TYPES[t].real}</td><td>${f[1]}</td><td>${pct(f)}</td><td>${P.aced[t]?'✅ '+P.aced[t]+'×':'—'}</td><td>${h[1]}</td><td>${pct(h)}</td><td>${P.gold[t]?'⭐ '+P.gold[t]+'×':'—'}</td></tr>`;}).join('');
   app.innerHTML=`<section class="panel grown">
     <h2>🧑 GROWN-UP CORNER</h2>
     <p>Brain Blasters gives your child short, playful practice with the <b>9 question types on the CogAT Level 8</b>, the level commonly used in 2nd grade. It’s meant to make the formats familiar — it is <b>not</b> an official practice test and doesn’t predict a score. Check with your district which test and level it uses.</p>
     <h3>What’s inside</h3>
     <table class="tbl"><tr><th>Battery</th><th>CogAT type</th><th>Mission</th><th>Practices</th></tr>${rows}</table>
     <p class="note">Number and shape puzzles are freshly generated every time. Word puzzles rotate through a hand-written set.</p>
+    <h3>⚡ Challenge Mode &amp; the Arcade</h3>
+    <ul>
+      <li><b>Challenge Mode</b> (switch at the top of the mission map) uses harder versions of all 9 types, closer to 3rd-grade (Level 9) style: written-word analogies, fill-in-the-blank sentences, odd-one-out, two-step number rules, numeral patterns, picture-algebra, 3×3 grids, side-counting, and slanted or reverse paper folds.</li>
+      <li>A <b>Surprise Challenge</b> leans toward number and paper-folding puzzles, his growth areas.</li>
+      <li>Finishing a Challenge mission earns <b>1 Arcade token</b>, and acing it earns <b>2</b> plus a gold ★. Regular missions don’t earn tokens.</li>
+      <li>Each token buys one game of <b>Sticker Pong</b> (ends after 3 misses against the computer) or <b>Sticker Invaders</b> (ends when the invaders reach him). Games usually last a few minutes, so the puzzles stay the main event.</li>
+    </ul>
     <h3>How to use it</h3>
     <ul>
       <li><b>One mission per sitting.</b> 5 puzzles is about 5–10 minutes. Stop while it’s still fun.</li>
@@ -885,14 +1626,14 @@ function grown(){
       <li><b>No timer, no failing.</b> A wrong answer just grays out and he tries again. A hint appears after the second miss, and every answer comes with a short “why.”</li>
       <li><b>Ask “How’d you crack it?”</b> Explaining his thinking is the real skill. For analogies, teach the sentence trick: “A dog <i>eats</i> a bone… a rabbit <i>eats</i> a ___.”</li>
       <li><b>Use the Bonus Challenge.</b> Inventing a puzzle (with LEGO or a drawing) for you to solve builds the same reasoning, and it suits a builder.</li>
-      <li><b>Keep it light.</b> A few short sessions a week for a couple of weeks is plenty. The goal is that nothing looks unfamiliar on test day. Drilling for a high score can place a child where the pace doesn’t fit.</li>
+      <li><b>Keep it light.</b> A few short sessions a week is plenty. The goal is that nothing looks unfamiliar on test day. Drilling for a high score can place a child where the pace doesn’t fit.</li>
     </ul>
     <h3>Settings</h3>
     <div class="toggle"><span>🔊 Auto-read each question aloud</span><button class="sw ${P.autoread?'on':''}" aria-label="Auto-read" onclick="P.autoread=!P.autoread;save();grown()"></button></div>
     <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
     <h3>Progress <span class="note">(saved on this device only)</span></h3>
-    <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b></p>
-    <table class="tbl"><tr><th>Type</th><th>Puzzles solved</th><th>Right on 1st try</th><th>Aced</th></tr>${prog}</table>
+    <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b></p>
+    <div style="overflow-x:auto"><table class="tbl"><tr><th>Type</th><th>Solved</th><th>1st try</th><th>Aced</th><th>⚡ Solved</th><th>⚡ 1st try</th><th>⚡ Gold</th></tr>${prog}</table></div>
     <p class="note">Use this to see which formats feel new to him, not as a grade. Low first-try numbers usually just mean the format is unfamiliar.</p>
     <div style="margin-top:12px"><button class="btn small" style="background:#fff" onclick="askReset()">Reset all progress</button></div>
   </section>
@@ -900,11 +1641,11 @@ function grown(){
 }
 function askReset(){
   const m=document.createElement('div');m.className='modal';
-  m.innerHTML=`<div class="panel center"><h3 style="font-size:26px">Erase all progress?</h3><p>Stickers, ranks and stats will be wiped on this device.</p>
+  m.innerHTML=`<div class="panel center"><h3 style="font-size:26px">Erase all progress?</h3><p>Stickers, ranks, tokens and stats will be wiped on this device.</p>
   <div class="row" style="justify-content:center"><button class="btn small red" id="yesR">Yes, reset</button><button class="btn small" style="background:#fff" id="noR">Cancel</button></div></div>`;
   document.body.appendChild(m);
   m.querySelector('#noR').onclick=()=>m.remove();
-  m.querySelector('#yesR').onclick=()=>{P.missions={};P.first={};P.stickers=[];P.total=0;P.aced={};save();m.remove();grown();};
+  m.querySelector('#yesR').onclick=()=>{Object.assign(P,{missions:{},first:{},stickers:[],total:0,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false});save();m.remove();grown();};
 }
 
 updSnd();home();

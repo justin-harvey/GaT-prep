@@ -23,6 +23,8 @@ There are 9 missions in 3 worlds, one for each CogAT Level 8 question type:
 - Each mission is 5 puzzles, with no timer. Wrong answers can be retried, and hints appear after a second miss.
 - Number and shape puzzles are generated fresh every time. Word puzzles rotate through a hand-written set.
 - Each mission ends with a brain break and a new sticker for the Sticker Vault.
+- **⚡ Challenge Mode** (toggle on the mission map) has harder, 3rd-grade-style (Level 9) versions of all 9 types: written-word analogies, fill-in-the-blank sentences, odd-one-out, two-step number rules, numeral patterns, picture-algebra, 3×3 grids, side-counting, and slanted or reverse paper folds. Acing one earns a gold ★ on the checklist.
+- **🕹️ Sticker Arcade:** each Challenge mission earns an Arcade token (2 if aced). A token buys one game of **Sticker Pong** (his hero sticker is the paddle; the game ends after 3 misses against the computer) or **Sticker Invaders** (his stickers are the invaders; the game ends when they land on him). The Pong physics come from the [Pong game in justin-harvey/test](https://github.com/justin-harvey/test).
 - The Grown-Up Corner has a read-aloud option, sound settings and first-try stats for each question type. Stats are saved in the browser's localStorage.
 
 ## Hosting on GitHub Pages
