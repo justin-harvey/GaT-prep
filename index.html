@@ -399,7 +399,7 @@ const ARTNAME={"🍎": "apple", "⭐": "star", "🐞": "ladybug", "🍪": "cooki
 const ART_COUNT=["🍎", "⭐", "🐞", "🍪", "🚀", "🐟", "🍩", "⚽", "🎈", "🍓"];
 const ART_BATCH1=["🍎", "🐞", "🐟", "⚽", "🎈", "🧤", "✋", "🥕", "🐄", "🌳", "🐝", "🐶", "🥚", "🚗", "🦋", "🥛", "🐱", "🍌", "🐔", "🐛", "🧊", "🔨", "🧦", "✈️", "✂️", "🌽", "🔥", "🦆", "🐰", "☀️", "🕶️", "🔦", "🌊", "🧸", "🚲", "🐦", "🐒", "🌻", "🌙", "🦉", "🥦", "🦈", "🏀", "🌸", "🦶", "🌧️", "☂️", "🧣", "🐷", "🚂"];
 const ART_BATCH2=["⌚", "⏰", "☁️", "☕", "⛺", "🌈", "🍇", "🍉", "🍕", "🍞", "🍦", "🍯", "🍿", "🏐", "🏠", "🐇", "🐍", "🐘", "🐙", "🐜", "🐠", "🐢", "🐣", "🐧", "🐬", "🐭", "🐳", "👓", "👖", "👟", "💧", "📏", "📖", "📚", "🔧", "🕷️", "🖍️", "🚁", "🚢", "🥁", "🥄", "🥾", "🦀", "🦁", "🦅", "🦇", "🦒", "🦢", "🧀", "🧢", "🧱", "🧽", "🪚", "🪛", "🌞"];
-const ART_PENDING=['🏐','🐬','🧽']; // redrawn, waiting for a second look
+const ART_PENDING=[]; // drawings waiting for review stay off
 const LIVE=new Set([...ART_COUNT,...ART_BATCH1,...ART_BATCH2.filter(x=>!ART_PENDING.includes(x))]);
 // A word puzzle uses drawings only when ALL its pictures are drawn, so the answer never stands out by style.
 let ART_ON=true;
