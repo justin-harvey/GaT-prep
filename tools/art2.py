@@ -45,14 +45,41 @@ B2['🍿'] = ('popcorn', blob([(32, 34, 10), (44, 26, 11), (58, 26, 11), (70, 34
             '<g clip-path="url(#popclip)">' + rect(34, 38, 8, 60, '#E63946', 0, 0, 'none') + rect(58, 38, 8, 60, '#E63946', 0, 0, 'none') + '</g>' +
             path('M24 40 L76 40 L67 93 L33 93 Z', 'none'))
 def _vball():
-    s = '<clipPath id="vbclip"><circle cx="50" cy="50" r="39"/></clipPath>' + circ(50, 50, 40, '#fff') + '<g clip-path="url(#vbclip)">'
+    """Classic swirl volleyball: three curved seams from the center, parallel stripes in each section."""
+    O, RB, RS = (50.0, 50.0), 40.0, 44.0
+    def seam(th):
+        u = math.radians(th + 90); C = (O[0] + RS * math.cos(u), O[1] + RS * math.sin(u))
+        phi0 = math.atan2(O[1] - C[1], O[0] - C[0]); best = None
+        for sgn in (1, -1):
+            pts = []
+            for k in range(0, 400):
+                ph = phi0 + sgn * k * 0.01; p = (C[0] + RS * math.cos(ph), C[1] + RS * math.sin(ph))
+                if math.hypot(p[0] - O[0], p[1] - O[1]) > RB + 0.5: break
+                pts.append(p)
+            if len(pts) > 2:
+                d = (pts[3][0] - O[0], pts[3][1] - O[1]); score = d[0] * math.cos(math.radians(th)) + d[1] * math.sin(math.radians(th))
+                if best is None or score > best[0]: best = (score, pts, C, sgn, phi0)
+        return best[1], best[2], best[3], best[4]
+    seams = [seam(-90 + 120 * i) for i in range(3)]
+    ang = lambda p: math.atan2(p[1] - O[1], p[0] - O[0])
+    P = lambda pts: ' '.join(f'{f(x)},{f(y)}' for x, y in pts)
+    s = circ(50, 50, RB, '#fff')
     cols = ['#2F80ED', '#FFD93D', '#fff']
     for i in range(3):
-        a0, a1 = math.radians(-90 + 120 * i), math.radians(-90 + 120 * (i + 1))
-        p0 = (50 + 44 * math.cos(a0), 50 + 44 * math.sin(a0)); p1 = (50 + 44 * math.cos(a1), 50 + 44 * math.sin(a1))
-        c0 = (50 + 26 * math.cos(a0 + 0.7), 50 + 26 * math.sin(a0 + 0.7)); c1 = (50 + 26 * math.cos(a1 + 0.7), 50 + 26 * math.sin(a1 + 0.7))
-        s += path(f'M50 50 Q{f(c0[0])} {f(c0[1])} {f(p0[0])} {f(p0[1])} A44 44 0 0 1 {f(p1[0])} {f(p1[1])} Q{f(c1[0])} {f(c1[1])} 50 50 Z', cols[i], 3)
-    return s + '</g>' + circ(50, 50, 40, 'none')
+        a_pts, C, sgn, phi0 = seams[i]; b_pts = seams[(i + 1) % 3][0]
+        a0, a1 = ang(a_pts[-1]), ang(b_pts[-1])
+        while a1 <= a0: a1 += 2 * math.pi
+        rim = [(O[0] + RB * math.cos(a0 + (a1 - a0) * t / 30), O[1] + RB * math.sin(a0 + (a1 - a0) * t / 30)) for t in range(31)]
+        sector = a_pts + rim + b_pts[::-1]
+        cid = f'vbs{i}'
+        s += f'<clipPath id="{cid}"><polygon points="{P(sector)}"/></clipPath><g clip-path="url(#{cid})">'
+        for sg in (1, -1):
+            s += f'<circle cx="{f(C[0])}" cy="{f(C[1])}" r="{f(RS + sg * 5)}" fill="none" stroke="{cols[i]}" stroke-width="10"/>'
+            s += circ(C[0], C[1], RS + sg * 10, 'none', 2.2) + circ(C[0], C[1], RS + sg * 20, 'none', 2.2)
+        s += '</g>'
+    for pts, *_ in seams:
+        s += f'<polyline points="{P(pts)}" fill="none" stroke="{K}" stroke-width="2.6" stroke-linecap="round"/>'
+    return s + circ(50, 50, RB, 'none')
 B2['🏐'] = ('volleyball', _vball())
 B2['🏠'] = ('house', rect(64, 18, 11, 22, '#8B5A2B', 1) + path('M10 52 L50 14 L90 52 Z', '#E63946') + rect(20, 48, 60, 42, '#FFE9B0') +
             rect(43, 64, 15, 26, '#8B5A2B', 2) + circ(54, 78, 1.8, '#FFD93D', 0) + rect(25, 56, 13, 13, '#CDEFFF', 1, 3) + rect(63, 56, 13, 13, '#CDEFFF', 1, 3) +
@@ -83,10 +110,6 @@ B2['🐣'] = ('hatching chick', circ(50, 44, 21, '#FFD93D') + path('M46 46 L38 5
 B2['🐧'] = ('penguin', ell(36, 90, 9, 5, '#FF8C42') + ell(64, 90, 9, 5, '#FF8C42') + ell(22, 58, 7, 18, '#2b2b2b', 20) + ell(78, 58, 7, 18, '#2b2b2b', -20) +
             ell(50, 56, 27, 35, '#2b2b2b') + ell(50, 62, 18, 26, '#fff', 0, 2.5) + circ(41, 34, 5, '#fff', 0) + circ(59, 34, 5, '#fff', 0) +
             circ(42, 35, 2.5, K, 0) + circ(58, 35, 2.5, K, 0) + path('M44 42 L56 42 L50 50 Z', '#FF8C42', 2.5))
-B2['🐬'] = ('dolphin', path('M18 70 L4 62 L10 76 L4 90 L24 74 Z', '#5C9DD6') + path('M46 38 Q50 20 62 20 Q56 30 58 38 Z', '#5C9DD6') +
-            path('M14 66 Q34 34 70 36 L84 40 Q95 44 92 49 L80 49 Q70 57 58 57 Q38 59 24 72 Z', '#5C9DD6') +
-            path('M30 64 Q46 56 66 54 Q74 54 80 50 Q70 57 58 57 Q42 58 30 64 Z', '#CFE6FA', 0) +
-            path('M56 54 Q54 66 46 69 Q47 60 50 55 Z', '#4A86BF', 2.5) + eye(76, 44, 2.6) + line('M84 49 Q88 50 91 48', 2))
 B2['🐭'] = ('mouse', circ(25, 28, 16, '#B8C4D6') + circ(75, 28, 16, '#B8C4D6') + circ(25, 28, 9, '#F7B6C2', 0) + circ(75, 28, 9, '#F7B6C2', 0) +
             path('M50 84 Q24 74 24 52 Q24 32 50 32 Q76 32 76 52 Q76 74 50 84 Z', '#B8C4D6') + eye(40, 54, 3.5) + eye(60, 54, 3.5) +
             circ(50, 74, 5, '#FF7E9B', 2.5) + line('M42 72 L22 68 M42 76 L23 80 M58 72 L78 68 M58 76 L77 80', 2))
@@ -155,8 +178,6 @@ B2['🧢'] = ('baseball cap', path('M50 62 H94 Q98 72 86 74 H50 Z', '#1E5FB8') +
             circ(48, 24, 4, '#1E5FB8', 2.5) + line('M48 26 Q36 40 34 64 M48 26 Q62 40 64 64', 2.5, '#1E5FB8'))
 B2['🧱'] = ('bricks', ''.join(rect(x, y, w, 19, '#C9573A', 2, 3) for x, y, w in
                               [(6,12,42),(50,12,44),(6,33,20),(28,33,42),(72,33,22),(6,54,42),(50,54,44),(6,75,20),(28,75,42),(72,75,22)]))
-B2['🧽'] = ('sponge', rect(14, 38, 72, 40, '#FFD93D', 8) + rect(14, 24, 72, 16, '#2BB673', 6) +
-            ''.join(ell(x, y, 3, 2.2, '#E0B000', 0, 0, 'none') for x, y in [(26,52),(40,62),(56,50),(70,64),(32,70),(64,54),(48,72)]))
 B2['🪚'] = ('saw', path('M8 34 L66 28 L66 66 L8 60 Z', '#C9D3DD') +
             line('M8 60 ' + ' '.join(f'L{f(8 + 4.8 * i)} {64 if i % 2 else 60}' for i in range(1, 13)), 2.5) +
             path('M62 24 H86 Q96 24 96 36 V66 Q96 76 86 76 H62 Z', '#C68642') + ell(81, 50, 6, 13, '#fff', 0, 3))
@@ -165,3 +186,16 @@ B2['🪛'] = ('screwdriver', path('M47 84 L53 84 L51 95 L49 95 Z', '#7D8893', 2.
 
 B2['🌞'] = ('smiling sun', A['☀️'][1] + eye(43, 46, 2.6) + eye(57, 46, 2.6) + line('M42 55 Q50 62 58 55', 2.8) +
             circ(38, 54, 3, '#FF8C42', 0, 'none', 'opacity="0.6"') + circ(62, 54, 3, '#FF8C42', 0, 'none', 'opacity="0.6"'))
+
+B2['🐬'] = ('dolphin', path('M20 66 L5 54 Q8 63 12 66 Q5 72 7 82 Z', '#6E9FD6') +
+            path('M58 35 Q55 19 43 16 Q48 26 46 36 Z', '#6E9FD6') +
+            path('M10 60 C20 42 44 31 66 34 C77 35 85 40 88 44 L97 46 Q98 51 92 52 L84 52 C78 58 68 62 56 62 C40 62 28 64 19 70 Z', '#6E9FD6') +
+            path('M26 63 C40 58 56 58 68 57 C76 56 82 54 85 52 C78 58 68 62 56 62 C42 62 32 63 26 63 Z', '#DCEBFA', 0) +
+            path('M60 58 Q58 70 49 73 Q51 64 53 58 Z', '#5786BD', 2.5) + eye(79, 44, 2.8) + line('M84 51 Q88 53 92 51', 2.2))
+B2['🧽'] = ('sponge', circ(76, 16, 7, '#E3F4FF', 2, '#5CC8FF') + circ(89, 24, 5, '#E3F4FF', 2, '#5CC8FF') + circ(64, 12, 4, '#E3F4FF', 2, '#5CC8FF') +
+            circ(74, 14, 1.8, '#fff', 0, 'none') + circ(88, 22, 1.3, '#fff', 0, 'none') +
+            path('M80 42 L88 30 L88 72 L80 86 Z', '#E8B800') + path('M18 42 L28 30 L88 30 L80 42 Z', '#FFE680') +
+            path('M14 48 Q14 42 20 42 L74 42 Q80 42 80 48 L80 80 Q80 86 74 86 L20 86 Q14 86 14 80 Z', '#FFD93D') +
+            ''.join(ell(x, y, rx, ry, '#E0A800', 0, 0, 'none') for x, y, rx, ry in
+                    [(24,54,4,3),(38,50,2.5,2),(52,56,5,4),(68,50,3,2.5),(30,68,3,2.5),(46,72,4,3),(62,68,3,2.5),(72,78,2.5,2),(22,78,2.5,2),(56,80,2,1.6)]) +
+            ''.join(ell(x, y, 2.2, 1.2, '#E6C200', 0, 0, 'none') for x, y in [(36,36),(52,34),(68,36),(80,34)]))
