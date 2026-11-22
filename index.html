@@ -125,7 +125,7 @@ main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
 
 /* visuals */
 .emo{font-size:50px;line-height:1;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-weight:400}
-.tile{width:84px;height:84px;border:3px solid var(--ink);border-radius:10px;background:#FFF8E1;display:flex;align-items:center;justify-content:center}
+.tile{width:84px;min-height:84px;padding:3px 2px;border:3px solid var(--ink);border-radius:10px;background:#FFF8E1;display:flex;align-items:center;justify-content:center}
 .tile.q,.cell.q{background:#E3F2FD;font-family:Bangers,Impact,sans-serif;font-size:44px;color:var(--blue)}
 .tile .emo{font-size:48px}
 .arrow{font-size:30px;font-weight:700;padding:0 4px}
@@ -289,13 +289,18 @@ main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
 body.noscroll{overflow:hidden}
 .art{width:60px;height:60px;display:block}
 .tile .art{width:58px;height:58px}
+.lab{margin:0;display:flex;flex-direction:column;align-items:center;gap:2px;max-width:100%}
+.lab figcaption{font-size:14px;font-weight:700;line-height:1.1;text-align:center;color:#333;text-transform:lowercase}
+.tile .lab .art{width:50px;height:50px}.tile .lab .emo{font-size:40px}
+.tile .lab figcaption{font-size:12px;max-width:82px}
+.opt .lab .art{width:60px;height:60px}
 .opt .art{width:66px;height:66px}
 .grp .art.artmini{width:30px;height:30px}
 .opt .grp .art.artmini{width:30px;height:30px}
 .grp{gap:2px 3px}
 .art.eqart{width:36px;height:36px}
 .art.keyart{width:30px;height:30px;display:inline-block;vertical-align:middle}
-@media (max-width:420px){.tile .art{width:48px;height:48px}.grp .art.artmini,.opt .grp .art.artmini{width:25px;height:25px}.mbox .grp .art.artmini{width:20px;height:20px}}
+@media (max-width:420px){.tile .art{width:48px;height:48px}.tile .lab .art{width:42px;height:42px}.tile .lab figcaption{font-size:11px;max-width:68px}.grp .art.artmini,.opt .grp .art.artmini{width:25px;height:25px}.mbox .grp .art.artmini{width:20px;height:20px}}
 .mbtn{position:relative}
 .mbtn.bonusm{box-shadow:3px 3px 0 var(--ink),0 0 0 3px #2BB673 inset}
 .bonustag{position:absolute;top:-11px;right:-8px;background:var(--green);color:#fff;border:2px solid var(--ink);border-radius:8px;font-size:12px;font-weight:700;padding:1px 5px;transform:rotate(6deg);text-shadow:none;font-family:'Comic Neue',sans-serif}
@@ -384,7 +389,7 @@ const GIZMO = `<svg viewBox="0 0 104 126" xmlns="http://www.w3.org/2000/svg" ari
    STATE & STORAGE
    ========================================================= */
 const KEY='brainblasters_v1';
-let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false,arcadeOn:true,catchOn:true,cstat:{made:0,miss:0},cost:2};
+let P={missions:{},first:{},stickers:[],total:0,sound:true,autoread:false,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false,arcadeOn:true,catchOn:true,cstat:{made:0,miss:0},cost:2,labels:true};
 try{const s=localStorage.getItem(KEY); if(s) P=Object.assign(P,JSON.parse(s));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
 
@@ -401,13 +406,19 @@ const ART_BATCH1=["🍎", "🐞", "🐟", "⚽", "🎈", "🧤", "✋", "🥕", 
 const ART_BATCH2=["⌚", "⏰", "☁️", "☕", "⛺", "🌈", "🍇", "🍉", "🍕", "🍞", "🍦", "🍯", "🍿", "🏐", "🏠", "🐇", "🐍", "🐘", "🐙", "🐜", "🐠", "🐢", "🐣", "🐧", "🐬", "🐭", "🐳", "👓", "👖", "👟", "💧", "📏", "📖", "📚", "🔧", "🕷️", "🖍️", "🚁", "🚢", "🥁", "🥄", "🥾", "🦀", "🦁", "🦅", "🦇", "🦒", "🦢", "🧀", "🧢", "🧱", "🧽", "🪚", "🪛", "🌞"];
 const ART_BATCH3=["⛄", "⛵", "🌲", "🌴", "🌵", "🍃", "🍒", "🍖", "🍳", "🍴", "🎂", "🎲", "🎵", "🎸", "🎾", "🏜️", "🐆", "🐊", "🐐", "🐑", "🐡", "🐫", "🐯", "🐵", "🐹", "🐺", "🐻", "👀", "👂", "👃", "👅", "👙", "👨‍🍳", "👩‍🚒", "🚌", "🚑", "🚒", "🚓", "🚕", "🚜", "🛣️", "🛤️", "🛵", "🛶", "🛹", "🤒", "🤖", "🥒", "🥵", "🥶", "🦴", "🧁", "🧥", "🧳", "🩳", "🪶"];
 const ART_BATCH4=["⛽", "✏️", "❄️", "🌩️", "🌪️", "🌭", "🌮", "🌱", "🌷", "🌹", "🌼", "🍄", "🍊", "🍔", "🍟", "🍰", "🍵", "🍼", "🎃", "🎨", "🎯", "🎹", "🎺", "🎻", "🏆", "🏈", "🐴", "👶", "📄", "📎", "📷", "📺", "🔋", "🔪", "🖊️", "🖌️", "🚦", "🚽", "🛁", "🥇", "🥔", "🥢", "🥥", "🥨", "🥪", "🦓", "🧃", "🧑", "🧵", "🧹", "🧼", "🪑", "🪵"];
-const ART_PENDING=['🌪️','🥔','🐴','🦓']; // redrawn, waiting for a second look
+const ART_PENDING=[]; // drawings waiting for review stay off
 const LIVE=new Set([...ART_COUNT,...ART_BATCH1,...ART_BATCH2,...ART_BATCH3,...ART_BATCH4].filter(x=>!ART_PENDING.includes(x)));
 // A word puzzle uses drawings only when ALL its pictures are drawn, so the answer never stands out by style.
 let ART_ON=true;
 const allDrawn=list=>list.every(x=>!/\p{Extended_Pictographic}/u.test(x)||(ART[x]&&LIVE.has(x)));
 const art=(x,cls)=>ART_ON&&ART[x]&&LIVE.has(x)?`<svg class="art ${cls||''}" viewBox="0 0 100 100" role="img" aria-label="${ARTNAME[x]||''}">${ART[x]}</svg>`:null;
-const E=x=>art(x)||`<span class="emo">${x}</span>`;
+// Friendlier names for the labels under puzzle pictures
+const LABEL={'🥶':'cold','🥵':'hot','🤒':'sick','🌞':'sun','🍖':'meat','🍳':'egg in a pan','🧑':'grown-up','📄':'paper','🌼':'flower','🐵':'monkey','🐇':'rabbit',
+  '🎵':'music','🌊':'ocean','🍵':'tea','🥛':'milk','🐣':'chick','🪵':'wood','🧊':'ice','💧':'water','🌧️':'rain','🐠':'fish','🦶':'foot','🐒':'monkey','👨‍🍳':'chef',
+  '👩‍🚒':'firefighter','☕':'hot cocoa','🧸':'teddy bear','🎂':'cake','🎈':'balloon','🍯':'honey','🎲':'dice','🌰':'nut'};
+const labelOf=x=>LABEL[x]||ARTNAME[x]||'';
+const E=x=>{const a=art(x);const body=a||`<span class="emo">${x}</span>`;
+  return P.labels!==false&&labelOf(x)?`<figure class="lab">${body}<figcaption>${labelOf(x)}</figcaption></figure>`:body;};
 const grp=(n,e)=>`<div class="grp">${Array(n).fill(art(e,'artmini')||`<span>${e}</span>`).join('')}</div>`;
 
 /* =========================================================
@@ -1976,6 +1987,7 @@ function grown(){
     <div class="toggle"><span>🕹️ Arcade games<br><span class="note">When off, the Arcade is hidden. Tokens he earns are saved for when it's back on.</span></span><button class="sw ${P.arcadeOn?'on':''}" aria-label="Arcade games" onclick="P.arcadeOn=!P.arcadeOn;save();grown()"></button></div>
     <div class="toggle"><span>🎟️ Tokens per Arcade game<br><span class="note">Number Catcher is always free.</span></span><span class="row" style="gap:6px;flex-wrap:nowrap">${[1,2,3].map(n=>`<button class="costbtn ${gameCost()===n?'on':''}" onclick="P.cost=${n};save();grown()">${n}</button>`).join('')}</span></div>
     <div class="toggle"><span>🧺 Number Catcher (free math game)<br><span class="note">Always free, even when the Arcade is off. Turn it off to hide it.</span></span><button class="sw ${P.catchOn?'on':''}" aria-label="Number Catcher" onclick="P.catchOn=!P.catchOn;save();grown()"></button></div>
+    <div class="toggle"><span>🏷️ Picture names under drawings<br><span class="note">Helps with unfamiliar pictures. The real test has no labels, so turn this off for test-style practice once he knows them.</span></span><button class="sw ${P.labels!==false?'on':''}" aria-label="Picture names" onclick="P.labels=P.labels===false;save();grown()"></button></div>
     <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
     <h3>Progress <span class="note">(saved on this device only)</span></h3>
     <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b> · Best Dash: <b>${(P.best&&P.best.run)||0}</b> · Best Smash: <b>${(P.best&&P.best.brick)||0}</b> · Best Match: <b>${(P.best&&P.best.mem)||0}</b></p>
