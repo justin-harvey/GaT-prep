@@ -1,5 +1,34 @@
 # Batch 4 drawings (the final set). Exec'd by art.py after batches 1-3.
 B4 = {}
+
+HORSE = 'M22 96 L30 52 Q32 30 44 22 L50 20 Q58 24 66 34 L84 56 Q91 64 86 72 Q82 78 72 76 L62 70 Q58 68 56 70 L58 96 Z'
+MANE = 'M46 17 L37 15 L35 24 L27 27 L27 36 L19 41 L22 50 L14 57 L18 65 L11 72 L15 80 L10 88 L14 96 L22 96 L30 52 Q32 30 44 22 Z'
+def _tornado():
+    T = 5.5 * 2 * math.pi
+    def at(t):
+        y = 12 + 80 * (t / T)
+        k = (y - 12) / 80
+        w = 40 * (1 - k) ** 1.15 + 2.5
+        cx = 50 + 11 * math.sin(k * math.pi * 1.3)
+        return cx, y, w
+    left, right = [], []
+    for i in range(41):
+        cx, y, w = at(T * i / 40); left.append((cx - w, y)); right.append((cx + w, y))
+    body = 'M' + ' L'.join(f'{f(x)} {f(y)}' for x, y in left) + ' L' + ' L'.join(f'{f(x)} {f(y)}' for x, y in reversed(right)) + ' Z'
+    cx0, y0, w0 = at(0)
+    s = path(body, '#B8C4D6') + ell(cx0, y0, w0, 6, '#D7DEE7', 0, 3) + ell(cx0, y0, w0 * 0.55, 3, '#B8C4D6', 0, 2, '#8E9AA8')
+    segs, cur = [], []
+    for i in range(0, 600):
+        t = T * i / 599; cx, y, w = at(t)
+        if math.cos(t) > 0:
+            cur.append((cx + w * math.sin(t), y + 3 * math.cos(t)))
+        elif cur:
+            segs.append(cur); cur = []
+    if cur: segs.append(cur)
+    for sg in segs:
+        if len(sg) > 1: s += line('M' + ' L'.join(f'{f(x)} {f(y)}' for x, y in sg), 2.6, '#5d6b7a')
+    s += ''.join(circ(x, y, r, '#8B5A2B', 1.5) for x, y, r in [(18, 70, 2.5), (82, 78, 2), (74, 90, 2.5), (26, 88, 2)])
+    return s
 B4['⛽'] = ('gas pump', line('M68 30 Q86 30 86 50 L86 74 Q86 82 78 80', 4) + path('M72 76 L84 74 L86 84 L74 88 Z', '#555', 2.5) +
             rect(18, 12, 50, 80, '#E63946', 6) + rect(26, 20, 34, 20, '#CDEFFF', 3, 3) + line('M32 28 H54 M32 34 H46', 2.5, '#2F80ED') +
             rect(30, 50, 26, 6, '#fff', 2, 2.5) + rect(12, 88, 62, 6, '#555', 2, 2.5))
@@ -11,8 +40,7 @@ B4['❄️'] = ('snowflake', ''.join(line(f'M50 50 L{f(50+40*math.cos(math.radia
                  f'M{f(50+24*math.cos(math.radians(a)))} {f(50+24*math.sin(math.radians(a)))} L{f(50+24*math.cos(math.radians(a))+12*math.cos(math.radians(a-45)))} {f(50+24*math.sin(math.radians(a))+12*math.sin(math.radians(a-45)))}', 4, '#7FC8F8')
             for a in range(-90, 270, 60)) + circ(50, 50, 6, '#BFE8FF', 2.5, '#4A9BD6'))
 B4['🌩️'] = ('thunder cloud', path('M52 52 L40 74 L50 74 L42 94 L66 66 L54 66 L62 52 Z', '#FFD93D', 3) + blob([(30, 40, 16), (50, 32, 20), (70, 42, 15), (48, 50, 12)], '#8E9AA8'))
-B4['🌪️'] = ('tornado', ''.join(path(f'M{50-w} {y} Q50 {y-6} {50+w} {y} Q50 {y+6} {50-w} {y} Z', '#B8C4D6', 3) for y, w in [(18, 40), (34, 32), (48, 24), (60, 17), (70, 11), (79, 7)]) +
-            path('M48 84 Q52 88 50 94', 'none', 3) + line('M30 18 Q50 22 70 18 M34 34 Q50 37 66 34', 2, '#fff'))
+B4['🌪️'] = ('tornado', _tornado())
 B4['🌭'] = ('hot dog', path('M8 56 Q8 40 22 40 L78 40 Q92 40 92 56 Q92 70 78 70 L22 70 Q8 70 8 56 Z', '#E2AE6C') +
             path('M10 52 Q10 44 20 46 L80 46 Q90 44 90 52 Q90 58 80 58 L20 58 Q10 58 10 52 Z', '#C0392B', 3) +
             line('M18 50 Q24 46 30 52 Q36 46 42 52 Q48 46 54 52 Q60 46 66 52 Q72 46 80 50', 3, '#FFD93D') + path('M14 60 Q50 76 86 60', 'none', 3, '#C98A44'))
@@ -65,9 +93,8 @@ B4['🏆'] = ('trophy', path('M30 20 Q12 20 14 36 Q16 50 34 50', 'none', 5, K) +
             path('M50 22 L53 30 L61 30 L55 35 L57 43 L50 38 L43 43 L45 35 L39 30 L47 30 Z', '#fff', 0) + hi(36, 26, 3, 8, 0))
 B4['🏈'] = ('football', '<g transform="rotate(-30 50 50)">' + ell(50, 50, 42, 26, '#8B4A2B') + line('M14 50 Q16 40 22 36 M86 50 Q84 40 78 36 M14 50 Q16 60 22 64 M86 50 Q84 60 78 64', 3, '#fff') +
             line('M32 50 H68', 3, '#fff') + line('M38 45 V55 M44 45 V55 M50 45 V55 M56 45 V55 M62 45 V55', 3, '#fff') + '</g>')
-B4['🐴'] = ('horse', path('M30 92 L34 60 Q22 50 20 40 Q18 28 30 22 L40 12 L44 22 Q60 22 70 36 L86 62 Q90 70 82 74 Q74 76 70 70 L58 56 L60 92 Z', '#A0612F') +
-            path('M40 12 L44 22 Q50 28 48 40 Q46 52 52 62 L56 64 Q40 60 38 44 Q36 30 40 12 Z', '#4A2A12', 2.5) + path('M36 16 L38 4 L44 14 Z', '#A0612F', 2.5) +
-            eye(58, 38, 2.8) + ell(80, 66, 2.5, 3.5, K, 0, 0))
+B4['🐴'] = ('horse', path(HORSE, '#A0612F') + path(MANE, '#4A2A12', 3) + path('M42 24 L44 6 L54 20 Z', '#A0612F', 3) +
+            path('M60 30 Q66 34 70 40', 'none', 2.5, '#7A4A24') + eye(58, 40, 3) + ell(82, 64, 2.6, 3.6, K, 0, 0) + line('M78 73 L86 71', 2.5))
 B4['👶'] = ('baby', circ(50, 54, 34, '#F5D0B0') + path('M46 22 Q50 12 56 16 Q52 18 54 24', 'none', 3) + circ(20, 56, 7, '#F5D0B0') + circ(80, 56, 7, '#F5D0B0') +
             eye(40, 52, 3.6) + eye(60, 52, 3.6) + ell(32, 64, 6, 4, '#FF9AA2', 0, 0, 'none') + ell(68, 64, 6, 4, '#FF9AA2', 0, 0, 'none') + line('M44 70 Q50 76 56 70', 2.5) +
             ell(50, 62, 2.5, 1.6, '#D9A07A', 0, 0))
@@ -97,8 +124,9 @@ B4['🛁'] = ('bathtub', line('M18 46 L18 22 Q18 12 28 12 Q36 12 36 20', 4, '#9A
 B4['🥇'] = ('gold medal', path('M30 6 L44 6 L56 40 L42 40 Z', '#2F80ED') + path('M70 6 L56 6 L44 40 L58 40 Z', '#E63946') +
             circ(50, 62, 26, '#FFC107') + circ(50, 62, 19, '#FFD93D', 2.5) +
             '<text x="50" y="72" font-family="Bangers, Impact, sans-serif" font-size="28" text-anchor="middle" fill="#B8860B" stroke="none">1</text>')
-B4['🥔'] = ('potato', path('M14 56 Q10 34 32 28 Q50 22 68 28 Q90 34 88 56 Q86 78 62 80 Q42 84 26 78 Q16 72 14 56 Z', '#C9965A') +
-            ''.join(ell(x, y, 2.6, 1.6, '#8B5A2B', 0, 0) for x, y in [(30,44),(52,36),(70,48),(40,64),(62,68),(76,60)]))
+B4['🥔'] = ('potato', '<g transform="rotate(-18 50 50)">' + path('M10 46 Q8 30 26 28 Q38 22 54 26 Q70 22 84 30 Q94 38 90 52 Q92 64 78 68 Q62 74 46 70 Q30 74 18 66 Q6 60 10 46 Z', '#C9965A') +
+            ''.join(path(f'M{x} {y} q3 -3 6 0', 'none', 2, '#7A4A24') for x, y in [(24,40),(46,34),(70,40),(36,56),(62,58),(80,52)]) + path('M18 60 Q46 70 80 62', 'none', 2.5, '#A87545') + '</g>' +
+            path('M50 88 A20 12 0 0 1 90 88 Z', '#C9965A') + ell(70, 88, 20, 6, '#FFF1B8', 0, 2.5))
 B4['🥢'] = ('chopsticks', line('M14 14 L84 90', 7, K) + line('M14 14 L84 90', 3, '#C68642') + line('M30 8 L88 84', 7, K) + line('M30 8 L88 84', 3, '#C68642') +
             line('M14 14 L24 25 M30 8 L39 20', 3.5, '#E63946'))
 B4['🥥'] = ('coconut', circ(62, 40, 28, '#7A4A24') + ''.join(line(f'M{x} {y} l6 -4', 2, '#A87545') for x, y in [(44,28),(60,18),(76,26),(80,44),(70,58),(50,50),(64,36)]) +
@@ -112,13 +140,12 @@ B4['🥪'] = ('sandwich', path('M10 34 Q10 18 26 18 L74 18 Q90 18 90 34 L90 40 L
             path('M8 40 Q16 50 24 42 Q32 52 40 42 Q48 52 56 42 Q64 52 72 42 Q80 52 92 40 Z', '#2BB673', 2.5) + rect(10, 46, 80, 8, '#E63946', 3, 2.5) +
             path('M10 54 L90 54 L84 62 L76 56 L66 64 L56 56 L44 64 L34 56 L24 64 L16 56 Z', '#FFC107', 2.5) + rect(10, 62, 80, 8, '#F7A8B8', 3, 2.5) +
             path('M10 70 L90 70 L90 78 Q90 86 80 86 L20 86 Q10 86 10 78 Z', '#E9B872'))
-B4['🦓'] = ('zebra', path('M30 92 L34 60 Q22 50 20 40 Q18 28 30 22 L40 12 L44 22 Q60 22 70 36 L86 62 Q90 70 82 74 Q74 76 70 70 L58 56 L60 92 Z', '#fff') +
-            '<clipPath id="zclip"><path d="M30 92 L34 60 Q22 50 20 40 Q18 28 30 22 L40 12 L44 22 Q60 22 70 36 L86 62 Q90 70 82 74 Q74 76 70 70 L58 56 L60 92 Z"/></clipPath>' +
-            '<g clip-path="url(#zclip)">' + ''.join(line(d, 5, '#2b2b2b') for d in ['M26 40 Q36 36 40 46', 'M24 52 Q34 50 38 60', 'M30 68 Q40 66 44 76', 'M30 82 Q42 80 50 88',
-                                                                                    'M54 30 Q58 40 52 46', 'M64 36 Q68 46 60 52', 'M72 48 Q74 58 66 62', 'M78 58 Q78 66 72 68']) + '</g>' +
-            path('M30 92 L34 60 Q22 50 20 40 Q18 28 30 22 L40 12 L44 22 Q60 22 70 36 L86 62 Q90 70 82 74 Q74 76 70 70 L58 56 L60 92 Z', 'none') +
-            path('M40 12 L44 22 Q50 28 48 40 Q46 52 52 62 L56 64 Q40 60 38 44 Q36 30 40 12 Z', '#2b2b2b', 2.5) + path('M36 16 L38 4 L44 14 Z', '#fff', 2.5) +
-            eye(58, 38, 2.8) + ell(80, 68, 6, 5, '#2b2b2b', 0, 0))
+B4['🦓'] = ('zebra', '<clipPath id="zclip"><path d="' + HORSE + '"/></clipPath>' + path(HORSE, '#fff') +
+            '<g clip-path="url(#zclip)">' + ''.join(line(d, 5, '#2b2b2b') for d in ['M30 94 Q40 88 56 92', 'M30 82 Q42 76 58 80', 'M30 70 Q42 64 58 68', 'M32 58 Q42 52 52 58',
+                                                                                    'M36 46 Q44 40 52 46', 'M44 30 Q52 32 54 40', 'M56 28 Q62 34 60 44', 'M64 36 Q70 42 66 50', 'M72 44 Q78 50 72 58']) +
+            ell(82, 66, 11, 10, '#2b2b2b', 0, 0) + '</g>' + path(HORSE, 'none') +
+            path(MANE, '#2b2b2b', 3) + line('M33 22 L41 25 M24 34 L31 34 M18 48 L28 46 M14 62 L25 60 M12 78 L24 76', 2.5, '#fff') +
+            path('M42 24 L44 6 L54 20 Z', '#fff', 3) + eye(58, 40, 3) + ell(82, 64, 2.6, 3.6, '#fff', 0, 0) + line('M78 73 L86 71', 2.5, '#fff'))
 B4['🧃'] = ('juice box', line('M60 20 L66 4 L74 6', 4, '#E63946') + path('M26 20 L66 20 L74 28 L74 90 L26 90 Z', '#FF8C42') + path('M66 20 L74 28 L74 90 L66 90 Z', '#E0701F', 2.5) +
             circ(46, 56, 13, '#FFD93D', 3) + path('M46 43 Q52 36 58 40', 'none', 3, '#2BB673') + rect(26, 20, 40, 70, 'none', 0))
 B4['🧑'] = ('grown-up', path('M18 96 Q18 72 50 70 Q82 72 82 96 Z', '#2F80ED') + rect(42, 60, 16, 14, '#E8B98A', 4, 3) +
