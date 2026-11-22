@@ -239,9 +239,12 @@ BATCH2 = list(B2.keys())
 exec(open(__import__('os').path.join(__import__('os').path.dirname(__file__), 'art3.py')).read())
 A.update(B3)
 BATCH3 = list(B3.keys())
+exec(open(__import__('os').path.join(__import__('os').path.dirname(__file__), 'art4.py')).read())
+A.update(B4)
+BATCH4 = list(B4.keys())
 
 COUNT = ['🍎', '⭐', '🐞', '🍪', '🚀', '🐟', '🍩', '⚽', '🎈', '🍓']
-BATCH1 = [e for e in A if e not in ('⭐', '🍪', '🚀', '🍩', '🍓') and e not in B2 and e not in B3]
+BATCH1 = [e for e in A if e not in ('⭐', '🍪', '🚀', '🍩', '🍓') and e not in B2 and e not in B3 and e not in B4]
 
 if __name__ == '__main__':
     import sys
@@ -251,5 +254,5 @@ if __name__ == '__main__':
           f'const ART={json.dumps(art, ensure_ascii=False)};\n'
           f'const ARTNAME={json.dumps(names, ensure_ascii=False)};\n')
     open(sys.argv[1], 'w').write(js)
-    json.dump({'count': COUNT, 'batch1': BATCH1, 'batch2': BATCH2, 'batch3': BATCH3, 'names': names, 'art': art}, open(sys.argv[2], 'w'), ensure_ascii=False)
+    json.dump({'count': COUNT, 'batch1': BATCH1, 'batch2': BATCH2, 'batch3': BATCH3, 'batch4': BATCH4, 'names': names, 'art': art}, open(sys.argv[2], 'w'), ensure_ascii=False)
     print(len(A), 'drawings;', len(BATCH1), 'in batch 1;', len(js), 'bytes')
