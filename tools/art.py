@@ -233,8 +233,12 @@ A['🚂'] = ('train', circ(24, 16, 6, '#d6d6d6', 2.5) + circ(34, 9, 5, '#e4e4e4'
           rect(14, 44, 42, 26, '#2F80ED', 7) + path('M14 66 L4 80 L14 80 Z', '#9AA5B1', 3) + rect(10, 66, 76, 8, '#555', 2) +
           circ(26, 80, 9, '#333') + circ(46, 80, 9, '#333') + circ(70, 78, 11, '#333') + circ(26, 80, 3, '#ccc', 0) + circ(46, 80, 3, '#ccc', 0) + circ(70, 78, 4, '#ccc', 0))
 
+exec(open(__import__('os').path.join(__import__('os').path.dirname(__file__), 'art2.py')).read())
+A.update(B2)
+BATCH2 = list(B2.keys())
+
 COUNT = ['🍎', '⭐', '🐞', '🍪', '🚀', '🐟', '🍩', '⚽', '🎈', '🍓']
-BATCH1 = [e for e in A if e not in ('⭐', '🍪', '🚀', '🍩', '🍓')]
+BATCH1 = [e for e in A if e not in ('⭐', '🍪', '🚀', '🍩', '🍓') and e not in B2]
 
 if __name__ == '__main__':
     import sys
@@ -244,5 +248,5 @@ if __name__ == '__main__':
           f'const ART={json.dumps(art, ensure_ascii=False)};\n'
           f'const ARTNAME={json.dumps(names, ensure_ascii=False)};\n')
     open(sys.argv[1], 'w').write(js)
-    json.dump({'count': COUNT, 'batch1': BATCH1, 'names': names, 'art': art}, open(sys.argv[2], 'w'), ensure_ascii=False)
+    json.dump({'count': COUNT, 'batch1': BATCH1, 'batch2': BATCH2, 'names': names, 'art': art}, open(sys.argv[2], 'w'), ensure_ascii=False)
     print(len(A), 'drawings;', len(BATCH1), 'in batch 1;', len(js), 'bytes')
