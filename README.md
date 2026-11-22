@@ -8,7 +8,7 @@ The site is a single self-contained HTML file. It needs no account, no server an
 
 ## Recent updates
 
-- **Original illustrations throughout.** Every picture in the word puzzles (219 in total) and every counting object in the number puzzles is now an original drawing instead of an emoji. The drawings look the same on every device.
+- **Original illustrations throughout.** Every picture in the word puzzles (more than 200 in total) and every counting object in the number puzzles is now an original drawing instead of an emoji. The drawings look the same on every device.
 - **Picture names.** A short name appears under each puzzle picture to help with unfamiliar drawings. Parents can turn names off for test-style practice.
 - **Easier counting.** Objects in the number puzzles are arranged in rows of five, so a group of seven shows as a row of five and a row of two.
 - **Two-player Pong.** Sticker Pong can be played against the computer or as a two-player match on one keyboard or touchscreen. The second player chooses their own sticker.
@@ -47,7 +47,7 @@ Each mission is five questions, with no timer and no failing:
 - A wrong answer is grayed out, and the child tries again.
 - A hint appears after a second miss, and every answer comes with a short explanation of why it's right.
 - The first time a child plays a mission, a character gives a strategy tip, such as making a sentence to solve an analogy.
-- Number and shape questions are generated fresh each time, so they don't repeat. Word questions come from a hand-written set of about 70, plus about 90 more in Challenge Mode.
+- Number and shape questions are generated fresh each time, so they don't repeat. Word questions come from a hand-written set of about 70, plus about 80 more in Challenge Mode.
 - A "Surprise Mission" mixes five random question types.
 
 Each completed mission ends with a short movement break (for example, "do five frog hops"), a collectible sticker, and an optional challenge to invent a similar puzzle for a parent to solve.
@@ -56,7 +56,7 @@ The format is designed with active, easily bored learners in mind: short tasks, 
 
 ## Illustrations
 
-All puzzle pictures are original, hand-made SVG drawings in a consistent comic style: 219 pictures for the word puzzles plus the counting objects used in the number puzzles. Unlike emoji, they look the same on every phone, tablet and computer, and each was checked for whether a young child can recognize it at puzzle size.
+All puzzle pictures are original, hand-made SVG drawings in a consistent comic style: more than 200 pictures for the word puzzles, plus the counting objects used in the number puzzles. Unlike emoji, they look the same on every phone, tablet and computer, and each was checked for whether a young child can recognize it at puzzle size.
 
 - A short name appears under each picture by default. Parents can turn names off in the Grown-Up Corner, since the real test uses unlabeled pictures.
 - Counting objects are arranged in rows of five to make groups easier to count accurately.
