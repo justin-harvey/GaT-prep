@@ -80,7 +80,7 @@ Each game costs 2 tokens by default. Parents can set this to 1, 2 or 3. Every ga
 
 | Game | Description | Ends when |
 |---|---|---|
-| Sticker Pong | Pong against a computer opponent that starts easy and adapts to the child's skill | The child misses 3 times |
+| Sticker Pong | Pong against a computer opponent that starts easy and adapts to the child's skill, or a 2-player match on one keyboard (W/S vs. ↑/↓) or touchscreen | 1 player: the child misses 3 times. 2 players: first to 5 points |
 | Sticker Invaders | A Space Invaders-style shooter with waves that speed up | The invaders reach the player |
 | Sticker Dash | An endless runner similar to the offline dinosaur game in Chrome | The first collision |
 | Sticker Smash | A brick breaker with levels | The child misses 3 balls |

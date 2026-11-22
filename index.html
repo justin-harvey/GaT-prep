@@ -287,6 +287,9 @@ main{max-width:720px;margin:0 auto;padding:14px 12px 60px}
 .arcover{max-width:380px;width:100%}
 .archelp{color:#cfd8ff;text-align:center;font-size:14px;padding:6px 10px 10px}
 body.noscroll{overflow:hidden}
+.p2box{text-align:left;margin-top:6px}
+.p2pick .hp{width:40px;height:40px;font-size:24px}
+.arcover{max-height:calc(100vh - 140px);overflow-y:auto}
 .art{width:60px;height:60px;display:block}
 .tile .art{width:58px;height:58px}
 .lab{margin:0;display:flex;flex-direction:column;align-items:center;gap:2px;max-width:100%}
@@ -1258,7 +1261,7 @@ function arcade(){
   </section>
   <div class="games">
     <section class="panel game center"><div class="gicon">🏓</div><h3 class="bang">STICKER PONG</h3>
-      <p>Your hero is the paddle! Bounce the waffle past Gizmo’s robot. <b>3 misses</b> and the game is over.</p>
+      <p>Your hero is the paddle! Beat Gizmo’s robot (3 misses and it’s over), or play a <b>2-player</b> match: W/S vs ↑/↓, first to 5.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.pong)||0}</b></p>
       <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('pong')">PLAY · 🎟️${gameCost()}</button></section>
     <section class="panel game center"><div class="gicon">👾</div><h3 class="bang">STICKER INVADERS</h3>
@@ -1300,10 +1303,10 @@ function playGame(kind,back){
   const ov=document.createElement('div');ov.className='arc';ov.id='arc';
   ov.innerHTML=`<div class="arcbar"><span class="arctitle">${({pong:'🏓 STICKER PONG',inv:'👾 STICKER INVADERS',run:'🏃 STICKER DASH',brick:'🧱 STICKER SMASH',mem:'🃏 STICKER MATCH',catch:'🧺 NUMBER CATCHER · FREE'})[kind]}</span><button class="mini" onclick="closeGame()">✖ Quit</button></div>
     <div class="arcstage" id="arcStage"><canvas id="arcCv"></canvas><div class="arcmsg" id="arcMsg"></div></div>
-    <div class="archelp">${({pong:'Move: mouse, finger, or ↑ ↓ keys',inv:'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE',run:'Jump: SPACE, ↑, click, or tap · Hold it down to jump higher',brick:'Move: mouse, finger, or ← → keys',mem:'Flip: click or tap a card · or use arrow keys + SPACE',catch:'Move the basket: mouse, finger, or ← → keys'})[kind]}</div>`;
+    <div class="archelp">${({pong:'1 player: mouse, finger, or ↑ ↓ keys · 2 players: W/S and ↑/↓, or drag on your own side',inv:'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE',run:'Jump: SPACE, ↑, click, or tap · Hold it down to jump higher',brick:'Move: mouse, finger, or ← → keys',mem:'Flip: click or tap a card · or use arrow keys + SPACE',catch:'Move the basket: mouse, finger, or ← → keys'})[kind]}</div>`;
   document.body.appendChild(ov);document.body.classList.add('noscroll');
   const cv=ov.querySelector('#arcCv'),ctx=cv.getContext('2d');
-  const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},taps:[],kind,running:false,raf:0};
+  const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},taps:[],touches:new Map(),kind,running:false,raf:0,mode:1};
   G=api;
   const game=({pong:pongGame,run:runnerGame,inv:invadersGame,brick:brickGame,mem:memoryGame,catch:catcherGame})[kind](cv,ctx,api);
   api.game=game;
@@ -1314,9 +1317,9 @@ function playGame(kind,back){
   api.kd=e=>{const k=e.key.toLowerCase();if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k)) e.preventDefault();api.keys.add(k);if(k===' '&&api.waiting) api.start();};
   api.ku=e=>api.keys.delete(e.key.toLowerCase());
   window.addEventListener('keydown',api.kd);window.addEventListener('keyup',api.ku);
-  cv.addEventListener('pointerdown',e=>{e.preventDefault();const p=map(e);if(api.running) api.taps.push(p);Object.assign(api.ptr,p,{down:true,active:true,touch:e.pointerType!=='mouse'});try{cv.setPointerCapture(e.pointerId);}catch(_){}});
-  cv.addEventListener('pointermove',e=>{const p=map(e);Object.assign(api.ptr,p);if(e.pointerType==='mouse') api.ptr.active=true;});
-  const up=e=>{api.ptr.down=false;if(e.pointerType!=='mouse') api.ptr.active=false;};
+  cv.addEventListener('pointerdown',e=>{e.preventDefault();const p=map(e);if(api.running) api.taps.push(p);if(e.pointerType!=='mouse') api.touches.set(e.pointerId,p);Object.assign(api.ptr,p,{down:true,active:true,touch:e.pointerType!=='mouse'});try{cv.setPointerCapture(e.pointerId);}catch(_){}});
+  cv.addEventListener('pointermove',e=>{const p=map(e);Object.assign(api.ptr,p);if(api.touches.has(e.pointerId)) api.touches.set(e.pointerId,p);if(e.pointerType==='mouse') api.ptr.active=true;});
+  const up=e=>{api.ptr.down=false;api.touches.delete(e.pointerId);if(e.pointerType!=='mouse') api.ptr.active=false;};
   cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
   cv.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){api.ptr.active=false;api.ptr.down=false;}});
   cv.style.touchAction='none';
@@ -1324,23 +1327,31 @@ function playGame(kind,back){
   api.start=()=>{api.waiting=false;api.msg('');api.running=true;let last=performance.now();
     const frame=now=>{if(!api.running)return;const dt=Math.min(0.033,(now-last)/1000);last=now;game.update(dt);game.render();api.raf=requestAnimationFrame(frame);};
     api.raf=requestAnimationFrame(frame);};
-  api.end=(score,note)=>{
+  api.end=(score,note,opt={})=>{
     api.running=false;cancelAnimationFrame(api.raf);game.render();
-    P.best=P.best||{};const key=kind;const prev=P.best[key]||0,isBest=score>prev;if(isBest) P.best[key]=score;save();sfx('yay');
+    P.best=P.best||{};const key=kind;const prev=P.best[key]||0,isBest=!opt.two&&score>prev;if(isBest) P.best[key]=score;save();sfx('yay');
     const t=P.tokens||0;
-    api.msg(`<div class="panel center arcover"><div class="burstbig" style="font-size:30px">GAME OVER!</div>
-      <p style="font-size:22px;margin:6px 0">Score: <b>${score}</b></p>
+    api.msg(`<div class="panel center arcover"><div class="burstbig" style="font-size:30px">${opt.title||'GAME OVER!'}</div>
+      ${opt.two?'':`<p style="font-size:22px;margin:6px 0">Score: <b>${score}</b></p>`}
       ${note?`<p style="margin:0 0 6px;font-size:17px">${note}</p>`:''}
-      <p style="margin:0 0 10px">${isBest?'🏆 NEW BEST SCORE!':'Best: '+(P.best[key]||0)}</p>
+      ${opt.two?'':`<p style="margin:0 0 10px">${isBest?'🏆 NEW BEST SCORE!':'Best: '+(P.best[key]||0)}</p>`}
       <div class="stack">${free?`<button class="btn red" onclick="playGame('catch')">PLAY AGAIN · FREE!</button>`:t>=gameCost()?`<button class="btn red" onclick="playGame('${kind}')">PLAY AGAIN · 🎟️${gameCost()} <small>(${t} left)</small></button>`:`<p class="note">${t?`You have ${t} token${t>1?'s':''} — you need ${gameCost()} to play.`:'Out of tokens!'} Finish a ⚡ Challenge mission to win more.</p><button class="btn red" onclick="closeGame();P.challenge=true;save();go('map')">⚡ EARN MORE TOKENS</button>`}
       <button class="btn" style="background:#fff" onclick="closeGame()">${ARC_BACK==='arcade'&&P.arcadeOn?'🕹️ Back to Arcade':ARC_BACK==='map'?'🗺️ Back to Missions':'🏠 Back Home'}</button></div></div>`);
   };
   game.render();
   api.waiting=true;
   api.msg(`<div class="panel center arcover"><div class="emo" style="font-size:64px">${heroSticker()}</div>
-    <h3 class="bang" style="font-size:28px;margin:6px 0">${({pong:'BEAT THE ROBOT!',inv:'DEFEND THE PLANET!',run:'READY, SET, DASH!',brick:'SMASH THE WALL!',mem:'MATCH ’EM ALL!',catch:'NUMBER CATCHER!'})[kind]}</h3>
-    <p style="margin:0 0 10px">${({pong:'Don’t let the waffle get past you. 3 misses and it’s over!',inv:'Blast the invaders before they land on you! Watch out for freeze-rays ❄️',run:'Jump over cactuses and low flyers. Stay DOWN when a sticker flies high! One crash and it’s over.',brick:'Keep the waffle bouncing and smash every sticker brick. 3 misses and it’s over!',mem:'Find all 8 pairs. Try to remember where each sticker is hiding!',catch:'Catch TWO numbers that add up to the target. Catch 7, then catch 3 to make 10! 3 wrong pairs and it’s over. This game is FREE!'})[kind]}</p>
-    <button class="btn big red" onclick="G.start()">START! ▶</button></div>`);
+    <h3 class="bang" style="font-size:28px;margin:6px 0">${({pong:'STICKER PONG!',inv:'DEFEND THE PLANET!',run:'READY, SET, DASH!',brick:'SMASH THE WALL!',mem:'MATCH ’EM ALL!',catch:'NUMBER CATCHER!'})[kind]}</h3>
+    <p style="margin:0 0 10px">${({pong:'Play the robot, or challenge someone to a 2-player match!',inv:'Blast the invaders before they land on you! Watch out for freeze-rays ❄️',run:'Jump over cactuses and low flyers. Stay DOWN when a sticker flies high! One crash and it’s over.',brick:'Keep the waffle bouncing and smash every sticker brick. 3 misses and it’s over!',mem:'Find all 8 pairs. Try to remember where each sticker is hiding!',catch:'Catch TWO numbers that add up to the target. Catch 7, then catch 3 to make 10! 3 wrong pairs and it’s over. This game is FREE!'})[kind]}</p>
+    ${kind==='pong'?pongStartUI():`<button class="btn big red" onclick="G.start()">START! ▶</button>`}</div>`);
+}
+function p2Sticker(){const hero=heroSticker();return P.hero2&&P.hero2!==hero&&P.stickers.includes(P.hero2)?P.hero2:enemyStickers(hero)[0];}
+function pongStartUI(){
+  const hero=heroSticker(),choices=P.stickers.filter(s=>s!==hero).slice(0,18),cur=p2Sticker();
+  return `<div class="stack"><button class="btn big red" onclick="G.mode=1;G.start()">🤖 1 PLAYER · vs ROBOT</button>
+    <button class="btn big blue" onclick="G.mode=2;G.start()">👫 2 PLAYERS</button></div>
+    <div class="p2box"><p class="note" style="margin:8px 0 4px"><b>2 players:</b> Player 1 ${hero} uses <b>W</b> / <b>S</b> · Player 2 uses <b>↑</b> / <b>↓</b>. On a touchscreen, each player drags on their own side. First to 5 wins!</p>
+    ${choices.length?`<p class="note" style="margin:4px 0">Player 2, pick your sticker:</p><div class="heropick p2pick">${choices.map(s=>`<button class="hp ${s===cur?'on':''}" onclick="P.hero2='${s}';save();this.parentNode.querySelectorAll('.hp').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${s}</button>`).join('')}</div>`:''}</div>`;
 }
 function closeGame(silent){
   if(G){G.running=false;cancelAnimationFrame(G.raf);window.removeEventListener('keydown',G.kd);window.removeEventListener('keyup',G.ku);window.removeEventListener('resize',G.fit);G=null;}
@@ -1363,12 +1374,13 @@ function pongGame(cv,ctx,api){
   const W=800,H=500;cv.width=W;cv.height=H;
   const PW=34,PH=108,PHP=132,PM=18,PSPEED=560,BS=28;
   const hero=heroSticker(),cpuS=pick(enemyStickers(hero));
+  const two=()=>api.mode===2;let p1=0,p2=0;const TO=5;
   const L={x:PM,y:H/2-PHP/2,h:PHP},R={x:W-PM-PW,y:H/2-PH/2,h:PH};
   const ball={x:W/2-BS/2,y:H/2-BS/2,vx:0,vy:0,spin:0};
   let lives=3,score=0,wins=0,mode='serve',serveT=1.0,serveDir=-1,cpuTarget=H/2,think=0,flash=null,flashT=0;
   const cpuSpeed=()=>Math.min(320,135+wins*12);
   const cpuErr=()=>Math.max(0.8,1.9-wins*0.07)*PH;
-  const startSpeed=()=>250+Math.min(wins,15)*8;
+  const startSpeed=()=>two()?280:250+Math.min(wins,15)*8;
   function serve(){ball.x=W/2-BS/2;ball.y=H/2-BS/2;ball.vx=ball.vy=0;serveT=0.9;mode='serve';}
   function launch(){const a=Math.random()*0.8-0.4;ball.vx=Math.cos(a)*startSpeed()*serveDir;ball.vy=Math.sin(a)*startSpeed();mode='play';}
   function say(t){flash=t;flashT=0.9;}
@@ -1381,14 +1393,24 @@ function pongGame(cv,ctx,api){
   }
   function update(dt){
     if(flashT>0) flashT-=dt;
-    // player
-    const k=api.keys,dirK=((k.has('arrowdown')||k.has('s'))?1:0)-((k.has('arrowup')||k.has('w'))?1:0);
-    if(dirK) L.y+=dirK*PSPEED*dt;
-    else if(api.ptr.active){const tgt=api.ptr.y-PHP/2,st=PSPEED*1.8*dt;L.y+=Math.max(-st,Math.min(st,tgt-L.y));}
-    L.y=Math.max(0,Math.min(H-PHP,L.y));
-    // cpu
-    think-=dt;if(think<=0){think=0.25;cpuTarget=(ball.vx>0&&ball.x>W*0.55)?predict()+(Math.random()-0.5)*cpuErr():H/2;}
-    const st=cpuSpeed()*dt;R.y+=Math.max(-st,Math.min(st,cpuTarget-(R.y+PH/2)));R.y=Math.max(0,Math.min(H-PH,R.y));
+    const k=api.keys,follow=(pad,ty)=>{const st=PSPEED*1.8*dt;pad.y+=Math.max(-st,Math.min(st,ty-pad.h/2-pad.y));};
+    if(two()){
+      // 2 players: W/S vs arrow keys, or each player drags on their own half of a touchscreen
+      if(R.h!==PHP){R.h=PHP;R.y=H/2-PHP/2;}
+      const d1=(k.has('s')?1:0)-(k.has('w')?1:0),d2=(k.has('arrowdown')?1:0)-(k.has('arrowup')?1:0);
+      if(d1) L.y+=d1*PSPEED*dt;if(d2) R.y+=d2*PSPEED*dt;
+      api.touches.forEach(t=>follow(t.x<W/2?L:R,t.y));
+      L.y=Math.max(0,Math.min(H-L.h,L.y));R.y=Math.max(0,Math.min(H-R.h,R.y));
+    }else{
+      // player
+      const dirK=((k.has('arrowdown')||k.has('s'))?1:0)-((k.has('arrowup')||k.has('w'))?1:0);
+      if(dirK) L.y+=dirK*PSPEED*dt;
+      else if(api.ptr.active) follow(L,api.ptr.y);
+      L.y=Math.max(0,Math.min(H-PHP,L.y));
+      // cpu
+      think-=dt;if(think<=0){think=0.25;cpuTarget=(ball.vx>0&&ball.x>W*0.55)?predict()+(Math.random()-0.5)*cpuErr():H/2;}
+      const st=cpuSpeed()*dt;R.y+=Math.max(-st,Math.min(st,cpuTarget-(R.y+PH/2)));R.y=Math.max(0,Math.min(H-PH,R.y));
+    }
     if(mode==='serve'){serveT-=dt;if(serveT<=0) launch();return;}
     ball.spin+=dt*(ball.vx>0?8:-8);
     const steps=Math.max(1,Math.ceil(Math.hypot(ball.vx,ball.vy)*dt/(BS/2))),sdt=dt/steps;
@@ -1398,6 +1420,10 @@ function pongGame(cv,ctx,api){
       if(ball.y+BS>=H){ball.y=H-BS;ball.vy=-Math.abs(ball.vy);beepA(300,0.04);}
       if(ball.vx<0&&hit(L)){bounce(L,1);score+=1;}
       if(ball.vx>0&&hit(R)){bounce(R,-1);}
+      if(two()&&(ball.x+BS<0||ball.x>W)){
+        const p1won=ball.x>W;if(p1won)p1++;else p2++;beepA(660,0.2,'triangle',0.1);serveDir=p1won?1:-1;
+        if(p1>=TO||p2>=TO){mode='over';const w=p1>=TO?1:2;api.end(Math.max(p1,p2),`${w===1?hero:p2Sticker()} wins <b>${Math.max(p1,p2)} – ${Math.min(p1,p2)}</b>!`,{two:true,title:`PLAYER ${w} WINS!`});return;}
+        say(p1won?'PLAYER 1 SCORES!':'PLAYER 2 SCORES!');serve();return;}
       if(ball.x+BS<0){lives--;beepA(160,0.35,'triangle',0.1);serveDir=-1;
         if(lives<=0){mode='over';api.end(score);return;}say(['MISSED!','OOPS!','WHOOSH!'][rnd(3)]);serve();return;}
       if(ball.x>W){score+=5;wins++;beepA(660,0.2,'triangle',0.1);say(pick(['POW! +5','KAPOW! +5','BAM! +5','SCORE! +5']));serveDir=1;serve();return;}
@@ -1412,15 +1438,22 @@ function pongGame(cv,ctx,api){
     const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1D2B53');g.addColorStop(1,'#0B1026');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
     ctx.fillStyle='rgba(255,255,255,0.06)';for(let x=10;x<W;x+=22)for(let y=10;y<H;y+=22){ctx.beginPath();ctx.arc(x,y,1.5,0,7);ctx.fill();}
     ctx.fillStyle='rgba(255,217,61,0.5)';for(let y=8;y<H;y+=30) ctx.fillRect(W/2-3,y,6,16);
-    bumper(L,hero,'#E63946');bumper(R,cpuS,'#2F80ED');
+    bumper(L,hero,'#E63946');bumper(R,two()?p2Sticker():cpuS,'#2F80ED');
     if(mode!=='serve'||Math.floor(serveT*6)%2===0){ctx.save();ctx.translate(ball.x+BS/2,ball.y+BS/2);ctx.rotate(ball.spin);drawE(ctx,'🧇',0,0,BS);ctx.restore();}
     ctx.textAlign='left';ctx.textBaseline='top';
-    for(let i=0;i<3;i++) drawE(ctx,i<lives?'❤️':'🖤',24+i*30,22,22);
-    comicText(ctx,'SCORE '+score,W/2,30,34);
-    comicText(ctx,'BEST '+((P.best&&P.best.pong)||0),W-80,26,20,'#fff');
+    if(two()){
+      comicText(ctx,String(p1),W/2-70,40,52);comicText(ctx,String(p2),W/2+70,40,52);
+      drawE(ctx,hero,W/2-130,40,30);drawE(ctx,p2Sticker(),W/2+130,40,30);
+      comicText(ctx,'FIRST TO '+TO,W/2,H-22,20,'#fff');
+      comicText(ctx,'W / S',W/2-210,40,20,'#fff');comicText(ctx,'↑ / ↓',W/2+210,40,20,'#fff');
+    }else{
+      for(let i=0;i<3;i++) drawE(ctx,i<lives?'❤️':'🖤',24+i*30,22,22);
+      comicText(ctx,'SCORE '+score,W/2,30,34);
+      comicText(ctx,'BEST '+((P.best&&P.best.pong)||0),W-80,26,20,'#fff');
+    }
     if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,64+(0.9-flashT)*30,'#FFD93D');
   }
-  return {update,render,state:()=>({ball,L,wins,lives,score})};
+  return {update,render,state:()=>({ball,L,R,wins,lives,score,p1,p2})};
 }
 
 /* ---------- Invaders ---------- */
@@ -1970,7 +2003,7 @@ function grown(){
       <li>Finishing a Challenge mission earns <b>1 Arcade token</b>, and acing it earns <b>2</b> plus a gold ★. <b>Bonus missions earn double</b> (2, or 4 if aced). Bonus missions are the 4 types where his first-try rate is lowest, so the list follows his growth areas automatically and changes as he improves. They’re marked 🎟️×2 on the Challenge map. Surprise Challenges also earn double, since they lean toward number and paper-folding puzzles. Regular missions don’t earn tokens.</li>
       <li><b>Right now the bonus missions are:</b> ${bonusTypes().map(t=>TYPES[t].icon+' '+TYPES[t].name+' ('+TYPES[t].real+')').join(', ')}.</li>
       <li><b>🧺 Number Catcher</b> is free and never costs a token, so it’s always worth playing. He catches two falling numbers that add up to a target, starting with “make 10,” then moving to 8, 9, 12 and eventually up to 20 after every 5 correct pairs. On the first two targets the matching partner glows to help him learn. A wrong pair counts as a strike, and 3 strikes ends the game. It has a button on the home screen and on Number Mountain, and it stays available even when the Arcade is off.</li>
-      <li>You can turn the Arcade off and set how many tokens a game costs (2 by default) in Settings below. The games are <b>Sticker Pong</b> (ends after 3 misses against the computer) <b>Sticker Invaders</b> (ends when the invaders reach him), <b>Sticker Dash</b>, an endless runner like the offline dino game (ends at the first crash), <b>Sticker Smash</b>, a brick breaker (ends after 3 missed balls), or <b>Sticker Match</b>, a memory card game (ends when all 8 pairs are found; fewer flips scores higher). Games usually last a few minutes, so the puzzles stay the main event.</li>
+      <li>You can turn the Arcade off and set how many tokens a game costs (2 by default) in Settings below. The games are <b>Sticker Pong</b> (ends after 3 misses against the computer, or first to 5 in a 2-player match: W/S vs ↑/↓) <b>Sticker Invaders</b> (ends when the invaders reach him), <b>Sticker Dash</b>, an endless runner like the offline dino game (ends at the first crash), <b>Sticker Smash</b>, a brick breaker (ends after 3 missed balls), or <b>Sticker Match</b>, a memory card game (ends when all 8 pairs are found; fewer flips scores higher). Games usually last a few minutes, so the puzzles stay the main event.</li>
     </ul>
     <h3>How to use it</h3>
     <ul>
@@ -2004,7 +2037,7 @@ function askReset(){
   <div class="row" style="justify-content:center"><button class="btn small red" id="yesR">Yes, reset</button><button class="btn small" style="background:#fff" id="noR">Cancel</button></div></div>`;
   document.body.appendChild(m);
   m.querySelector('#noR').onclick=()=>m.remove();
-  m.querySelector('#yesR').onclick=()=>{Object.assign(P,{missions:{},first:{},stickers:[],total:0,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,challenge:false,cstat:{made:0,miss:0}});save();m.remove();grown();};
+  m.querySelector('#yesR').onclick=()=>{Object.assign(P,{missions:{},first:{},stickers:[],total:0,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,hero2:null,challenge:false,cstat:{made:0,miss:0}});save();m.remove();grown();};
 }
 
 updSnd();home();
