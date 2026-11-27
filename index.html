@@ -334,6 +334,68 @@ body.noscroll{overflow:hidden}
 }
 @media (max-width:380px){.mbox .grp .art.artmini{width:17px;height:17px}.blabel{width:46px;font-size:13px}.mbox{padding:4px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== Team Up ===== */
+.teambtn{background:linear-gradient(135deg,#FF8FB1,#8E44AD);color:#fff;text-shadow:1px 1px 0 var(--ink);margin-bottom:18px}
+.teamhead{background:linear-gradient(135deg,#FFE3EC,#EADCF7)}
+.tcards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.tcards{grid-template-columns:1fr}}
+.tcard{border:3px solid var(--ink);border-radius:12px;padding:10px;text-align:center}
+.tcard.p1{background:#FFE3E3}.tcard.p2{background:#E3EEFF}
+.tcard .tbig{font-size:56px;display:block}
+.tcard label{display:block;font-weight:700;margin:6px 0}
+.tcard input,.pmdone input{display:block;width:100%;box-sizing:border-box;margin-top:4px;font:inherit;font-size:20px;padding:8px 10px;border:3px solid var(--ink);border-radius:10px;text-align:center;background:#fff}
+.tmeter{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.tslot{width:30px;height:30px;border:3px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;font-size:15px;line-height:1}
+.tslot .emo{font-size:17px}
+.tslot.now{background:var(--yellow);transform:scale(1.15)}
+.tslot.done{background:#C9F7C6}
+.turnbar{display:flex;align-items:center;gap:10px;justify-content:center;border:4px solid var(--ink);border-radius:12px;padding:4px 12px;margin-bottom:14px;font-family:Bangers,Impact,sans-serif;font-size:28px;letter-spacing:1px;color:#fff;text-shadow:2px 2px 0 var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.turnbar.p1,.handoff.p1 .btn{background:var(--red)}.turnbar.p2{background:var(--blue)}
+.turnbar .emo{font-size:38px;text-shadow:none}
+.handoff.p1{background:#FFE3E3}.handoff.p2{background:#E3EEFF}
+.kidpanel{background:#F3F8FF}
+.opts.k3{grid-template-columns:repeat(3,1fr)}
+.opts.kid .letter{display:none}
+.opts.kid .opt{min-height:130px;padding:10px 6px}
+.opts.kid .opt svg.fig{height:92px}
+.ktile{width:64px;height:64px;padding:5px;box-sizing:border-box;border:3px solid var(--ink);border-radius:10px;background:#FFF8E1;display:flex;align-items:center;justify-content:center}
+.ktile svg.fig{width:100%;height:100%}
+.ktile.q{background:#E3F2FD;font-family:Bangers,Impact,sans-serif;font-size:36px;color:var(--blue)}
+.ktile.kbig{width:140px;height:140px;padding:12px}
+.kpat{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.knum{font-size:60px}
+.kcount .grp .art.artmini{width:46px;height:46px}
+.opts.kid .grp .art.artmini{width:26px;height:26px}
+.coach{display:block;margin-top:6px;font-weight:700;color:#8E44AD}
+.tduo{display:flex;justify-content:center;align-items:center;gap:12px}.tduo .emo{font-size:64px}.tduo .hf{font-size:48px}
+@media (max-width:420px){.tmeter{gap:2px}.tslot{width:23px;height:23px;border-width:2px;font-size:12px}.tslot .emo{font-size:13px}.turnbar{font-size:22px}.ktile{width:50px;height:50px}.ktile.kbig{width:120px;height:120px}.opts.kid .opt{min-height:112px}.opts.kid .opt svg.fig{height:74px}.kcount .grp .art.artmini{width:38px;height:38px}.opts.kid .grp .art.artmini{width:20px;height:20px}}
+/* Puzzle Maker */
+.pmkinds{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+@media (max-width:480px){.pmkinds{grid-template-columns:1fr}}
+.pmkind{display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:4px solid var(--ink);border-radius:12px;box-shadow:4px 4px 0 var(--ink);padding:12px;text-align:center;font:inherit;cursor:pointer}
+.pmkind .bang{font-size:22px}.pmkind:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.pmpal{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:6px;margin-top:10px}
+.pmp{background:#fff;border:3px solid var(--ink);border-radius:10px;padding:4px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:inherit;font-size:11px;font-weight:700;line-height:1.1;min-height:72px;cursor:pointer}
+.pmp .art{width:44px;height:44px}.pmp svg.fig{width:48px;height:48px}
+.pmpal.shapes{grid-template-columns:repeat(4,1fr)}.pmpal.shapes .pmp{min-height:64px}
+.pmp:disabled{opacity:.35;cursor:default}.pmp.on{background:var(--yellow);opacity:.6}
+.tray{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;justify-content:center}
+.trgrp{display:flex;flex-direction:column;align-items:center;gap:4px;border:3px solid var(--ink);border-radius:12px;padding:6px;background:#FFF8E1}
+.trrow{display:flex;gap:6px}
+.trcap{font-family:Bangers,Impact,sans-serif;font-size:15px;letter-spacing:1px}
+.trs{width:58px;height:58px;box-sizing:border-box;border:3px dashed #999;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#fff;font-family:Bangers,Impact,sans-serif;font-size:28px;color:#999}
+.trs.f{border-style:solid;border-color:var(--ink)}
+.trs .art{width:46px;height:46px}.trs svg.fig{width:44px;height:44px}
+.trlab{font-family:Bangers,Impact,sans-serif;font-size:30px;align-self:center}
+.pmbook .pmrow{display:flex;align-items:center;gap:8px;border-bottom:2px dashed #ccc;padding:8px 0}
+.pmicon{font-size:26px}
+.pmprev{display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap;min-width:0}
+.pmprev .art{width:30px;height:30px}.pmprev svg.fig{width:26px;height:26px}
+.vault.tbook{grid-template-columns:repeat(10,1fr);gap:6px}.tbook .slot{font-size:24px}.tbook .slot.locked{font-size:18px}
+@media (max-width:520px){.vault.tbook{grid-template-columns:repeat(5,1fr)}}
+.mini.delon{background:var(--red);color:#fff}
+.stepper{display:flex;align-items:center;gap:16px;justify-content:center}
+.stepper .btn{font-size:34px;width:64px;height:64px;padding:0}
 </style>
 </head>
 <body>
@@ -1270,7 +1332,7 @@ function arcade(){
       <p class="note">Best score: <b>${(P.best&&P.best.pong)||0}</b></p>
       <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('pong')">PLAY · 🎟️${gameCost()}</button></section>
     <section class="panel game center"><div class="gicon">👾</div><h3 class="bang">STICKER INVADERS</h3>
-      <p>Your stickers are invading! Blast them before they <b>land on you</b>.</p>
+      <p>Your stickers are invading! Blast them before they <b>land on you</b>. Has a <b>👫 team mode</b>.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.inv)||0}</b></p>
       <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('inv')">PLAY · 🎟️${gameCost()}</button></section>
     <section class="panel game center"><div class="gicon">🏃</div><h3 class="bang">STICKER DASH</h3>
@@ -1282,22 +1344,23 @@ function arcade(){
       <p class="note">Best score: <b>${(P.best&&P.best.brick)||0}</b></p>
       <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('brick')">PLAY · 🎟️${gameCost()}</button></section>
     <section class="panel game center"><div class="gicon">🃏</div><h3 class="bang">STICKER MATCH</h3>
-      <p>Flip the cards and find all 8 sticker pairs. The <b>fewer flips</b>, the higher your score!</p>
+      <p>Flip the cards and find all 8 sticker pairs. The <b>fewer flips</b>, the higher your score! Has a <b>👫 team mode</b>.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.mem)||0}</b> <span class="note">(200 is perfect)</span></p>
       <button class="btn red" ${toks>=gameCost()?'':'disabled'} onclick="playGame('mem')">PLAY · 🎟️${gameCost()}</button></section>
     ${P.catchOn?`<section class="panel game center freegame"><div class="freetag">FREE!</div><div class="gicon">🧺</div><h3 class="bang">NUMBER CATCHER</h3>
-      <p>Catch falling numbers that add up to the target. <b>No token needed</b>, so play as much as you want!</p>
+      <p>Catch falling numbers that add up to the target. <b>No token needed</b>, so play as much as you want! Has a <b>👫 team mode</b>.</p>
       <p class="note">Best score: <b>${(P.best&&P.best.catch)||0}</b></p>
       <button class="btn green" onclick="playGame('catch','arcade')">PLAY · FREE!</button></section>`:''}
   </div>
   ${toks>=gameCost()?'':`<button class="btn big" onclick="P.challenge=true;save();go('map')">⚡ GO EARN TOKENS!</button>`}
+  <button class="btn big teambtn" style="margin:12px 0 0" onclick="go('team')">👫 TEAM UP: play with a teammate</button>
   <button class="btn" style="width:100%;margin-top:12px;background:#fff" onclick="go('home')">🏠 Home</button>`;
 }
 function pickHero(i){P.hero=P.stickers[i];save();arcade();}
 
 let G=null; // running game
 let ARC_BACK='arcade';
-function playGame(kind,back){
+function playGame(kind,back,opt={}){
   const free=kind==='catch';
   if(back) ARC_BACK=back;else if(!G) ARC_BACK='arcade';
   if(free){if(!P.catchOn) return;}
@@ -1311,10 +1374,15 @@ function playGame(kind,back){
     <div class="archelp">${({pong:'1 player: mouse, finger, or ↑ ↓ keys · 2 players: W/S and ↑/↓, or drag on your own side',inv:'Move: mouse, finger, or ← → keys · Fire: click, hold finger, or SPACE',run:'Jump: SPACE, ↑, click, or tap · Hold it down to jump higher',brick:'Move: mouse, finger, or ← → keys',mem:'Flip: click or tap a card · or use arrow keys + SPACE',catch:'Move the basket: mouse, finger, or ← → keys'})[kind]}</div>`;
   document.body.appendChild(ov);document.body.classList.add('noscroll');
   const cv=ov.querySelector('#arcCv'),ctx=cv.getContext('2d');
-  const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},taps:[],touches:new Map(),kind,running:false,raf:0,mode:1};
+  const api={keys:new Set(),ptr:{x:0,y:0,down:false,active:false},taps:[],touches:new Map(),kind,running:false,raf:0,mode:opt.mode===2&&TEAMT[kind]?2:1};
   G=api;
-  const game=({pong:pongGame,run:runnerGame,inv:invadersGame,brick:brickGame,mem:memoryGame,catch:catcherGame})[kind](cv,ctx,api);
-  api.game=game;
+  const ONE={pong:pongGame,run:runnerGame,inv:invadersGame,brick:brickGame,mem:memoryGame,catch:catcherGame},TWO={inv:coopInvadersGame,mem:teamMatchGame,catch:teamCatcherGame};
+  const make=()=>(api.mode===2&&TWO[kind]?TWO[kind]:ONE[kind])(cv,ctx,api);
+  let game=make();api.game=game;
+  api.setMode=m=>{api.mode=m===2&&TWO[kind]?2:1;game=make();api.game=game;
+    if(api.mode===2){ov.querySelector('.arctitle').textContent=TEAMT[kind];ov.querySelector('.archelp').textContent=TEAMHELP[kind];}
+    if(api.fit) api.fit();game.render();};
+  if(api.mode===2) api.setMode(2);
   const fit=()=>{const st=ov.querySelector('#arcStage');if(!st)return;const r=st.getBoundingClientRect();const sc=Math.min(r.width/cv.width,r.height/cv.height);
     cv.style.width=Math.floor(cv.width*sc)+'px';cv.style.height=Math.floor(cv.height*sc)+'px';};
   api.fit=fit;fit();window.addEventListener('resize',fit);
@@ -1334,21 +1402,24 @@ function playGame(kind,back){
     api.raf=requestAnimationFrame(frame);};
   api.end=(score,note,opt={})=>{
     api.running=false;cancelAnimationFrame(api.raf);game.render();
-    P.best=P.best||{};const key=kind;const prev=P.best[key]||0,isBest=!opt.two&&score>prev;if(isBest) P.best[key]=score;save();sfx('yay');
+    P.best=P.best||{};const key=opt.team?kind+'T':kind;const prev=P.best[key]||0,isBest=!opt.two&&score>prev;if(isBest) P.best[key]=score;save();sfx('yay');
     const t=P.tokens||0;
     api.msg(`<div class="panel center arcover"><div class="burstbig" style="font-size:30px">${opt.title||'GAME OVER!'}</div>
-      ${opt.two?'':`<p style="font-size:22px;margin:6px 0">Score: <b>${score}</b></p>`}
+      ${opt.two?'':`<p style="font-size:22px;margin:6px 0">${opt.team?'Team score':'Score'}: <b>${score}</b></p>`}
       ${note?`<p style="margin:0 0 6px;font-size:17px">${note}</p>`:''}
       ${opt.two?'':`<p style="margin:0 0 10px">${isBest?'🏆 NEW BEST SCORE!':'Best: '+(P.best[key]||0)}</p>`}
-      <div class="stack">${free?`<button class="btn red" onclick="playGame('catch')">PLAY AGAIN · FREE!</button>`:t>=gameCost()?`<button class="btn red" onclick="playGame('${kind}')">PLAY AGAIN · 🎟️${gameCost()} <small>(${t} left)</small></button>`:`<p class="note">${t?`You have ${t} token${t>1?'s':''} — you need ${gameCost()} to play.`:'Out of tokens!'} Finish a ⚡ Challenge mission to win more.</p><button class="btn red" onclick="closeGame();P.challenge=true;save();go('map')">⚡ EARN MORE TOKENS</button>`}
-      <button class="btn" style="background:#fff" onclick="closeGame()">${ARC_BACK==='arcade'&&P.arcadeOn?'🕹️ Back to Arcade':ARC_BACK==='map'?'🗺️ Back to Missions':'🏠 Back Home'}</button></div></div>`);
+      <div class="stack">${free?`<button class="btn red" onclick="playGame('catch',null,{mode:${api.mode}})">PLAY AGAIN · FREE!</button>`:t>=gameCost()?`<button class="btn red" onclick="playGame('${kind}',null,{mode:${api.mode}})">PLAY AGAIN · 🎟️${gameCost()} <small>(${t} left)</small></button>`:`<p class="note">${t?`You have ${t} token${t>1?'s':''} — you need ${gameCost()} to play.`:'Out of tokens!'} Finish a ⚡ Challenge mission to win more.</p><button class="btn red" onclick="closeGame();P.challenge=true;save();go('map')">⚡ EARN MORE TOKENS</button>`}
+      <button class="btn" style="background:#fff" onclick="closeGame()">${ARC_BACK==='arcade'&&P.arcadeOn?'🕹️ Back to Arcade':ARC_BACK==='map'?'🗺️ Back to Missions':ARC_BACK==='team'?'👫 Back to Team Up':'🏠 Back Home'}</button></div></div>`);
   };
   game.render();
   api.waiting=true;
+  if(api.mode===2){api.msg(`<div class="panel center arcover"><div class="emo" style="font-size:48px;white-space:nowrap">${tStk(2)} 🤝 ${tStk(1)}</div>
+    <h3 class="bang" style="font-size:28px;margin:6px 0">${TEAMT[kind].replace(/^\S+ /,'').replace(' · FREE','')}!</h3>
+    <p style="margin:0 0 10px">${TEAMINTRO[kind]()}</p><button class="btn big red" onclick="G.start()">START! ▶</button></div>`);return;}
   api.msg(`<div class="panel center arcover"><div class="emo" style="font-size:64px">${heroSticker()}</div>
     <h3 class="bang" style="font-size:28px;margin:6px 0">${({pong:'STICKER PONG!',inv:'DEFEND THE PLANET!',run:'READY, SET, DASH!',brick:'SMASH THE WALL!',mem:'MATCH ’EM ALL!',catch:'NUMBER CATCHER!'})[kind]}</h3>
     <p style="margin:0 0 10px">${({pong:'Play the robot, or challenge someone to a 2-player match!',inv:'Blast the invaders before they land on you! Watch out for freeze-rays ❄️',run:'Jump over cactuses and low flyers. Stay DOWN when a sticker flies high! One crash and it’s over.',brick:'Keep the waffle bouncing and smash every sticker brick. 3 misses and it’s over!',mem:'Find all 8 pairs. Try to remember where each sticker is hiding!',catch:'Catch TWO numbers that add up to the target. Catch 7, then catch 3 to make 10! 3 wrong pairs and it’s over. This game is FREE!'})[kind]}</p>
-    ${kind==='pong'?pongStartUI():`<button class="btn big red" onclick="G.start()">START! ▶</button>`}</div>`);
+    ${kind==='pong'?pongStartUI():TEAMT[kind]?coopStartUI(kind):`<button class="btn big red" onclick="G.start()">START! ▶</button>`}</div>`);
 }
 function p2Sticker(){const hero=heroSticker();return P.hero2&&P.hero2!==hero&&P.stickers.includes(P.hero2)?P.hero2:enemyStickers(hero)[0];}
 function pongStartUI(){
@@ -1792,6 +1863,576 @@ function catcherGame(cv,ctx,api){
 }
 
 /* =========================================================
+   👫 TEAM UP: two-player co-op for a big kid and a little kid
+   ========================================================= */
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const KIDSTK=['🦄','🐱','🐶','🐰','🦋','🌈','🐼','🐸','🦊','🐢','🐬','🦖','🌟','🐝','🐙','🦁'];
+const TEAMSTK=['🤝','🙌','🎉','🏅','🎈','🪁','🧸','🍦','🎠','🎪','🏰','🌻','🐳','🍭','🎁','⛵','🌙','🍩','🎨','🚂'];
+function team(){
+  P.team=P.team||{};const t=P.team;
+  ['book','made'].forEach(k=>{if(!Array.isArray(t[k])) t[k]=[];});
+  t.runs=t.runs||0;t.solved=t.solved||0;return t;
+}
+const tRaw=i=>(i===1?team().n1:team().n2)||(i===1?'Big Hero':'Little Hero');
+const tName=i=>esc(tRaw(i));
+function tStk(i){
+  if(i===1) return heroSticker();
+  const s=team().s2;return s&&KIDSTK.includes(s)&&s!==heroSticker()?s:KIDSTK.find(x=>x!==heroSticker());
+}
+
+/* ---------- Kindergarten puzzles for the little teammate ---------- */
+const KSHAPES=['circle','square','triangle','star','diamond'];
+const KPL={circle:'circles',square:'squares',triangle:'triangles',star:'stars',diamond:'diamonds'};
+const KCAT=[
+  {say:'fruits',items:['🍎','🍌','🍇','🍓','🍉','🍊','🍒']},
+  {say:'animals',items:['🐶','🐱','🐷','🐄','🐰','🐔','🐴','🐑']},
+  {say:'things that go',items:['🚗','🚌','🚂','✈️','🚲','🚜','🚁','🚢']},
+  {say:'clothes you wear',items:['🧦','🧢','🧤','🧣','👟','👖','🧥','🩳']},
+];
+const KPAIRS=[
+  ['🐶','🦴','A dog chews a bone.'],['🐝','🍯','Bees make honey.'],['🌧️','☂️','An umbrella keeps the rain off.'],
+  ['🐄','🥛','Milk comes from a cow.'],['🐔','🥚','A chicken lays eggs.'],['✋','🧤','A glove goes on your hand.'],
+  ['🦶','👟','A shoe goes on your foot.'],['🐒','🍌','Monkeys love bananas.'],['🐰','🥕','Bunnies munch carrots.'],
+  ['🐟','🌊','Fish swim in the water.'],['❄️','⛄','You build a snowman out of snow.'],['🚂','🛤️','A train rides on tracks.'],
+  ['🎨','🖌️','You paint with a paintbrush.'],['🛁','🧼','You use soap in the bath.'],['☀️','🕶️','Sunglasses are for sunny days.'],
+  ['📖','👀','You read a book with your eyes.'],
+];
+// wrong answers that could also make sense for that picture
+const KAVOID={'✋':['🧼','🖌️'],'❄️':['🧤','🕶️'],'🛁':['🌊'],'🌧️':['🌊'],'☀️':['🌊'],'🐟':['🧼'],'🐰':['🌊']};
+const KSTARTS=['Listen carefully!','Take your time!','Look at every picture!','You can do it!','Point to each one first!'];
+const KWINS=['YAY! You did it!','WOW! Great job!','POW! You got it!','HOORAY! Super smart!'];
+const KTRY=['Hmm, not that one. Try again!','Good try! Look again.','Oops! Try another one!'];
+const kname=(sh,c)=>`${c} ${sh}`;
+
+function kmk(type,prompt,right,wrongs,why,extra={}){
+  return Object.assign({type,little:true,prompt,why,text:KT[type].text,speak:KT[type].say||KT[type].text.replace(/<[^>]+>/g,''),
+    options:shuffle([{html:right,correct:true},...wrongs.map(h=>({html:h,correct:false}))])},extra);
+}
+const patHtml=list=>`<div class="kpat">${list.map(f=>`<div class="ktile">${fig(f)}</div>`).join('')}<div class="ktile q">?</div></div>`;
+function kcountQ(n,e,why,whySay){
+  ART_ON=true;
+  const near=shuffle([n-2,n-1,n+1,n+2].filter(v=>v>=1&&v<=10)).slice(0,2);
+  const count=Array.from({length:n},(_,i)=>i+1).join(', ');
+  return kmk('kcount',`<div class="kcount">${grp(n,e)}</div>`,`<span class="numbig knum">${n}</span>`,near.map(v=>`<span class="numbig knum">${v}</span>`),
+    why||`There ${n===1?'is':'are'} ${n}! Count with me: ${count}.`,{whySay:whySay||(why?null:`There ${n===1?'is':'are'} ${n}! Count with me: ${count}.`)});
+}
+const KT={
+  kcolor:{name:'Color Match',icon:'🎨',text:'Find the one that is the <u>same color</u>!',gen(){
+    const c=pick(CN),o=shuffle(CN.filter(x=>x!==c)),sh=shuffle(KSHAPES);
+    return kmk('kcolor',`<div class="ktile kbig">${fig(F({shape:sh[0],color:c}))}</div>`,fig(F({shape:sh[1],color:c})),
+      [fig(F({shape:sh[2],color:o[0]})),fig(F({shape:sh[3],color:o[1]}))],`Both are ${c}!`);}},
+  kshape:{name:'Shape Match',icon:'🔷',text:'Find the one that is the <u>same shape</u>!',gen(){
+    const sh=shuffle(KSHAPES),c=shuffle(CN);
+    return kmk('kshape',`<div class="ktile kbig">${fig(F({shape:sh[0],color:c[0]}))}</div>`,fig(F({shape:sh[0],color:c[1]})),
+      [fig(F({shape:sh[1],color:c[0]})),fig(F({shape:sh[2],color:c[2]}))],`Both are ${KPL[sh[0]]}!`);}},
+  kcount:{name:'How Many?',icon:'🔢',text:'Count them! <u>How many</u> are there?',gen(){return kcountQ(1+rnd(10),pick(OBJ));}},
+  kmore:{name:'Which Has More?',icon:'⚖️',text:'Which group has the <u>most</u>?',gen(){
+    ART_ON=true;const e=pick(OBJ);let c;do{c=shuffle([1,2,3,4,5,6,7,8]).slice(0,3);}while(Math.max(...c)-Math.max(...c.filter(v=>v!==Math.max(...c)))<2);
+    const mx=Math.max(...c);
+    return kmk('kmore','',grp(mx,e),c.filter(v=>v!==mx).map(v=>grp(v,e)),`That group has ${mx}. That’s the most!`);}},
+  kpat:{name:'What Comes Next?',icon:'🔁',text:'Look at the pattern. What comes <u>next</u>?',gen(){
+    const unitT=pick(['AB','AB','AAB','ABB','ABC']),sh=shuffle(KSHAPES),c=shuffle(CN);
+    const items={A:F({shape:sh[0],color:c[0]}),B:F({shape:sh[1],color:c[1]}),C:F({shape:sh[2],color:c[2]})};
+    const u=unitT.split(''),L=u.length===2?pick([4,5,6]):pick([4,5,6,7]);
+    const seq=Array.from({length:L},(_,i)=>u[i%u.length]),ans=u[L%u.length];
+    const letters=[...new Set(u)].filter(x=>x!==ans);if(letters.length<2) letters.push('D');
+    items.D=F({shape:sh[3],color:c[3]});
+    const nm=x=>kname(items[x].shape,items[x].color);
+    return kmk('kpat',patHtml(seq.map(x=>items[x])),fig(items[ans]),letters.slice(0,2).map(x=>fig(items[x])),
+      `The pattern goes ${u.map(nm).join(', ')}, again and again. So next comes the ${nm(ans)}!`);}},
+  kodd:{name:'Who Doesn’t Belong?',icon:'🧺',text:'Three go together. Which one does <u>NOT</u> belong?',gen(){
+    const [a,b]=shuffle(KCAT),three=shuffle(a.items).slice(0,3),odd=pick(b.items);ART_ON=allDrawn([...three,odd]);
+    return kmk('kodd','',E(odd),three.map(E),`The others are all ${a.say}. The ${labelOf(odd)} is different!`);}},
+  kgo:{name:'Goes Together',icon:'🔗',text:'Which one <u>goes with</u> this picture?',gen(){
+    const pr=pick(KPAIRS),av=KAVOID[pr[0]]||[];
+    const w=shuffle(KPAIRS.filter(p=>p!==pr).map(p=>p[1]).filter(x=>!av.includes(x))).slice(0,2);
+    ART_ON=allDrawn([pr[0],pr[1],...w]);
+    return kmk('kgo',`<div class="pair"><div class="tile">${E(pr[0])}</div><div class="arrow">➜</div><div class="tile q">?</div></div>`,E(pr[1]),w.map(E),pr[2],
+      {speak:`Which one goes with the ${labelOf(pr[0])}?`});}},
+};
+
+/* ---------- Turn-taking puzzle runner (Team Puzzles and Puzzle Maker) ---------- */
+let TM=null;
+function genBig(){
+  const ts=Object.keys(TYPES);
+  for(let k=0;k<20;k++){const t=pick(ts);const q=P.challenge&&TYPES[t].hard?TYPES[t].hard():TYPES[t].gen();if(q) return q;}
+}
+function teamPuzzles(){
+  const ks=shuffle(Object.keys(KT));let ki=0;
+  const turns=[2,1,2,1,2,1].map(p=>({p,q:p===2?KT[ks[ki++]].gen():genBig()}));
+  tRun(turns,'team');
+}
+function tRun(turns,mode){TM={turns,i:0,mode,stars:[]};tTurn();}
+function tMeter(){
+  if(TM.turns.length<2) return '<span></span>';
+  return `<div class="tmeter">${TM.turns.map((t,j)=>`<span class="tslot ${j<TM.i?'done':j===TM.i?'now':''}">${j<TM.i?(TM.stars[j]?'⭐':'✔'):`<span class="emo">${tStk(t.p)}</span>`}</span>`).join('')}</div>`;
+}
+function tTurn(){
+  const p=TM.turns[TM.i].p,maker=TM.mode==='maker';
+  window.scrollTo(0,0);clearPows();
+  app.innerHTML=`<div class="qtop"><button class="mini" onclick="go(${maker?"'maker'":"'team'"})">✖ Exit</button>${tMeter()}<span></span></div>
+  <section class="panel center handoff ${p===2?'p2':'p1'}">
+    <div class="emo" style="font-size:90px">${tStk(p)}</div>
+    <div class="burstbig">${tName(p)}’S TURN!</div>
+    <p style="font-size:19px">${maker?`${tName(1)} made a puzzle for you! Listen, then tap your answer.`:p===2?'Listen to the puzzle, then tap your answer!':`Big-brain puzzle! Then explain your thinking to ${tName(2)}.`}</p>
+    <button class="btn big ${p===2?'blue':'red'}" onclick="tShowQ()">I’M READY! ➜</button>
+  </section>`;
+  if(p===2||P.autoread) speak(`${tRaw(p)}, it's your turn!`);
+}
+function tShowQ(){
+  clearPows();const t=TM.turns[TM.i],q=t.q,little=!!q.little;
+  TM.tries=0;TM.done=false;TM.helped=false;window.scrollTo(0,0);
+  const label=little?`${KT[q.type].icon} ${KT[q.type].name}`:`${P.challenge&&!little?'⚡ ':''}${TYPES[q.type].icon} ${TYPES[q.type].name}`;
+  app.innerHTML=`
+  <div class="qtop"><button class="mini" onclick="go(${TM.mode==='maker'?"'maker'":"'team'"})">✖ Exit</button>${tMeter()}<button class="mini" onclick="tSpeak()">🔊 Read</button></div>
+  <div class="turnbar ${t.p===2?'p2':'p1'}"><span class="emo">${tStk(t.p)}</span><span>${tName(t.p)}’S TURN</span></div>
+  <section class="panel ${little?'kidpanel':''}">
+    <div class="qtype">${label}${TM.mode==='maker'?` · made by ${tName(1)}`:''}</div>
+    <div class="qtext">${q.text}</div>
+    ${q.prompt?`<div class="qvis">${q.prompt}</div>`:''}
+  </section>
+  <div class="helper"><div class="av">${little?WAFFLE:GIZMO}</div><div class="bubble left" id="say">${little?pick(KSTARTS):pick(STARTS)}</div>
+    ${little?`<button class="mini" id="helpBtn" onclick="tHelp()">🤝 Help</button>`:`<button class="mini" onclick="tHint()">💡 Hint</button>`}</div>
+  <div class="opts ${little?'kid':''} ${q.options.length===3?'k3':''}">${q.options.map((o,j)=>`<button class="opt" data-j="${j}" onclick="tAnswer(${j})" aria-label="Answer ${'ABCD'[j]}"><span class="letter">${'ABCD'[j]}</span>${o.html}</button>`).join('')}</div>
+  <div class="nextwrap" id="nextwrap"></div>`;
+  if(little||P.autoread) tSpeak();
+}
+function tSpeak(){const q=TM.turns[TM.i].q;speak(q.speak);}
+function tHint(){const q=TM.turns[TM.i].q;say('💡 '+q.hint);if(P.autoread) speak(q.hint);}
+// The big kid can help: one wrong answer disappears.
+function tHelp(){
+  if(TM.done||TM.helped) return;
+  const q=TM.turns[TM.i].q,left=[...document.querySelectorAll('.opt:not(:disabled)')].filter(b=>!q.options[+b.dataset.j].correct);
+  if(left.length<2) return;
+  const b=pick(left);b.classList.add('wrong');b.disabled=true;TM.helped=true;
+  const hb=document.getElementById('helpBtn');if(hb) hb.disabled=true;
+  say(`🤝 ${tName(1)} helped! One wrong answer is gone.`);speak(`${tRaw(1)} helped! One wrong answer is gone.`);
+}
+function tAnswer(j){
+  if(TM.done) return;
+  const t=TM.turns[TM.i],q=t.q,little=!!q.little,btn=document.querySelector(`.opt[data-j="${j}"]`);
+  if(q.options[j].correct){
+    TM.done=true;TM.stars[TM.i]=TM.tries===0;
+    btn.classList.add('right');pow(btn);sfx('yay');
+    document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+    const hb=document.getElementById('helpBtn');if(hb) hb.disabled=true;
+    const coach=TM.mode==='maker'?`🗣️ ${tName(1)}, tell ${tName(2)} why it works!`
+      :little?`🙌 ${tName(1)}, give ${tName(2)} a high-five!`:`🗣️ ${tName(1)}, tell ${tName(2)} how you figured it out!`;
+    say(`<b>${pick(little?KWINS:WINS)}</b> ${q.why}<span class="coach">${coach}</span>`);
+    if(little||P.autoread) speak(q.whySay||q.why);
+    const last=TM.i===TM.turns.length-1;
+    document.getElementById('nextwrap').innerHTML=`<button class="btn big ${last?'red':'blue'}" onclick="${last?'tFinish()':'tNext()'}">${last?(TM.mode==='maker'?'DONE! 🏁':'TEAM FINISH! 🏁'):'NEXT TURN ➜'}</button>`;
+    setTimeout(()=>{const n=document.getElementById('nextwrap');if(n&&n.scrollIntoView) n.scrollIntoView({behavior:'smooth',block:'nearest'});},300);
+  }else{
+    TM.tries++;btn.classList.add('wrong');btn.disabled=true;sfx('boop');
+    if(little){const m=pick(KTRY);say(m);speak(m);}
+    else say(TM.tries===1?pick(TRY):`${pick(TRY)}<br>💡 ${q.hint}`);
+  }
+}
+function tNext(){TM.i++;tTurn();}
+function tFinish(){
+  clearPows();window.scrollTo(0,0);
+  const tm=team();
+  if(TM.mode==='maker'){
+    tm.solved++;save();sfx('yay');const idx=TM.idx;
+    app.innerHTML=`<section class="panel center teamwin">
+      <div class="burstbig">PUZZLE SOLVED!</div>
+      <div class="tduo"><span class="emo">${tStk(1)}</span><span class="hf">🙌</span><span class="emo">${tStk(2)}</span></div>
+      <p style="font-size:20px;margin:8px 0">${tName(2)} solved ${tName(1)}’s puzzle!</p>
+      <p class="note">Puzzles solved together: <b>${tm.solved}</b></p>
+    </section>
+    <div class="stack">
+      <button class="btn big red" onclick="go('maker')">✏️ MAKE ANOTHER PUZZLE!</button>
+      <div class="row"><button class="btn blue" style="flex:1" onclick="pmPlay(${idx})">🔁 Solve it again</button><button class="btn" style="flex:1;background:#fff" onclick="go('team')">👫 Team Up</button></div>
+    </div>`;
+    speak(`Puzzle solved! Great teamwork!`);
+    return;
+  }
+  tm.runs++;
+  const left=TEAMSTK.filter(s=>!tm.book.includes(s)),st=left.length?pick(left):pick(TEAMSTK);
+  if(left.length) tm.book.push(st);
+  const tok=P.arcadeOn?1:0;P.tokens=(P.tokens||0)+tok;
+  const stars=TM.stars.filter(Boolean).length;save();sfx('yay');
+  app.innerHTML=`<section class="panel center teamwin">
+    <div class="burstbig">TEAM COMPLETE!</div>
+    <div class="tduo"><span class="emo">${tStk(1)}</span><span class="hf">🙌</span><span class="emo">${tStk(2)}</span></div>
+    <p style="font-size:20px;margin:8px 0">${tName(1)} and ${tName(2)} solved all ${TM.turns.length} puzzles together!</p>
+    <p class="zaps">⭐ First-try stars: ${'⭐'.repeat(stars)||'— (you kept trying, and that counts!)'}</p>
+    <p style="margin:12px 0 0">${left.length?'NEW team sticker!':'Bonus team sticker!'}</p>
+    <div class="newsticker">${st}</div>
+    ${tok?`<p class="note">🎟️ +1 Arcade token for teamwork! Save up for a team game.</p>`:''}
+  </section>
+  <section class="panel brk"><h3>🧃 TEAM BRAIN BREAK!</h3><p>Do it together! ${pick(BREAKS)}</p></section>
+  <div class="stack">
+    <button class="btn big red" onclick="teamPuzzles()">🔁 PLAY AGAIN!</button>
+    <button class="btn blue" onclick="go('team')">👫 Team Up menu</button>
+  </div>`;
+  speak(`Team complete! Great job, ${tRaw(1)} and ${tRaw(2)}!`);
+}
+
+/* ---------- Team Up hub ---------- */
+function teamHub(){
+  const tm=team(),toks=P.tokens||0,c=gameCost(),can=toks>=c;
+  app.innerHTML=`
+  <section class="panel teamhead center">
+    <h2 style="font-size:40px">👫 TEAM UP!</h2>
+    <p style="margin:4px 0 0">Two heroes, one team! Take turns, help each other, and win <b>together</b>.</p>
+  </section>
+  <section class="panel">
+    <h3 class="bang" style="font-size:24px">YOUR TEAM</h3>
+    <div class="tcards">
+      <div class="tcard p1"><div class="emo tbig">${tStk(1)}</div>
+        <label>Player 1 · big kid<input maxlength="14" value="${esc(tm.n1)}" placeholder="Big Hero" oninput="team().n1=this.value.trim();save()"></label>
+        <p class="note" style="margin:4px 0 0">Sticker: your hero from the 🕹️ Arcade</p></div>
+      <div class="tcard p2"><div class="emo tbig">${tStk(2)}</div>
+        <label>Player 2 · little kid<input maxlength="14" value="${esc(tm.n2)}" placeholder="Little Hero" oninput="team().n2=this.value.trim();save()"></label>
+        <div class="heropick p2pick" style="justify-content:center">${KIDSTK.filter(s=>s!==heroSticker()).map(s=>`<button class="hp ${s===tStk(2)?'on':''}" onclick="team().s2='${s}';save();teamHub()" aria-label="Pick sticker">${s}</button>`).join('')}</div></div>
+    </div>
+  </section>
+  <div class="games">
+    <section class="panel game center"><div class="gicon">🧩</div><h3 class="bang">TEAM PUZZLES</h3>
+      <p>Take turns! <b>${tName(2)}</b> gets kindergarten puzzles: colors, shapes, counting, patterns. <b>${tName(1)}</b> gets brain-busters. 6 puzzles, then a team sticker!</p>
+      <p class="note">Rounds finished: <b>${tm.runs}</b></p>
+      <button class="btn red" onclick="teamPuzzles()">PLAY · FREE!</button></section>
+    <section class="panel game center"><div class="gicon">✏️</div><h3 class="bang">PUZZLE MAKER</h3>
+      <p><b>${tName(1)}</b> builds a puzzle, and <b>${tName(2)}</b> solves it!</p>
+      <p class="note">Puzzle Book: <b>${tm.made.length}</b> · Solved: <b>${tm.solved}</b></p>
+      <button class="btn blue" onclick="go('maker')">MAKE ONE!</button></section>
+    ${P.catchOn?`<section class="panel game center freegame"><div class="freetag">FREE!</div><div class="gicon">🧺</div><h3 class="bang">TEAM CATCHER</h3>
+      <p><b>${tName(2)}</b> catches any number. <b>${tName(1)}</b> catches its partner to make 10!</p>
+      <p class="note">Best team score: <b>${(P.best&&P.best.catchT)||0}</b></p>
+      <button class="btn green" onclick="playGame('catch','team',{mode:2})">PLAY · FREE!</button></section>`:''}
+    ${P.arcadeOn?`<section class="panel game center"><div class="gicon">🃏</div><h3 class="bang">TEAM MATCH</h3>
+      <p>Take turns flipping cards. Miss, and it’s your teammate’s turn. Find all 6 pairs <b>together</b>!</p>
+      <p class="note">Best team score: <b>${(P.best&&P.best.memT)||0}</b></p>
+      <button class="btn red" ${can?'':'disabled'} onclick="playGame('mem','team',{mode:2})">PLAY · 🎟️${c}</button></section>
+    <section class="panel game center"><div class="gicon">👾</div><h3 class="bang">TEAM INVADERS</h3>
+      <p>Two blasters, one planet! Frozen? Your teammate flies over for a <b>high-five</b> to thaw you out.</p>
+      <p class="note">Best team score: <b>${(P.best&&P.best.invT)||0}</b></p>
+      <button class="btn red" ${can?'':'disabled'} onclick="playGame('inv','team',{mode:2})">PLAY · 🎟️${c}</button></section>`:''}
+  </div>
+  ${P.arcadeOn&&!can?`<p class="note center">🎟️ You have ${toks} token${toks===1?'':'s'}. Team Match and Team Invaders cost ${c}. Each Team Puzzles round earns 1!</p>`:''}
+  <section class="panel"><h3 class="bang" style="font-size:24px">🤝 TEAM STICKER BOOK <span class="note">${tm.book.length}/${TEAMSTK.length}</span></h3>
+    <div class="vault tbook">${TEAMSTK.map(s=>tm.book.includes(s)?`<div class="slot">${s}</div>`:'<div class="slot locked">?</div>').join('')}</div>
+    <p class="note">Finish a round of Team Puzzles to win a team sticker.</p></section>
+  <button class="btn" style="width:100%;background:#fff" onclick="go('home')">🏠 Home</button>`;
+}
+
+/* ---------- Puzzle Maker: the big kid builds, the little kid solves ---------- */
+const PMPICS=['🐶','🐱','🐷','🐄','🐰','🐔','🐴','🐑','🐟','🐝','🦋','🐘','🦁','🐒','🐧','🐢',
+  '🍎','🍌','🍇','🍓','🍉','🍊','🥕','🍪','🍩','🍕','🧀','🥛','🍦','🍯','🥚','🦴',
+  '🚗','🚌','🚂','✈️','🚲','🚜','🚁','🚢','🚀','🧦','🧢','🧤','🧣','👟','👖','🧥','🩳','🕶️',
+  '☀️','🌧️','❄️','🌙','⭐','🌳','🌻','🔥','🌊','⛄','⚽','🎈','🧸','📖','✏️','🖌️','🎨','🔨','☂️','🛁','🧼','✋','🦶','👀'];
+const pmPics=()=>PMPICS.filter(x=>ART[x]&&LIVE.has(x));
+const PMSHAPES=[['circle','red'],['square','blue'],['triangle','yellow'],['star','green'],['diamond','purple'],['circle','blue'],['square','red'],['star','yellow']];
+const pmF=i=>F({shape:PMSHAPES[i][0],color:PMSHAPES[i][1]});
+const PMK={
+  odd:{name:'Who Doesn’t Belong?',icon:'🧺',blurb:'3 pictures that go together, plus 1 that doesn’t.',
+    steps:[[3,'Pick <b>3 pictures</b> that go together.','GO TOGETHER'],[1,'Now pick <b>1 picture</b> that does NOT belong with them.','DOESN’T BELONG']]},
+  go:{name:'Goes Together',icon:'🔗',blurb:'A picture, its partner, and 2 tricky wrong answers.',
+    steps:[[1,'Pick a picture.','PICTURE'],[1,'Pick the picture that <b>goes with</b> it.','PARTNER'],[2,'Pick <b>2 pictures</b> that do NOT go with it. Make them a little tricky!','WRONG ONES']]},
+  count:{name:'How Many?',icon:'🔢',blurb:'Pick a picture and how many to show.'},
+  pat:{name:'What Comes Next?',icon:'🔁',blurb:'Build a shape pattern. Your teammate finds what comes next.'},
+};
+let BLD=null,PMDEL=-1;
+function pmHub(){
+  const tm=team();BLD=null;
+  const prev=m=>{ART_ON=true;
+    if(m.kind==='odd') return [...m.a,m.b].map(x=>art(x)).join('');
+    if(m.kind==='go') return [m.a,'➜',m.b].map(x=>x==='➜'?'<b>➜</b>':art(x)).join('');
+    if(m.kind==='count') return `${art(m.e)}<b>× ${m.n}</b>`;
+    return m.seq.map(i=>fig(pmF(i))).join('')+'<b>?</b>';};
+  app.innerHTML=`
+  <section class="panel teamhead center">
+    <h2 style="font-size:38px">✏️ PUZZLE MAKER</h2>
+    <p style="margin:4px 0 0"><b>${tName(1)}</b> makes a puzzle. <b>${tName(2)}</b> solves it! To make a good puzzle, you have to know <i>why</i> the answer is right. That’s big-brain thinking.</p>
+  </section>
+  <div class="pmkinds">${Object.entries(PMK).map(([k,v])=>`<button class="pmkind" onclick="pmBuild('${k}')"><span class="gicon">${v.icon}</span><b class="bang">${v.name}</b><span class="note">${v.blurb}</span></button>`).join('')}</div>
+  <section class="panel pmbook"><h3 class="bang" style="font-size:24px">📚 PUZZLE BOOK</h3>
+    ${tm.made.length?tm.made.map((m,i)=>`<div class="pmrow"><span class="pmicon">${PMK[m.kind].icon}</span><div class="pmprev">${prev(m)}</div>
+      <button class="mini" onclick="pmPlay(${i})">▶ Play</button><button class="mini ${PMDEL===i?'delon':''}" onclick="pmDel(${i})">${PMDEL===i?'Sure? 🗑':'🗑'}</button></div>`).join('')
+    :'<p class="note">No puzzles yet. Make one above! Saved puzzles stay here so your teammate can play them again.</p>'}
+  </section>
+  <button class="btn" style="width:100%;background:#fff" onclick="go('team')">👫 Back to Team Up</button>`;
+}
+function pmDel(i){if(PMDEL===i){team().made.splice(i,1);save();PMDEL=-1;}else PMDEL=i;pmHub();}
+function pmBuild(kind){BLD={kind,sel:[],n:4,phase:0,ans:null};window.scrollTo(0,0);pmRender();}
+function pmRender(){
+  const b=BLD,k=PMK[b.kind];let body='',ready=false,instr='';ART_ON=true;
+  const pal=()=>`<div class="pmpal">${pmPics().map(x=>`<button class="pmp ${b.sel.includes(x)?'on':''}" ${b.sel.includes(x)?'disabled':''} onclick="pmPic('${x}')">${art(x)}<span>${esc(labelOf(x))}</span></button>`).join('')}</div>`;
+  if(b.kind==='pat'){
+    ready=b.phase===1&&b.ans!=null;
+    instr=b.phase===0?'Tap shapes to build a pattern, like <b>red circle, blue square, red circle, blue square</b>. Use 4 to 8 shapes, then tap <b>PATTERN DONE</b>.'
+      :ready?'':'What comes <b>next</b> in your pattern? Tap the right answer.';
+    const seq=b.sel.map(i=>`<div class="trs f">${fig(pmF(i))}</div>`).join('')+(b.phase?`<div class="trlab">➜</div><div class="trs ${b.ans!=null?'f':''}">${b.ans!=null?fig(pmF(b.ans)):'?'}</div>`:(b.sel.length<8?'<div class="trs">+</div>':''));
+    body=`<div class="tray">${seq}</div>
+      ${ready?'':`<div class="pmpal shapes">${PMSHAPES.map((_,i)=>`<button class="pmp" onclick="pmShape(${i})" ${b.phase===0&&b.sel.length>=8?'disabled':''}>${fig(pmF(i))}</button>`).join('')}</div>`}
+      ${b.phase===0?`<button class="btn blue" style="width:100%;margin-top:12px" ${b.sel.length<4?'disabled':''} onclick="BLD.phase=1;pmRender()">✔ PATTERN DONE</button>`:''}`;
+  }else if(b.kind==='count'){
+    if(!b.sel.length){instr='Pick a picture to count.';body=pal();}
+    else{ready=true;instr='';
+      body=`<div class="stepper"><button class="btn" onclick="pmNum(-1)" aria-label="Fewer">−</button><span class="numbig knum">${b.n}</span><button class="btn" onclick="pmNum(1)" aria-label="More">+</button></div>
+        <div class="qvis kcount" style="margin-top:10px">${grp(b.n,b.sel[0])}</div>`;}
+  }else{
+    let used=0,si=0;for(;si<k.steps.length;si++){if(b.sel.length<used+k.steps[si][0]) break;used+=k.steps[si][0];}
+    ready=si>=k.steps.length;instr=ready?'':k.steps[si][1];
+    let off=0;
+    const tray=k.steps.map(([n,,cap])=>{const g=Array.from({length:n},(_,j)=>{const x=b.sel[off+j];return `<div class="trs ${x?'f':''}">${x?art(x):''}</div>`;}).join('');off+=n;
+      return `<div class="trgrp"><div class="trrow">${g}</div><div class="trcap">${cap}</div></div>`;}).join('');
+    body=`<div class="tray">${tray}</div>${ready?'':pal()}`;
+  }
+  app.innerHTML=`
+  <div class="qtop"><button class="mini" onclick="go('maker')">✖ Back</button><b class="bang" style="font-size:22px">${k.icon} ${k.name}</b><button class="mini" onclick="pmUndo()">↩ Undo</button></div>
+  ${instr?`<div class="helper"><div class="av">${GIZMO}</div><div class="bubble left">${instr}</div></div>`:''}
+  <section class="panel">${body}</section>
+  ${ready?`<section class="panel pmdone center"><h3 class="bang" style="font-size:26px">LOOKS GREAT!</h3>
+    <p style="margin:4px 0 8px">Why is your answer right? Type it here if you want. Your teammate will hear it after solving. (Optional)</p>
+    <input id="pmWhy" maxlength="80" placeholder="${b.kind==='odd'?'The other three are animals!':b.kind==='go'?'A bee makes honey!':b.kind==='count'?'There are 4!':'It goes red, blue, red, blue!'}">
+    <button class="btn big red" style="margin-top:10px" onclick="pmSave()">💾 SAVE &amp; PLAY!</button></section>`:''}`;
+}
+function pmPic(x){const b=BLD;if(b.kind==='count'){b.sel=[x];pmRender();return;}
+  const need=PMK[b.kind].steps.reduce((s,v)=>s+v[0],0);if(b.sel.length<need&&!b.sel.includes(x)) b.sel.push(x);pmRender();}
+function pmShape(i){const b=BLD;if(b.phase===0){if(b.sel.length<8) b.sel.push(i);}else b.ans=i;pmRender();}
+function pmNum(d){BLD.n=Math.max(1,Math.min(10,BLD.n+d));pmRender();}
+function pmUndo(){const b=BLD;
+  if(b.kind==='pat'){if(b.phase===1){if(b.ans!=null) b.ans=null;else b.phase=0;}else b.sel.pop();}
+  else if(b.kind==='count') b.sel=[];else b.sel.pop();pmRender();}
+function pmSave(){
+  const b=BLD,el=document.getElementById('pmWhy'),why=(el?el.value:'').trim().slice(0,80);
+  const m=b.kind==='odd'?{kind:'odd',a:b.sel.slice(0,3),b:b.sel[3]}:b.kind==='go'?{kind:'go',a:b.sel[0],b:b.sel[1],w:b.sel.slice(2,4)}
+    :b.kind==='count'?{kind:'count',e:b.sel[0],n:b.n}:{kind:'pat',seq:b.sel.slice(),ans:b.ans};
+  m.why=why;const tm=team();tm.made.unshift(m);if(tm.made.length>24) tm.made.length=24;save();BLD=null;pmPlay(0);
+}
+function pmQ(m){
+  ART_ON=true;const w=m.why?esc(m.why):'',ws=m.why||null;
+  if(m.kind==='odd') return kmk('kodd','',E(m.b),m.a.map(E),w||`The ${labelOf(m.b)} doesn’t belong with the others!`,{whySay:ws});
+  if(m.kind==='go') return kmk('kgo',`<div class="pair"><div class="tile">${E(m.a)}</div><div class="arrow">➜</div><div class="tile q">?</div></div>`,E(m.b),m.w.map(E),
+    w||`The ${labelOf(m.a)} and the ${labelOf(m.b)} go together!`,{speak:`Which one goes with the ${labelOf(m.a)}?`,whySay:ws});
+  if(m.kind==='count') return kcountQ(m.n,m.e,w,ws);
+  const inSeq=[...new Set(m.seq)].filter(i=>i!==m.ans),rest=shuffle(PMSHAPES.map((_,i)=>i).filter(i=>i!==m.ans&&!inSeq.includes(i)));
+  return kmk('kpat',patHtml(m.seq.map(pmF)),fig(pmF(m.ans)),shuffle(inSeq).concat(rest).slice(0,2).map(i=>fig(pmF(i))),w||'That’s what comes next in the pattern!',{whySay:ws});
+}
+function pmPlay(i){const m=team().made[i];if(!m){go('maker');return;}PMDEL=-1;tRun([{p:2,q:pmQ(m)}],'maker');TM.idx=i;}
+
+/* ---------- Co-op arcade games ---------- */
+const TEAMT={inv:'👾 TEAM INVADERS',mem:'🃏 TEAM MATCH',catch:'🧺 TEAM CATCHER · FREE'};
+const TEAMHELP={
+  inv:'Left blaster: A / D to move, W to fire · Right blaster: ← → to move, ↑ or SPACE to fire · Touch: each player drags their own blaster',
+  mem:'Take turns tapping two cards · Miss, and it’s your teammate’s turn',
+  catch:'Left basket: A / D · Right basket: ← → · Touch: each player drags on their own side',
+};
+const TEAMINTRO={
+  inv:()=>`Blast the invaders together! A freeze-ray ❄️ freezes a blaster. Fly your teammate over for a <b>HIGH-FIVE</b> to thaw it out.`,
+  mem:()=>`Find all 6 pairs together. Take turns flipping two cards. Find a match and you go again. Miss, and it’s your teammate’s turn!`,
+  catch:()=>`<b>${tName(2)}</b> (left) catches ANY number. Then <b>${tName(1)}</b> (right) catches its partner to make the target! 3 wrong pairs and it’s over.`,
+};
+function coopStartUI(kind){
+  return `<div class="stack"><button class="btn big red" onclick="G.setMode(1);G.start()">🙂 1 PLAYER</button>
+    <button class="btn big blue" onclick="G.setMode(2);G.start()">👫 TEAM · 2 PLAYERS</button></div>
+    <p class="note" style="margin:8px 0 0"><b>Team:</b> ${TEAMINTRO[kind]()}</p>`;
+}
+
+/* Team Match: take turns, shared score */
+function teamMatchGame(cv,ctx,api){
+  const W=640,H=600;cv.width=W;cv.height=H;
+  const COLS=4,PAIRS=6,CW=132,CH=124,GX=16,LEFT=(W-(COLS*CW+(COLS-1)*GX))/2,TOP=84;
+  const s1=tStk(1),s2=tStk(2);
+  let faces=shuffle([...new Set([...P.stickers,...KIDSTK,'🚀','🦖','🐙','🌋','🛸','🤖'])]).filter(x=>x!==s1&&x!==s2).slice(0,PAIRS);
+  const cards=shuffle([...faces,...faces]).map((e,i)=>({e,r:Math.floor(i/COLS),c:i%COLS,up:false,done:false,flip:0,by:0}));
+  let open=[],flips=0,matches=0,lock=0,t=0,flash=null,flashT=0,turn=2,cur=0;const found={1:0,2:0},kprev=new Set();
+  const pos=cd=>({x:LEFT+cd.c*(CW+GX),y:TOP+cd.r*(CH+GX)});
+  const scoreNow=()=>Math.max(10,150-5*Math.max(0,flips-PAIRS*2));
+  function sayTurn(){flash=`${tRaw(turn).toUpperCase()}’S TURN!`;flashT=1.2;if(P.sound) speak(`${tRaw(turn)}'s turn!`);}
+  function tryFlip(cd){
+    if(!cd||cd.up||cd.done||lock>0||open.length>=2) return;
+    cd.up=true;open.push(cd);flips++;beepA(500,0.04,'square',0.04);
+    if(open.length===2){
+      if(open[0].e===open[1].e){open.forEach(o=>{o.done=true;o.by=turn;});matches++;found[turn]++;open=[];beepA(880,0.15,'triangle',0.08);
+        flash=pick(['MATCH!','POW!','TEAMWORK!']);flashT=0.9;
+        if(matches===PAIRS){flash='ALL MATCHED!';flashT=3;setTimeout(()=>{if(api.running) api.end(scoreNow(),
+          `${s1} ${tName(1)} found <b>${found[1]}</b> · ${s2} ${tName(2)} found <b>${found[2]}</b><br>${flips} flips (12 is perfect)`,{team:true,title:'TEAM WIN!'});},700);}}
+      else lock=1.1;
+    }
+  }
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;
+    if(lock>0){lock-=dt;if(lock<=0){open.forEach(o=>o.up=false);open=[];turn=3-turn;sayTurn();}}
+    cards.forEach(cd=>{const tg=(cd.up||cd.done)?1:0;cd.flip+=(tg-cd.flip)*Math.min(1,dt*14);});
+    while(api.taps.length){const p=api.taps.shift();tryFlip(cards.find(cd=>{const q=pos(cd);return p.x>=q.x&&p.x<=q.x+CW&&p.y>=q.y&&p.y<=q.y+CH;}));}
+    const k=api.keys,press=key=>k.has(key)&&!kprev.has(key);
+    if(press('arrowright'))cur=Math.min(cards.length-1,cur+1);if(press('arrowleft'))cur=Math.max(0,cur-1);
+    if(press('arrowdown'))cur=Math.min(cards.length-1,cur+COLS);if(press('arrowup'))cur=Math.max(0,cur-COLS);
+    if(press(' ')||press('enter')) tryFlip(cards[cur]);
+    kprev.clear();k.forEach(x=>kprev.add(x));
+  }
+  function render(){
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#FF8FB1');g.addColorStop(1,'#8E44AD');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,0.08)';for(let x=10;x<W;x+=22)for(let y=10;y<H;y+=22){ctx.beginPath();ctx.arc(x,y,1.6,0,7);ctx.fill();}
+    cards.forEach((cd,i)=>{
+      const q=pos(cd),f=cd.flip,sx=Math.abs(Math.cos(f*Math.PI)),showFace=f>0.5;
+      ctx.save();ctx.translate(q.x+CW/2,q.y+CH/2);ctx.scale(Math.max(0.04,sx),1);
+      ctx.fillStyle=showFace?(cd.done?'#C9F7C6':'#FFF8E1'):'#FFD93D';ctx.strokeStyle='#111';ctx.lineWidth=5;
+      ctx.beginPath();ctx.roundRect?ctx.roundRect(-CW/2,-CH/2,CW,CH,14):ctx.rect(-CW/2,-CH/2,CW,CH);ctx.fill();ctx.stroke();
+      if(showFace){drawE(ctx,cd.e,0,0,64);if(cd.done) drawE(ctx,cd.by===1?s1:s2,CW/2-20,-CH/2+20,22);}
+      else{ctx.clip();ctx.fillStyle='rgba(230,57,70,0.25)';for(let a=0;a<12;a++){ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,90,a*Math.PI/6,a*Math.PI/6+Math.PI/12);ctx.fill();}
+        comicText(ctx,'?',0,4,58,'#fff');}
+      ctx.restore();
+      if(i===cur&&api.keys.size){ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.setLineDash([8,6]);ctx.strokeRect(q.x-6,q.y-6,CW+12,CH+12);ctx.setLineDash([]);}
+    });
+    comicText(ctx,`TEAM PAIRS ${matches}/${PAIRS}`,170,40,30);comicText(ctx,`FLIPS ${flips}`,W-100,40,28,'#fff');
+    // whose turn
+    const by=H-62;ctx.fillStyle=turn===1?'#E63946':'#2F80ED';ctx.strokeStyle='#111';ctx.lineWidth=4;
+    ctx.beginPath();ctx.roundRect?ctx.roundRect(W/2-200,by-26,400,52,14):ctx.rect(W/2-200,by-26,400,52);ctx.fill();ctx.stroke();
+    drawE(ctx,turn===1?s1:s2,W/2-165,by,34);comicText(ctx,`${tRaw(turn).toUpperCase()}’S TURN`,W/2+18,by+2,30,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2-20,flash.length>14?42:58,'#FFD93D');
+  }
+  return {update,render,state:()=>({cards,flips,matches,turn,found,pos:cards.map(pos),CW,CH,lock})};
+}
+
+/* Team Catcher: little kid catches any number, big kid catches its partner */
+function teamCatcherGame(cv,ctx,api){
+  const W=720,H=640,HW=W/2;cv.width=W;cv.height=H;
+  const s1=tStk(1),s2=tStk(2),BY=H-100,BW=92;
+  const bL={x:HW/2},bR={x:HW+HW/2};
+  let dL=[],dR=[],slot=null,target=10,made=0,strikes=0,score=0,streak=0,inL=0.3,inR=0.9,t=0,flash=null,flashT=0,flashCol='#FFD93D',level=1,pairs=0,pendingNext=0;
+  const TARGETS=[10,10,8,9,10,7,12,10,11,6,13,14,15,10,16,18,20],TIME=240;
+  const lmax=()=>Math.min(5,target-1);
+  function nextTarget(){level++;pairs=0;target=TARGETS[Math.min(level-1,TARGETS.length-1)];
+    flash=`NOW MAKE ${target}!`;flashT=1.8;flashCol='#5CE1E6';beepA(990,0.2,'triangle',0.08);if(P.sound) speak(`Now make ${target}!`);}
+  const placeX=(lo,hi,list)=>{let x,n=0;const last=list.length?list[list.length-1].x:-999;do{x=lo+Math.random()*(hi-lo);}while(Math.abs(x-last)<110&&n++<20);return x;};
+  function spawnL(){if(dL.length>=2){inL=0.4;return;}
+    dL.push({x:placeX(44,HW-44,dL),y:-30,n:1+rnd(lmax()),vy:55+level*4+Math.random()*20,wob:Math.random()*6});inL=1.5+Math.random()*0.6;}
+  function spawnR(){if(dR.length>=3){inR=0.3;return;}
+    const n=slot!==null&&Math.random()<0.6?target-slot:1+rnd(target-1);
+    dR.push({x:placeX(HW+44,W-44,dR),y:-30,n,vy:60+level*6+Math.random()*25,wob:Math.random()*6});inR=1.2+Math.random()*0.5;}
+  function catchL(d){if(slot!==null) return false;slot=d.n;beepA(600,0.08,'square',0.05);if(P.sound) speak(String(d.n));return true;}
+  function catchR(d){
+    if(slot===null) return false;
+    if(slot+d.n===target){made++;pairs++;streak++;score+=10+Math.min(streak-1,5)*2;flash=`${slot} + ${d.n} = ${target}! TEAMWORK!`;flashT=1.4;flashCol='#FFD93D';slot=null;beepA(880,0.18,'triangle',0.09);
+      if(pairs>=5) pendingNext=0.9;}
+    else{strikes++;streak=0;flash=`${slot} + ${d.n} = ${slot+d.n}… not ${target}!`;flashT=1.6;flashCol='#FF8C42';slot=null;beepA(160,0.35,'triangle',0.1);
+      if(strikes>=3) api.end(score,`Team made <b>${made}</b> number pair${made===1?'':'s'}!`,{team:true,title:'TEAM GAME OVER!'});}
+    return true;
+  }
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;
+    if(t>=TIME){api.end(score,`Time’s up! Team made <b>${made}</b> number pair${made===1?'':'s'}!`,{team:true,title:'GREAT TEAMWORK!'});return;}
+    if(pendingNext>0){pendingNext-=dt;if(pendingNext<=0) nextTarget();}
+    const k=api.keys,dl=(k.has('d')?1:0)-(k.has('a')?1:0),dr=(k.has('arrowright')?1:0)-(k.has('arrowleft')?1:0);
+    if(dl) bL.x+=dl*380*dt;if(dr) bR.x+=dr*380*dt;
+    const follow=(b,x)=>{const st=700*dt;b.x+=Math.max(-st,Math.min(st,x-b.x));};
+    api.touches.forEach(p=>follow(p.x<HW?bL:bR,p.x));
+    if(!api.touches.size&&api.ptr.active&&!api.ptr.touch&&!dl&&!dr) follow(api.ptr.x<HW?bL:bR,api.ptr.x);
+    bL.x=Math.max(BW/2,Math.min(HW-BW/2,bL.x));bR.x=Math.max(HW+BW/2,Math.min(W-BW/2,bR.x));
+    inL-=dt;if(inL<=0) spawnL();inR-=dt;if(inR<=0) spawnR();
+    for(const [list,b,fn] of [[dL,bL,catchL],[dR,bR,catchR]]){
+      for(const d of list){d.y+=d.vy*dt;
+        if(!d.gone&&!d.pass&&d.y>BY-20&&d.y<BY+12&&Math.abs(d.x-b.x)<BW/2+6){if(fn(d)) d.gone=true;else d.pass=true;if(!api.running) return;}}
+    }
+    dL=dL.filter(d=>!d.gone&&d.y<H+40);dR=dR.filter(d=>!d.gone&&d.y<H+40);
+  }
+  function bubble(x,y,n,hi,dots,dim){
+    ctx.globalAlpha=dim?0.4:1;
+    ctx.fillStyle=hi?'#FFD93D':'#fff';ctx.strokeStyle='#111';ctx.lineWidth=4;ctx.beginPath();ctx.arc(x,y,dots?32:26,0,7);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#111';ctx.font=`${dots?30:34}px Bangers, Impact, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(n,x,y+(dots?-6:2));
+    if(dots){ctx.fillStyle='#E63946';for(let i=0;i<n;i++){ctx.beginPath();ctx.arc(x-(n-1)*5+i*10,y+17,3.6,0,7);ctx.fill();}}
+    ctx.globalAlpha=1;
+  }
+  function basket(b,e){
+    ctx.fillStyle='#8B5A2B';ctx.strokeStyle='#111';ctx.lineWidth=4;ctx.beginPath();
+    ctx.moveTo(b.x-BW/2,BY);ctx.lineTo(b.x+BW/2,BY);ctx.lineTo(b.x+BW/2-12,BY+40);ctx.lineTo(b.x-BW/2+12,BY+40);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.strokeStyle='#D9A35F';ctx.lineWidth=3;for(let i=1;i<4;i++){ctx.beginPath();ctx.moveTo(b.x-BW/2+6+i*3,BY+i*10);ctx.lineTo(b.x+BW/2-6-i*3,BY+i*10);ctx.stroke();}
+    drawE(ctx,e,b.x,BY+62,32);
+  }
+  function render(){
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2BB673');g.addColorStop(1,'#0E6B3A');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(47,128,237,0.16)';ctx.fillRect(0,0,HW,H);ctx.fillStyle='rgba(230,57,70,0.14)';ctx.fillRect(HW,0,HW,H);
+    ctx.strokeStyle='rgba(255,255,255,0.7)';ctx.lineWidth=4;ctx.setLineDash([14,12]);ctx.beginPath();ctx.moveTo(HW,120);ctx.lineTo(HW,H);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#E63946';ctx.strokeStyle='#111';ctx.lineWidth=4;ctx.beginPath();ctx.roundRect?ctx.roundRect(W/2-100,12,200,50,12):ctx.rect(W/2-100,12,200,50);ctx.fill();ctx.stroke();
+    comicText(ctx,`MAKE ${target}!`,W/2,38,36,'#fff');
+    comicText(ctx,slot===null?`? + ? = ${target}`:`${slot} + ? = ${target}`,W/2,88,32,slot===null?'#fff':'#FFD93D');
+    drawE(ctx,s2,30,140,26);comicText(ctx,slot===null?'CATCH A NUMBER!':'NICE CATCH!',HW/2+12,140,20,slot===null?'#FFD93D':'#fff');
+    drawE(ctx,s1,HW+30,140,26);comicText(ctx,slot===null?'WAIT FOR YOUR TEAMMATE':'CATCH THE PARTNER!',HW+HW/2+14,140,slot===null?16:20,slot===null?'#fff':'#FFD93D');
+    dL.forEach(d=>bubble(d.x+Math.sin(t*3+d.wob)*5,d.y,d.n,false,true,slot!==null));
+    dR.forEach(d=>bubble(d.x+Math.sin(t*3+d.wob)*5,d.y,d.n,slot!==null&&slot+d.n===target&&level<=2,false,slot===null));
+    basket(bL,s2);basket(bR,s1);
+    if(slot!==null) bubble(bL.x,BY-6,slot,true,true,false);
+    for(let i=0;i<3;i++) drawE(ctx,i<3-strikes?'❤️':'🖤',26+i*30,34,22);
+    comicText(ctx,'TEAM '+score,W-64,38,22,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,flash.length>16?34:50,flashCol);
+  }
+  return {update,render,state:()=>({dL,dR,slot,target,made,strikes,score,bL,bR,BY,level})};
+}
+
+/* Team Invaders: two blasters, shared score, high-five to thaw */
+function coopInvadersGame(cv,ctx,api){
+  const W=560,H=620;cv.width=W;cv.height=H;
+  const s1=tStk(1),s2=tStk(2),pool=enemyStickers(s1).filter(x=>x!==s2);
+  const ships=[{p:2,e:s2,x:W*0.3,y:H-46,frozen:0,cool:0,hits:0,col:'#2F80ED'},{p:1,e:s1,x:W*0.7,y:H-46,frozen:0,cool:0,hits:0,col:'#E63946'}];
+  let shots=[],bombs=[],inv=[],booms=[],dir=1,wave=0,score=0,flash=null,flashT=0,t=0,total=0,hf=0;
+  const own=new Map();
+  const stars=Array.from({length:60},()=>({x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.6+0.4}));
+  function spawn(){
+    wave++;inv=[];const rows=4,cols=7,picks=shuffle(pool),top=56+Math.min(wave-1,6)*14;
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++) inv.push({x:62+c*66,y:top+r*50,e:picks[(r*2+(c%2))%picks.length],alive:true});
+    total=inv.length;dir=1;if(wave>1){flash=`WAVE ${wave}!`;flashT=1.2;}
+  }
+  spawn();
+  const speed=()=>{const alive=inv.filter(i=>i.alive).length;return 0.8*(28+wave*10)*(1+(1-alive/total)*1.8);};
+  function fire(s){if(s.cool<=0&&shots.filter(x=>x.s===s).length<3){shots.push({x:s.x,y:s.y-26,s});s.cool=0.3;beepA(880,0.05,'square',0.04);}}
+  function update(dt){
+    t+=dt;if(flashT>0) flashT-=dt;
+    ships.forEach(s=>{if(s.cool>0) s.cool-=dt;if(s.frozen>0) s.frozen-=dt;});
+    const k=api.keys,[L,R]=ships;
+    const ctl=[[L,(k.has('d')?1:0)-(k.has('a')?1:0),k.has('w')],[R,(k.has('arrowright')?1:0)-(k.has('arrowleft')?1:0),k.has('arrowup')||k.has(' ')]];
+    ctl.forEach(([s,d,f])=>{if(s.frozen>0) return;if(d) s.x+=d*300*dt;if(f) fire(s);});
+    // touch: each finger grabs the nearest free blaster
+    for(const id of [...own.keys()]) if(!api.touches.has(id)) own.delete(id);
+    api.touches.forEach((p,id)=>{
+      if(!own.has(id)){const taken=new Set(own.values());const free=ships.filter(s=>!taken.has(s));if(!free.length) return;
+        own.set(id,free.reduce((a,b)=>Math.abs(a.x-p.x)<Math.abs(b.x-p.x)?a:b));}
+      const s=own.get(id);if(s.frozen>0) return;const st=420*dt;s.x+=Math.max(-st,Math.min(st,p.x-s.x));fire(s);
+    });
+    if(!api.touches.size&&api.ptr.active&&!api.ptr.touch&&R.frozen<=0&&!ctl[1][1]){const st=420*dt;R.x+=Math.max(-st,Math.min(st,api.ptr.x-R.x));if(api.ptr.down) fire(R);}
+    ships.forEach(s=>s.x=Math.max(24,Math.min(W-24,s.x)));
+    // high-five: flying next to a frozen teammate thaws them
+    if((L.frozen>0)!==(R.frozen>0)&&Math.abs(L.x-R.x)<46){L.frozen=R.frozen=0;hf++;flash='HIGH FIVE!';flashT=0.9;beepA(1180,0.15,'triangle',0.08);}
+    const alive=inv.filter(i=>i.alive);const v=speed()*dir*dt;let edge=false;
+    alive.forEach(i=>{i.x+=v;if(i.x<22||i.x>W-22) edge=true;});
+    if(edge){dir*=-1;alive.forEach(i=>{i.x=Math.max(22,Math.min(W-22,i.x));i.y+=18;});beepA(110,0.08,'triangle',0.05);}
+    if(Math.random()<dt*(0.4+wave*0.12)&&alive.length){
+      const cols={};alive.forEach(i=>{const key=Math.round(i.x/30);if(!cols[key]||cols[key].y<i.y) cols[key]=i;});
+      const sh=pick(Object.values(cols));bombs.push({x:sh.x,y:sh.y+20,vy:130+wave*12});
+    }
+    shots.forEach(s=>s.y-=520*dt);shots=shots.filter(s=>s.y>-20);
+    bombs.forEach(b=>b.y+=b.vy*dt);bombs=bombs.filter(b=>b.y<H+20);
+    shots.forEach(s=>{for(const i of alive){if(i.alive&&Math.abs(s.x-i.x)<22&&Math.abs(s.y-i.y)<20){i.alive=false;s.y=-99;score+=10;s.s.hits++;booms.push({x:i.x,y:i.y,t:0.35});beepA(240+Math.random()*80,0.08,'sawtooth',0.05);break;}}});
+    bombs.forEach(b=>ships.forEach(s=>{if(s.frozen<=0&&Math.abs(b.x-s.x)<22&&Math.abs(b.y-s.y)<22){s.frozen=2.0;b.y=H+99;flash='FROZEN! HIGH-FIVE!';flashT=1.0;beepA(150,0.3,'sine',0.08);}}));
+    booms.forEach(b=>b.t-=dt);booms=booms.filter(b=>b.t>0);
+    if(alive.some(i=>i.alive&&i.y+18>=H-66)){flash='THEY LANDED!';flashT=2;
+      api.end(score,`${s2} ${tName(2)}: <b>${L.hits}</b> · ${s1} ${tName(1)}: <b>${R.hits}</b> · High-fives: <b>${hf}</b>`,{team:true,title:'TEAM GAME OVER!'});return;}
+    if(!inv.some(i=>i.alive)){score+=50;beepA(990,0.25,'triangle',0.08);shots=[];bombs=[];spawn();}
+  }
+  function render(){
+    ctx.fillStyle='#0B1026';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#fff';stars.forEach(s=>{ctx.globalAlpha=0.4+0.4*Math.sin(t*2+s.x);ctx.fillRect(s.x,s.y,s.s,s.s);});ctx.globalAlpha=1;
+    ctx.fillStyle='#2BB673';ctx.fillRect(0,H-14,W,14);ctx.fillStyle='#111';ctx.fillRect(0,H-16,W,3);
+    inv.forEach(i=>{if(i.alive) drawE(ctx,i.e,i.x,i.y+Math.sin(t*6+i.x)*2,32);});
+    booms.forEach(b=>comicText(ctx,'POW',b.x,b.y,18+(0.35-b.t)*40,'#FFD93D'));
+    shots.forEach(s=>{ctx.fillStyle=s.s.p===1?'#FFD93D':'#5CE1E6';ctx.fillRect(s.x-3,s.y-12,6,16);});
+    bombs.forEach(b=>drawE(ctx,'❄️',b.x,b.y,18));
+    ships.forEach(s=>{
+      ctx.fillStyle=s.col;ctx.strokeStyle='#111';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(s.x,s.y+22,26,7,0,0,7);ctx.fill();ctx.stroke();
+      if(s.frozen>0){ctx.fillStyle='rgba(92,225,230,0.45)';ctx.beginPath();ctx.arc(s.x,s.y,30,0,7);ctx.fill();}
+      drawE(ctx,s.e,s.x,s.y,38);
+    });
+    comicText(ctx,'TEAM '+score,80,24,26);comicText(ctx,'WAVE '+wave,W-70,24,22,'#fff');
+    if(flashT>0&&flash) comicText(ctx,flash,W/2,H/2,flash.length>12?38:48,'#FFD93D');
+  }
+  return {update,render,state:()=>({ships,inv,score,wave,hf})};
+}
+
+/* =========================================================
    SCREENS
    ========================================================= */
 function go(screen){
@@ -1802,6 +2443,8 @@ function go(screen){
   else if(screen==='vault') vault();
   else if(screen==='grown') grown();
   else if(screen==='arcade') (P.arcadeOn?arcade():home());
+  else if(screen==='team') teamHub();
+  else if(screen==='maker') pmHub();
 }
 function setMode(h){P.challenge=h;save();map();}
 function checklist(){
@@ -1836,6 +2479,7 @@ function home(){
     ${P.arcadeOn?`<button class="btn big arcbtn" style="flex:1;min-width:130px;font-size:24px;padding:10px 6px" onclick="go('arcade')">🕹️ ARCADE<br><small>🎟️ × ${toks}</small></button>`:''}
   </div>
   ${P.catchOn?`<button class="btn big green catchbtn" onclick="playGame('catch','home')">🧺 NUMBER CATCHER <span class="freepill">FREE GAME!</span><br><small>Catch two numbers that make 10!</small></button>`:''}
+  <button class="btn big teambtn" onclick="go('team')">👫 TEAM UP! <span class="freepill">2 PLAYERS</span><br><small>Puzzles and games to play with a little teammate</small></button>
   ${checklist()}
   <section class="panel" style="padding:6px">
     <div class="strip">
@@ -2010,6 +2654,13 @@ function grown(){
       <li><b>🧺 Number Catcher</b> is free and never costs a token, so it’s always worth playing. He catches two falling numbers that add up to a target, starting with “make 10,” then moving to 8, 9, 12 and eventually up to 20 after every 5 correct pairs. On the first two targets the matching partner glows to help him learn. A wrong pair counts as a strike, and 3 strikes ends the game. It has a button on the home screen and on Number Mountain, and it stays available even when the Arcade is off.</li>
       <li>You can turn the Arcade off and set how many tokens a game costs (2 by default) in Settings below. The games are <b>Sticker Pong</b> (ends after 3 misses against the computer, or first to 5 in a 2-player match: W/S vs ↑/↓) <b>Sticker Invaders</b> (ends when the invaders reach him), <b>Sticker Dash</b>, an endless runner like the offline dino game (ends at the first crash), <b>Sticker Smash</b>, a brick breaker (ends after 3 missed balls), or <b>Sticker Match</b>, a memory card game (ends when all 8 pairs are found; fewer flips scores higher). Games usually last a few minutes, so the puzzles stay the main event.</li>
     </ul>
+    <h3>👫 Team Up (for a younger sibling)</h3>
+    <ul>
+      <li><b>Team Puzzles</b> alternate turns on one device. The younger player gets kindergarten-level puzzles (same color, same shape, counting to 10, which group has more, simple AB/ABC patterns, which one doesn’t belong, what goes together). These are always read aloud and use 3 large answer buttons. The older player gets his usual puzzle types (Challenge versions if Challenge Mode is on). A <b>🤝 Help</b> button lets him take away one wrong answer for her, and after each answer the screen prompts him to give a high-five or explain his thinking. Team turns don’t count toward his progress report. A finished round earns a team sticker${P.arcadeOn?' and 1 Arcade token':''}.</li>
+      <li><b>Puzzle Maker</b> lets him build a puzzle for her (who doesn’t belong, what goes together, how many, what comes next) and add an optional “why it works.” Saved puzzles go in a Puzzle Book so she can replay them. Designing a puzzle means working out why the answer is right, the same reasoning the test asks for.</li>
+      <li><b>Team games</b> are co-op, not head-to-head: <b>Team Catcher</b> (free; she catches any number 1 to 5, shown with dots, and he catches its partner to make the target), <b>Team Match</b> (6 pairs, take turns, shared score) and <b>Team Invaders</b> (two blasters, slower invaders, and a frozen blaster thaws with a high-five). Team Match and Team Invaders cost the usual tokens. Team scores are kept separately from his own best scores.</li>
+      <li>On one keyboard, the left player uses <b>A / D</b> (and <b>W</b> to fire), and the right player uses the <b>arrow keys</b>. On a touchscreen, each player uses their own side.</li>
+    </ul>
     <h3>How to use it</h3>
     <ul>
       <li><b>One mission per sitting.</b> 5 puzzles is about 5–10 minutes. Stop while it’s still fun.</li>
@@ -2021,7 +2672,7 @@ function grown(){
       <li><b>Keep it light.</b> A few short sessions a week is plenty. The goal is that nothing looks unfamiliar on test day. Drilling for a high score can place a child where the pace doesn’t fit.</li>
     </ul>
     <h3>Settings</h3>
-    <div class="toggle"><span>🔊 Auto-read each question aloud</span><button class="sw ${P.autoread?'on':''}" aria-label="Auto-read" onclick="P.autoread=!P.autoread;save();grown()"></button></div>
+    <div class="toggle"><span>🔊 Auto-read each question aloud<br><span class="note">The younger player’s Team Up puzzles are always read aloud.</span></span><button class="sw ${P.autoread?'on':''}" aria-label="Auto-read" onclick="P.autoread=!P.autoread;save();grown()"></button></div>
     <div class="toggle"><span>🕹️ Arcade games<br><span class="note">When off, the Arcade is hidden. Tokens he earns are saved for when it's back on.</span></span><button class="sw ${P.arcadeOn?'on':''}" aria-label="Arcade games" onclick="P.arcadeOn=!P.arcadeOn;save();grown()"></button></div>
     <div class="toggle"><span>🎟️ Tokens per Arcade game<br><span class="note">Number Catcher is always free.</span></span><span class="row" style="gap:6px;flex-wrap:nowrap">${[1,2,3].map(n=>`<button class="costbtn ${gameCost()===n?'on':''}" onclick="P.cost=${n};save();grown()">${n}</button>`).join('')}</span></div>
     <div class="toggle"><span>🧺 Number Catcher (free math game)<br><span class="note">Always free, even when the Arcade is off. Turn it off to hide it.</span></span><button class="sw ${P.catchOn?'on':''}" aria-label="Number Catcher" onclick="P.catchOn=!P.catchOn;save();grown()"></button></div>
@@ -2029,6 +2680,7 @@ function grown(){
     <div class="toggle"><span>🔔 Sound effects</span><button class="sw ${P.sound?'on':''}" aria-label="Sound" onclick="toggleSound();grown()"></button></div>
     <h3>Progress <span class="note">(saved on this device only)</span></h3>
     <p>Missions finished: <b>${P.total}</b> · Stickers: <b>${P.stickers.length}</b> · Arcade tokens: <b>${P.tokens||0}</b> · Best Pong: <b>${(P.best&&P.best.pong)||0}</b> · Best Invaders: <b>${(P.best&&P.best.inv)||0}</b> · Best Dash: <b>${(P.best&&P.best.run)||0}</b> · Best Smash: <b>${(P.best&&P.best.brick)||0}</b> · Best Match: <b>${(P.best&&P.best.mem)||0}</b></p>
+    <p>👫 Team Up: <b>${team().runs}</b> Team Puzzles rounds · <b>${team().made.length}</b> puzzles in the Puzzle Book · <b>${team().solved}</b> made-up puzzles solved · Best team scores: Catcher <b>${(P.best&&P.best.catchT)||0}</b>, Match <b>${(P.best&&P.best.memT)||0}</b>, Invaders <b>${(P.best&&P.best.invT)||0}</b></p>
     <p>🧺 Number Catcher: <b>${(P.cstat&&P.cstat.made)||0}</b> correct number pairs, <b>${(P.cstat&&P.cstat.miss)||0}</b> wrong pairs · Best score: <b>${(P.best&&P.best.catch)||0}</b></p>
     <div style="overflow-x:auto"><table class="tbl"><tr><th>Type</th><th>Solved</th><th>1st try</th><th>Aced</th><th>⚡ Solved</th><th>⚡ 1st try</th><th>⚡ Gold</th></tr>${prog}</table></div>
     <p class="note">Use this to see which formats feel new to him, not as a grade. Low first-try numbers usually just mean the format is unfamiliar.</p>
@@ -2042,7 +2694,7 @@ function askReset(){
   <div class="row" style="justify-content:center"><button class="btn small red" id="yesR">Yes, reset</button><button class="btn small" style="background:#fff" id="noR">Cancel</button></div></div>`;
   document.body.appendChild(m);
   m.querySelector('#noR').onclick=()=>m.remove();
-  m.querySelector('#yesR').onclick=()=>{Object.assign(P,{missions:{},first:{},stickers:[],total:0,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,hero2:null,challenge:false,cstat:{made:0,miss:0}});save();m.remove();grown();};
+  m.querySelector('#yesR').onclick=()=>{Object.assign(P,{missions:{},first:{},stickers:[],total:0,aced:{},missionsH:{},firstH:{},gold:{},tokens:0,best:{},hero:null,hero2:null,challenge:false,cstat:{made:0,miss:0}});Object.assign(team(),{book:[],made:[],runs:0,solved:0});save();m.remove();grown();};
 }
 
 updSnd();home();

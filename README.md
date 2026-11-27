@@ -8,6 +8,7 @@ The site is a single self-contained HTML file. It needs no account, no server an
 
 ## Recent updates
 
+- **Team Up for siblings.** A new two-player co-op area lets an older child play alongside a younger sibling (around kindergarten age): turn-taking Team Puzzles, a Puzzle Maker where the older child builds puzzles for the younger one, and co-op versions of Number Catcher, Match and Invaders. See [Team Up](#team-up-two-player-co-op) below.
 - **Works offline, with a Linux app installer.** The fonts are now built into the page, so it runs with no internet connection and makes no outside requests. A small script adds it to the Linux app menu (see below).
 - **Original illustrations throughout.** Every picture in the word puzzles (more than 200 in total) and every counting object in the number puzzles is now an original drawing instead of an emoji. The drawings look the same on every device.
 - **Picture names.** A short name appears under each puzzle picture to help with unfamiliar drawings. Parents can turn names off for test-style practice.
@@ -108,6 +109,43 @@ Each game costs 2 tokens by default. Parents can set this to 1, 2 or 3. Every ga
 All games work with a mouse, keyboard or touchscreen.
 
 **Two-player Pong.** On the Pong start screen, players choose one player (against the computer) or two players. In a two-player match, the left player uses W and S and the right player uses the up and down arrow keys. On a touchscreen, each player drags on their own half of the screen. The second player picks their own sticker, both paddles are the same size, and the first to 5 points wins. Two-player results don't affect the one-player best score.
+
+## Team Up (two-player co-op)
+
+Team Up is for an older child and a younger sibling to play together on one device. It is reached from the "Team Up" button on the home screen (and from the arcade). Everything in it is cooperative: the two players share a score and win together.
+
+On the Team Up screen, parents can enter each player's name. The older player's sticker is their arcade hero, and the younger player picks their own sticker from a separate set.
+
+**Team Puzzles.** A round is six puzzles, and the players take turns, younger player first. A "your turn" screen between puzzles makes it easy to pass the device back and forth.
+
+- The younger player gets kindergarten-level puzzles: same color, same shape, counting to 10, which group has more, simple patterns (AB, AAB, ABB, ABC), which one doesn't belong, and what goes together. These are always read aloud, use three large answer buttons, and don't depend on reading.
+- The older player gets his usual question types (the Challenge versions if Challenge Mode is on).
+- On the younger player's turn, a Help button lets the older player remove one wrong answer.
+- After each correct answer, the screen prompts the older player to give a high-five or to explain how he solved his puzzle. Explaining reasoning to someone younger is good practice in itself.
+- A finished round earns a team sticker for a shared Team Sticker Book and, if the arcade is on, 1 arcade token. Team turns are not counted in the older child's progress report.
+
+**Puzzle Maker.** The older player builds a puzzle and the younger player solves it. There are four kinds:
+
+| Puzzle | What the older player builds |
+|---|---|
+| Who Doesn't Belong? | Picks 3 pictures that go together and 1 that doesn't |
+| Goes Together | Picks a picture, its partner, and 2 wrong answers |
+| How Many? | Picks a picture and a number from 1 to 10 |
+| What Comes Next? | Builds a shape pattern of 4 to 8 shapes and picks the next shape |
+
+He can add an optional sentence about why the answer is right, which is shown and read aloud after the younger player solves it. Saved puzzles go into a Puzzle Book (up to 24) so they can be replayed or deleted. Building a puzzle requires the same reasoning the CogAT asks for, from the other side.
+
+**Team games.**
+
+| Game | How it works | Cost | Ends when |
+|---|---|---|---|
+| Team Catcher | The screen is split in two. The younger player catches any number from 1 to 5 (shown with dots for counting), then the older player catches its partner to make the target (10, then 8, 9 and so on) | Free | 3 wrong pairs, or after 4 minutes |
+| Team Match | 6 pairs. Players take turns flipping two cards. A match means another turn; a miss passes the turn. Each found pair is marked with the finder's sticker | Usual token cost | All pairs are found |
+| Team Invaders | Two blasters and slower invaders. A freeze-ray freezes one blaster, and the other player thaws it by flying over for a "high-five" | Usual token cost | The invaders land |
+
+Team Catcher, Team Match and Team Invaders can also be started from the arcade by choosing "Team, 2 players" on the game's start screen. Team scores are kept separately from the older child's own best scores.
+
+Controls on one keyboard: the left player uses A and D (and W to fire in Invaders); the right player uses the arrow keys (and the up arrow or space to fire). On a touchscreen, each player uses their own side of the screen.
 
 ## Number Catcher (free math game)
 
